@@ -362,7 +362,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>A:\ti\TivaWare_C_Series-2.1.4.178</IncludePath>
+              <IncludePath>C:\ti\TivaWare_C_Series-2.1.4.178</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -416,14 +416,14 @@
               <FilePath>.\main.c</FilePath>
             </File>
             <File>
-              <FileName>system_TM4C123.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>A:\keil\ARM\Startup\TI\TM4C123\system_TM4C123.c</FilePath>
-            </File>
-            <File>
               <FileName>driverlib.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>A:\ti\sw-tm4c\driverlib\rvmdk\driverlib.lib</FilePath>
+              <FilePath>C:\ti\TivaWare_C_Series-2.1.4.178\driverlib\rvmdk\driverlib.lib</FilePath>
+            </File>
+            <File>
+              <FileName>system_TM4C123.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\Keil\ARM\Startup\TI\TM4C123\system_TM4C123.c</FilePath>
             </File>
           </Files>
         </Group>

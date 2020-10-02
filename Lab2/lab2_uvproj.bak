@@ -362,7 +362,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>A:\ti\sw-tm4c</IncludePath>
+              <IncludePath>A:\ti\TivaWare_C_Series-2.1.4.178</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
