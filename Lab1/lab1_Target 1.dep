@@ -1,0 +1,21 @@
+Dependencies for Project 'lab1', Target 'Target 1': (DO NOT MODIFY !)
+F (.\startup_TM4C123.s)(0x532C9BF2)(--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g --apcs=interwork -I A:\keil\ARM\RV31\INC-I A:\keil\ARM\CMSIS\Include-I A:\keil\ARM\Inc\TI\TM4C123--list .\startup_tm4c123.lst --xref -o .\startup_tm4c123.o --depend .\startup_tm4c123.d)
+F (.\main.c)(0x5F628FA7)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -IA:\ti\sw-tm4c-I A:\keil\ARM\RV31\INC-I A:\keil\ARM\CMSIS\Include-I A:\keil\ARM\Inc\TI\TM4C123-DTM4C123GH6PM-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+I (A:\keil\ARM\ARMCC\include\stdint.h)(0x51C86E14)
+I (A:\keil\ARM\ARMCC\include\stdbool.h)(0x51C86E14)
+I (A:\ti\sw-tm4c\inc\hw_types.h)(0x5F614254)
+I (A:\ti\sw-tm4c\inc\hw_memmap.h)(0x5F614254)
+I (A:\ti\sw-tm4c\driverlib\sysctl.h)(0x5F61422F)
+I (A:\ti\sw-tm4c\driverlib\pin_map.h)(0x5F61422F)
+I (A:\ti\sw-tm4c\driverlib\debug.h)(0x5F61422F)
+I (A:\ti\sw-tm4c\driverlib\gpio.h)(0x5F61422F)
+F (A:\ti\sw-tm4c\driverlib\rvmdk\driverlib.lib)(0x5F61422F)()
+F (A:\keil\ARM\Startup\TI\TM4C123\system_TM4C123.c)(0x532C9BF2)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -IA:\ti\sw-tm4c-I A:\keil\ARM\RV31\INC-I A:\keil\ARM\CMSIS\Include-I A:\keil\ARM\Inc\TI\TM4C123-DTM4C123GH6PM-o .\system_tm4c123.o --omf_browse .\system_tm4c123.crf --depend .\system_tm4c123.d)
+I (A:\keil\ARM\ARMCC\include\stdint.h)(0x51C86E14)
+I (A:\keil\ARM\Inc\TI\TM4C123\TM4C123.h)(0x532C9CD8)
+I (A:\keil\ARM\Inc\TI\TM4C123\TM4C123GH6PM.h)(0x532C9CD8)
+I (A:\keil\ARM\CMSIS\Include\core_cm4.h)(0x532CA082)
+I (A:\keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532CA082)
+I (A:\keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532CA082)
+I (A:\keil\ARM\CMSIS\Include\core_cm4_simd.h)(0x532CA082)
+I (A:\keil\ARM\Inc\TI\TM4C123\system_TM4C123.h)(0x532C9CD8)
