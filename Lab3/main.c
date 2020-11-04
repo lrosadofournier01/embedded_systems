@@ -6,21 +6,24 @@
 #include "driverlib/pin_map.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/uart.h"
+//Holds the recieve and transmit hex values to be used later to configure the GPIO Pin
 #define GPIO_PA0_U0RX 0x00000001
 #define GPIO_PA1_U0TX 0x00000401
 int main(void) {
 		//Set clock rate
 		SysCtlClockSet(SYSCTL_SYSDIV_5|SYSCTL_USE_PLL|SYSCTL_OSC_MAIN| SYSCTL_XTAL_16MHZ);
-		//Enable peripherals
+		//Enable and configure peripherals
 		SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
 		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 		GPIOPinConfigure(GPIO_PA0_U0RX);
 		GPIOPinConfigure(GPIO_PA1_U0TX);
 		//Configure type
 		GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+		//Configure the UART below
 		//Change baud rate below
 		//Max baud rate is 10 Mbps
 		UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(), 115200, (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE));
+		//Echo UART characters
 		UARTCharPut(UART0_BASE, 'E');
 		UARTCharPut(UART0_BASE, 'c');
 		UARTCharPut(UART0_BASE, 'h');
@@ -35,6 +38,7 @@ int main(void) {
 		UARTCharPut(UART0_BASE, ': ');
 		UARTCharPut(UART0_BASE, ' ');
 		UARTCharPut(UART0_BASE, '\n');
+		//Consistently read in values the user puts in and echo them back out
   	while(1){
 			if (UARTCharsAvail(UART0_BASE)) UARTCharPut(UART0_BASE, UARTCharGet(UART0_BASE));
 
