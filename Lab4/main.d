@@ -1,0 +1,9 @@
+.\main.o: Main.c
+.\main.o: C:\Keil\ARM\ARMCC\bin\..\include\math.h
+.\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+.\main.o: C:\ti\TivaWare_C_Series-2.1.4.178\inc/hw_memmap.h
+.\main.o: C:\ti\TivaWare_C_Series-2.1.4.178\inc/hw_types.h
+.\main.o: C:\ti\TivaWare_C_Series-2.1.4.178\driverlib/fpu.h
+.\main.o: C:\ti\TivaWare_C_Series-2.1.4.178\driverlib/sysctl.h
+.\main.o: C:\ti\TivaWare_C_Series-2.1.4.178\driverlib/rom.h
