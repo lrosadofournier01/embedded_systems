@@ -1,0 +1,537 @@
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccPVepwp.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.main,"ax",%progbits
+  18              		.align	2
+  19              		.global	main
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	main, %function
+  23              	main:
+  24              	.LFB61:
+  25              		.file 1 ".\\main.c"
+   1:.\main.c      **** /* ========================================
+   2:.\main.c      ****  *
+   3:.\main.c      ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\main.c      ****  * All Rights Reserved
+   5:.\main.c      ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\main.c      ****  *
+   7:.\main.c      ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\main.c      ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\main.c      ****  *
+  10:.\main.c      ****  * ========================================
+  11:.\main.c      **** */
+  12:.\main.c      **** #include <project.h>
+  13:.\main.c      **** 
+  14:.\main.c      **** int main()
+  15:.\main.c      **** {   
+  26              		.loc 1 15 0
+  27              		.cfi_startproc
+  28 0000 08B5     		push	{r3, lr}
+  29              		.cfi_def_cfa_offset 8
+  30              		.cfi_offset 3, -8
+  31              		.cfi_offset 14, -4
+  32              	.L2:
+  16:.\main.c      ****     for(;;)
+  17:.\main.c      ****     {
+  18:.\main.c      ****         Pin_LED_Write (~Pin_LED_Read());
+  33              		.loc 1 18 0 discriminator 1
+  34 0002 FFF7FEFF 		bl	Pin_LED_Read
+  35              	.LVL0:
+  36 0006 C043     		mvn	r0, r0
+  37 0008 C0B2     		uxtb	r0, r0
+  38 000a FFF7FEFF 		bl	Pin_LED_Write
+  39              	.LVL1:
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccPVepwp.s 			page 2
+
+
+  19:.\main.c      ****         CyDelay(1000);
+  40              		.loc 1 19 0 discriminator 1
+  41 000e FA20     		mov	r0, #250
+  42 0010 8000     		lsl	r0, r0, #2
+  43 0012 FFF7FEFF 		bl	CyDelay
+  44              	.LVL2:
+  20:.\main.c      ****     }
+  45              		.loc 1 20 0 discriminator 1
+  46 0016 F4E7     		b	.L2
+  47              		.cfi_endproc
+  48              	.LFE61:
+  49              		.size	main, .-main
+  50              		.text
+  51              	.Letext0:
+  52              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+  53              		.file 3 "Generated_Source\\PSoC4/Pin_LED.h"
+  54              		.file 4 "Generated_Source\\PSoC4/CyLib.h"
+  55              		.section	.debug_info,"",%progbits
+  56              	.Ldebug_info0:
+  57 0000 00010000 		.4byte	0x100
+  58 0004 0400     		.2byte	0x4
+  59 0006 00000000 		.4byte	.Ldebug_abbrev0
+  60 000a 04       		.byte	0x4
+  61 000b 01       		.uleb128 0x1
+  62 000c 1C010000 		.4byte	.LASF15
+  63 0010 01       		.byte	0x1
+  64 0011 ED000000 		.4byte	.LASF16
+  65 0015 2A000000 		.4byte	.LASF17
+  66 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  67 001d 00000000 		.4byte	0
+  68 0021 00000000 		.4byte	.Ldebug_line0
+  69 0025 02       		.uleb128 0x2
+  70 0026 01       		.byte	0x1
+  71 0027 06       		.byte	0x6
+  72 0028 10010000 		.4byte	.LASF0
+  73 002c 02       		.uleb128 0x2
+  74 002d 01       		.byte	0x1
+  75 002e 08       		.byte	0x8
+  76 002f C3000000 		.4byte	.LASF1
+  77 0033 02       		.uleb128 0x2
+  78 0034 02       		.byte	0x2
+  79 0035 05       		.byte	0x5
+  80 0036 AA010000 		.4byte	.LASF2
+  81 003a 02       		.uleb128 0x2
+  82 003b 02       		.byte	0x2
+  83 003c 07       		.byte	0x7
+  84 003d A5000000 		.4byte	.LASF3
+  85 0041 02       		.uleb128 0x2
+  86 0042 04       		.byte	0x4
+  87 0043 05       		.byte	0x5
+  88 0044 E4000000 		.4byte	.LASF4
+  89 0048 02       		.uleb128 0x2
+  90 0049 04       		.byte	0x4
+  91 004a 07       		.byte	0x7
+  92 004b 7C000000 		.4byte	.LASF5
+  93 004f 02       		.uleb128 0x2
+  94 0050 08       		.byte	0x8
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccPVepwp.s 			page 3
+
+
+  95 0051 05       		.byte	0x5
+  96 0052 00000000 		.4byte	.LASF6
+  97 0056 02       		.uleb128 0x2
+  98 0057 08       		.byte	0x8
+  99 0058 07       		.byte	0x7
+ 100 0059 8E000000 		.4byte	.LASF7
+ 101 005d 03       		.uleb128 0x3
+ 102 005e 04       		.byte	0x4
+ 103 005f 05       		.byte	0x5
+ 104 0060 696E7400 		.ascii	"int\000"
+ 105 0064 02       		.uleb128 0x2
+ 106 0065 04       		.byte	0x4
+ 107 0066 07       		.byte	0x7
+ 108 0067 15000000 		.4byte	.LASF8
+ 109 006b 04       		.uleb128 0x4
+ 110 006c 0A010000 		.4byte	.LASF9
+ 111 0070 02       		.byte	0x2
+ 112 0071 B3       		.byte	0xb3
+ 113 0072 2C000000 		.4byte	0x2c
+ 114 0076 04       		.uleb128 0x4
+ 115 0077 0E000000 		.4byte	.LASF10
+ 116 007b 02       		.byte	0x2
+ 117 007c B5       		.byte	0xb5
+ 118 007d 48000000 		.4byte	0x48
+ 119 0081 02       		.uleb128 0x2
+ 120 0082 04       		.byte	0x4
+ 121 0083 04       		.byte	0x4
+ 122 0084 B8000000 		.4byte	.LASF11
+ 123 0088 02       		.uleb128 0x2
+ 124 0089 08       		.byte	0x8
+ 125 008a 04       		.byte	0x4
+ 126 008b F6000000 		.4byte	.LASF12
+ 127 008f 02       		.uleb128 0x2
+ 128 0090 01       		.byte	0x1
+ 129 0091 08       		.byte	0x8
+ 130 0092 BE000000 		.4byte	.LASF13
+ 131 0096 02       		.uleb128 0x2
+ 132 0097 04       		.byte	0x4
+ 133 0098 07       		.byte	0x7
+ 134 0099 B4010000 		.4byte	.LASF14
+ 135 009d 05       		.uleb128 0x5
+ 136 009e D1000000 		.4byte	.LASF18
+ 137 00a2 01       		.byte	0x1
+ 138 00a3 0E       		.byte	0xe
+ 139 00a4 5D000000 		.4byte	0x5d
+ 140 00a8 00000000 		.4byte	.LFB61
+ 141 00ac 18000000 		.4byte	.LFE61-.LFB61
+ 142 00b0 01       		.uleb128 0x1
+ 143 00b1 9C       		.byte	0x9c
+ 144 00b2 DA000000 		.4byte	0xda
+ 145 00b6 06       		.uleb128 0x6
+ 146 00b7 06000000 		.4byte	.LVL0
+ 147 00bb DA000000 		.4byte	0xda
+ 148 00bf 06       		.uleb128 0x6
+ 149 00c0 0E000000 		.4byte	.LVL1
+ 150 00c4 E5000000 		.4byte	0xe5
+ 151 00c8 07       		.uleb128 0x7
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccPVepwp.s 			page 4
+
+
+ 152 00c9 16000000 		.4byte	.LVL2
+ 153 00cd F6000000 		.4byte	0xf6
+ 154 00d1 08       		.uleb128 0x8
+ 155 00d2 01       		.uleb128 0x1
+ 156 00d3 50       		.byte	0x50
+ 157 00d4 03       		.uleb128 0x3
+ 158 00d5 0A       		.byte	0xa
+ 159 00d6 E803     		.2byte	0x3e8
+ 160 00d8 00       		.byte	0
+ 161 00d9 00       		.byte	0
+ 162 00da 09       		.uleb128 0x9
+ 163 00db FD000000 		.4byte	.LASF19
+ 164 00df 03       		.byte	0x3
+ 165 00e0 20       		.byte	0x20
+ 166 00e1 6B000000 		.4byte	0x6b
+ 167 00e5 0A       		.uleb128 0xa
+ 168 00e6 D6000000 		.4byte	.LASF20
+ 169 00ea 03       		.byte	0x3
+ 170 00eb 1D       		.byte	0x1d
+ 171 00ec F6000000 		.4byte	0xf6
+ 172 00f0 0B       		.uleb128 0xb
+ 173 00f1 6B000000 		.4byte	0x6b
+ 174 00f5 00       		.byte	0
+ 175 00f6 0C       		.uleb128 0xc
+ 176 00f7 22000000 		.4byte	.LASF21
+ 177 00fb 04       		.byte	0x4
+ 178 00fc 57       		.byte	0x57
+ 179 00fd 0B       		.uleb128 0xb
+ 180 00fe 76000000 		.4byte	0x76
+ 181 0102 00       		.byte	0
+ 182 0103 00       		.byte	0
+ 183              		.section	.debug_abbrev,"",%progbits
+ 184              	.Ldebug_abbrev0:
+ 185 0000 01       		.uleb128 0x1
+ 186 0001 11       		.uleb128 0x11
+ 187 0002 01       		.byte	0x1
+ 188 0003 25       		.uleb128 0x25
+ 189 0004 0E       		.uleb128 0xe
+ 190 0005 13       		.uleb128 0x13
+ 191 0006 0B       		.uleb128 0xb
+ 192 0007 03       		.uleb128 0x3
+ 193 0008 0E       		.uleb128 0xe
+ 194 0009 1B       		.uleb128 0x1b
+ 195 000a 0E       		.uleb128 0xe
+ 196 000b 55       		.uleb128 0x55
+ 197 000c 17       		.uleb128 0x17
+ 198 000d 11       		.uleb128 0x11
+ 199 000e 01       		.uleb128 0x1
+ 200 000f 10       		.uleb128 0x10
+ 201 0010 17       		.uleb128 0x17
+ 202 0011 00       		.byte	0
+ 203 0012 00       		.byte	0
+ 204 0013 02       		.uleb128 0x2
+ 205 0014 24       		.uleb128 0x24
+ 206 0015 00       		.byte	0
+ 207 0016 0B       		.uleb128 0xb
+ 208 0017 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccPVepwp.s 			page 5
+
+
+ 209 0018 3E       		.uleb128 0x3e
+ 210 0019 0B       		.uleb128 0xb
+ 211 001a 03       		.uleb128 0x3
+ 212 001b 0E       		.uleb128 0xe
+ 213 001c 00       		.byte	0
+ 214 001d 00       		.byte	0
+ 215 001e 03       		.uleb128 0x3
+ 216 001f 24       		.uleb128 0x24
+ 217 0020 00       		.byte	0
+ 218 0021 0B       		.uleb128 0xb
+ 219 0022 0B       		.uleb128 0xb
+ 220 0023 3E       		.uleb128 0x3e
+ 221 0024 0B       		.uleb128 0xb
+ 222 0025 03       		.uleb128 0x3
+ 223 0026 08       		.uleb128 0x8
+ 224 0027 00       		.byte	0
+ 225 0028 00       		.byte	0
+ 226 0029 04       		.uleb128 0x4
+ 227 002a 16       		.uleb128 0x16
+ 228 002b 00       		.byte	0
+ 229 002c 03       		.uleb128 0x3
+ 230 002d 0E       		.uleb128 0xe
+ 231 002e 3A       		.uleb128 0x3a
+ 232 002f 0B       		.uleb128 0xb
+ 233 0030 3B       		.uleb128 0x3b
+ 234 0031 0B       		.uleb128 0xb
+ 235 0032 49       		.uleb128 0x49
+ 236 0033 13       		.uleb128 0x13
+ 237 0034 00       		.byte	0
+ 238 0035 00       		.byte	0
+ 239 0036 05       		.uleb128 0x5
+ 240 0037 2E       		.uleb128 0x2e
+ 241 0038 01       		.byte	0x1
+ 242 0039 3F       		.uleb128 0x3f
+ 243 003a 19       		.uleb128 0x19
+ 244 003b 03       		.uleb128 0x3
+ 245 003c 0E       		.uleb128 0xe
+ 246 003d 3A       		.uleb128 0x3a
+ 247 003e 0B       		.uleb128 0xb
+ 248 003f 3B       		.uleb128 0x3b
+ 249 0040 0B       		.uleb128 0xb
+ 250 0041 49       		.uleb128 0x49
+ 251 0042 13       		.uleb128 0x13
+ 252 0043 11       		.uleb128 0x11
+ 253 0044 01       		.uleb128 0x1
+ 254 0045 12       		.uleb128 0x12
+ 255 0046 06       		.uleb128 0x6
+ 256 0047 40       		.uleb128 0x40
+ 257 0048 18       		.uleb128 0x18
+ 258 0049 9742     		.uleb128 0x2117
+ 259 004b 19       		.uleb128 0x19
+ 260 004c 01       		.uleb128 0x1
+ 261 004d 13       		.uleb128 0x13
+ 262 004e 00       		.byte	0
+ 263 004f 00       		.byte	0
+ 264 0050 06       		.uleb128 0x6
+ 265 0051 898201   		.uleb128 0x4109
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccPVepwp.s 			page 6
+
+
+ 266 0054 00       		.byte	0
+ 267 0055 11       		.uleb128 0x11
+ 268 0056 01       		.uleb128 0x1
+ 269 0057 31       		.uleb128 0x31
+ 270 0058 13       		.uleb128 0x13
+ 271 0059 00       		.byte	0
+ 272 005a 00       		.byte	0
+ 273 005b 07       		.uleb128 0x7
+ 274 005c 898201   		.uleb128 0x4109
+ 275 005f 01       		.byte	0x1
+ 276 0060 11       		.uleb128 0x11
+ 277 0061 01       		.uleb128 0x1
+ 278 0062 31       		.uleb128 0x31
+ 279 0063 13       		.uleb128 0x13
+ 280 0064 00       		.byte	0
+ 281 0065 00       		.byte	0
+ 282 0066 08       		.uleb128 0x8
+ 283 0067 8A8201   		.uleb128 0x410a
+ 284 006a 00       		.byte	0
+ 285 006b 02       		.uleb128 0x2
+ 286 006c 18       		.uleb128 0x18
+ 287 006d 9142     		.uleb128 0x2111
+ 288 006f 18       		.uleb128 0x18
+ 289 0070 00       		.byte	0
+ 290 0071 00       		.byte	0
+ 291 0072 09       		.uleb128 0x9
+ 292 0073 2E       		.uleb128 0x2e
+ 293 0074 00       		.byte	0
+ 294 0075 3F       		.uleb128 0x3f
+ 295 0076 19       		.uleb128 0x19
+ 296 0077 03       		.uleb128 0x3
+ 297 0078 0E       		.uleb128 0xe
+ 298 0079 3A       		.uleb128 0x3a
+ 299 007a 0B       		.uleb128 0xb
+ 300 007b 3B       		.uleb128 0x3b
+ 301 007c 0B       		.uleb128 0xb
+ 302 007d 27       		.uleb128 0x27
+ 303 007e 19       		.uleb128 0x19
+ 304 007f 49       		.uleb128 0x49
+ 305 0080 13       		.uleb128 0x13
+ 306 0081 3C       		.uleb128 0x3c
+ 307 0082 19       		.uleb128 0x19
+ 308 0083 00       		.byte	0
+ 309 0084 00       		.byte	0
+ 310 0085 0A       		.uleb128 0xa
+ 311 0086 2E       		.uleb128 0x2e
+ 312 0087 01       		.byte	0x1
+ 313 0088 3F       		.uleb128 0x3f
+ 314 0089 19       		.uleb128 0x19
+ 315 008a 03       		.uleb128 0x3
+ 316 008b 0E       		.uleb128 0xe
+ 317 008c 3A       		.uleb128 0x3a
+ 318 008d 0B       		.uleb128 0xb
+ 319 008e 3B       		.uleb128 0x3b
+ 320 008f 0B       		.uleb128 0xb
+ 321 0090 27       		.uleb128 0x27
+ 322 0091 19       		.uleb128 0x19
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccPVepwp.s 			page 7
+
+
+ 323 0092 3C       		.uleb128 0x3c
+ 324 0093 19       		.uleb128 0x19
+ 325 0094 01       		.uleb128 0x1
+ 326 0095 13       		.uleb128 0x13
+ 327 0096 00       		.byte	0
+ 328 0097 00       		.byte	0
+ 329 0098 0B       		.uleb128 0xb
+ 330 0099 05       		.uleb128 0x5
+ 331 009a 00       		.byte	0
+ 332 009b 49       		.uleb128 0x49
+ 333 009c 13       		.uleb128 0x13
+ 334 009d 00       		.byte	0
+ 335 009e 00       		.byte	0
+ 336 009f 0C       		.uleb128 0xc
+ 337 00a0 2E       		.uleb128 0x2e
+ 338 00a1 01       		.byte	0x1
+ 339 00a2 3F       		.uleb128 0x3f
+ 340 00a3 19       		.uleb128 0x19
+ 341 00a4 03       		.uleb128 0x3
+ 342 00a5 0E       		.uleb128 0xe
+ 343 00a6 3A       		.uleb128 0x3a
+ 344 00a7 0B       		.uleb128 0xb
+ 345 00a8 3B       		.uleb128 0x3b
+ 346 00a9 0B       		.uleb128 0xb
+ 347 00aa 27       		.uleb128 0x27
+ 348 00ab 19       		.uleb128 0x19
+ 349 00ac 3C       		.uleb128 0x3c
+ 350 00ad 19       		.uleb128 0x19
+ 351 00ae 00       		.byte	0
+ 352 00af 00       		.byte	0
+ 353 00b0 00       		.byte	0
+ 354              		.section	.debug_aranges,"",%progbits
+ 355 0000 1C000000 		.4byte	0x1c
+ 356 0004 0200     		.2byte	0x2
+ 357 0006 00000000 		.4byte	.Ldebug_info0
+ 358 000a 04       		.byte	0x4
+ 359 000b 00       		.byte	0
+ 360 000c 0000     		.2byte	0
+ 361 000e 0000     		.2byte	0
+ 362 0010 00000000 		.4byte	.LFB61
+ 363 0014 18000000 		.4byte	.LFE61-.LFB61
+ 364 0018 00000000 		.4byte	0
+ 365 001c 00000000 		.4byte	0
+ 366              		.section	.debug_ranges,"",%progbits
+ 367              	.Ldebug_ranges0:
+ 368 0000 00000000 		.4byte	.LFB61
+ 369 0004 18000000 		.4byte	.LFE61
+ 370 0008 00000000 		.4byte	0
+ 371 000c 00000000 		.4byte	0
+ 372              		.section	.debug_line,"",%progbits
+ 373              	.Ldebug_line0:
+ 374 0000 7F000000 		.section	.debug_str,"MS",%progbits,1
+ 374      02005B00 
+ 374      00000201 
+ 374      FB0E0D00 
+ 374      01010101 
+ 375              	.LASF6:
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccPVepwp.s 			page 8
+
+
+ 376 0000 6C6F6E67 		.ascii	"long long int\000"
+ 376      206C6F6E 
+ 376      6720696E 
+ 376      7400
+ 377              	.LASF10:
+ 378 000e 75696E74 		.ascii	"uint32\000"
+ 378      333200
+ 379              	.LASF8:
+ 380 0015 756E7369 		.ascii	"unsigned int\000"
+ 380      676E6564 
+ 380      20696E74 
+ 380      00
+ 381              	.LASF21:
+ 382 0022 43794465 		.ascii	"CyDelay\000"
+ 382      6C617900 
+ 383              	.LASF17:
+ 384 002a 413A5C44 		.ascii	"A:\\Documents\\School\\ECEG-721_Embedded_Systems\\L"
+ 384      6F63756D 
+ 384      656E7473 
+ 384      5C536368 
+ 384      6F6F6C5C 
+ 385 0059 6162735C 		.ascii	"abs\\Lab7\\BLE Lab 1\\BLE Lab 1.cydsn\000"
+ 385      4C616237 
+ 385      5C424C45 
+ 385      204C6162 
+ 385      20315C42 
+ 386              	.LASF5:
+ 387 007c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 387      20756E73 
+ 387      69676E65 
+ 387      6420696E 
+ 387      7400
+ 388              	.LASF7:
+ 389 008e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 389      206C6F6E 
+ 389      6720756E 
+ 389      7369676E 
+ 389      65642069 
+ 390              	.LASF3:
+ 391 00a5 73686F72 		.ascii	"short unsigned int\000"
+ 391      7420756E 
+ 391      7369676E 
+ 391      65642069 
+ 391      6E7400
+ 392              	.LASF11:
+ 393 00b8 666C6F61 		.ascii	"float\000"
+ 393      7400
+ 394              	.LASF13:
+ 395 00be 63686172 		.ascii	"char\000"
+ 395      00
+ 396              	.LASF1:
+ 397 00c3 756E7369 		.ascii	"unsigned char\000"
+ 397      676E6564 
+ 397      20636861 
+ 397      7200
+ 398              	.LASF18:
+ 399 00d1 6D61696E 		.ascii	"main\000"
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccPVepwp.s 			page 9
+
+
+ 399      00
+ 400              	.LASF20:
+ 401 00d6 50696E5F 		.ascii	"Pin_LED_Write\000"
+ 401      4C45445F 
+ 401      57726974 
+ 401      6500
+ 402              	.LASF4:
+ 403 00e4 6C6F6E67 		.ascii	"long int\000"
+ 403      20696E74 
+ 403      00
+ 404              	.LASF16:
+ 405 00ed 2E5C6D61 		.ascii	".\\main.c\000"
+ 405      696E2E63 
+ 405      00
+ 406              	.LASF12:
+ 407 00f6 646F7562 		.ascii	"double\000"
+ 407      6C6500
+ 408              	.LASF19:
+ 409 00fd 50696E5F 		.ascii	"Pin_LED_Read\000"
+ 409      4C45445F 
+ 409      52656164 
+ 409      00
+ 410              	.LASF9:
+ 411 010a 75696E74 		.ascii	"uint8\000"
+ 411      3800
+ 412              	.LASF0:
+ 413 0110 7369676E 		.ascii	"signed char\000"
+ 413      65642063 
+ 413      68617200 
+ 414              	.LASF15:
+ 415 011c 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 415      4320342E 
+ 415      392E3320 
+ 415      32303135 
+ 415      30333033 
+ 416 014f 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 416      20726576 
+ 416      6973696F 
+ 416      6E203232 
+ 416      31323230 
+ 417 0182 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 417      66756E63 
+ 417      74696F6E 
+ 417      2D736563 
+ 417      74696F6E 
+ 418              	.LASF2:
+ 419 01aa 73686F72 		.ascii	"short int\000"
+ 419      7420696E 
+ 419      7400
+ 420              	.LASF14:
+ 421 01b4 73697A65 		.ascii	"sizetype\000"
+ 421      74797065 
+ 421      00
+ 422              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

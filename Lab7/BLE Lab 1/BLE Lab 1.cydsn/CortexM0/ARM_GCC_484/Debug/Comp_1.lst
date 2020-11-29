@@ -1,0 +1,3215 @@
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"Comp_1.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.Comp_1_Init,"ax",%progbits
+  18              		.align	2
+  19              		.global	Comp_1_Init
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	Comp_1_Init, %function
+  23              	Comp_1_Init:
+  24              	.LFB3:
+  25              		.file 1 ".\\Generated_Source\\PSoC4\\Comp_1.c"
+   1:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/Comp_1.c **** * File Name: Comp_1.c
+   3:.\Generated_Source\PSoC4/Comp_1.c **** * Version 2.0
+   4:.\Generated_Source\PSoC4/Comp_1.c **** *
+   5:.\Generated_Source\PSoC4/Comp_1.c **** * Description:
+   6:.\Generated_Source\PSoC4/Comp_1.c **** *  This file provides the source code to the API for the Low Power Comparator
+   7:.\Generated_Source\PSoC4/Comp_1.c **** *  component.
+   8:.\Generated_Source\PSoC4/Comp_1.c **** *
+   9:.\Generated_Source\PSoC4/Comp_1.c **** * Note:
+  10:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+  11:.\Generated_Source\PSoC4/Comp_1.c **** *
+  12:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+  13:.\Generated_Source\PSoC4/Comp_1.c **** * Copyright 2013-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  14:.\Generated_Source\PSoC4/Comp_1.c **** * You may use this file only in accordance with the license, terms, conditions,
+  15:.\Generated_Source\PSoC4/Comp_1.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  16:.\Generated_Source\PSoC4/Comp_1.c **** * the software package with which this file was provided.
+  17:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+  18:.\Generated_Source\PSoC4/Comp_1.c **** 
+  19:.\Generated_Source\PSoC4/Comp_1.c **** #include "Comp_1.h"
+  20:.\Generated_Source\PSoC4/Comp_1.c **** #include "CyLib.h"
+  21:.\Generated_Source\PSoC4/Comp_1.c **** #include "cyPm.h"
+  22:.\Generated_Source\PSoC4/Comp_1.c **** 
+  23:.\Generated_Source\PSoC4/Comp_1.c **** uint8 Comp_1_initVar = 0u;
+  24:.\Generated_Source\PSoC4/Comp_1.c **** static uint32 Comp_1_internalIntr = 0u;
+  25:.\Generated_Source\PSoC4/Comp_1.c **** #if(Comp_1_CY_LPCOMP_V2)
+  26:.\Generated_Source\PSoC4/Comp_1.c ****     /* This variable saves INTR_MASK register since it get reset after wakeup 
+  27:.\Generated_Source\PSoC4/Comp_1.c ****     * from Hibernate. Attribute CY_NOINIT puts SRAM variable in memory section 
+  28:.\Generated_Source\PSoC4/Comp_1.c ****     * which is retained in low power modes 
+  29:.\Generated_Source\PSoC4/Comp_1.c ****     */
+  30:.\Generated_Source\PSoC4/Comp_1.c ****     CY_NOINIT static uint32 Comp_1_intrMaskRegState;
+  31:.\Generated_Source\PSoC4/Comp_1.c **** #endif /* (Comp_1_CY_LPCOMP_V2) */
+  32:.\Generated_Source\PSoC4/Comp_1.c **** 
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 2
+
+
+  33:.\Generated_Source\PSoC4/Comp_1.c **** 
+  34:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+  35:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_Start
+  36:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+  37:.\Generated_Source\PSoC4/Comp_1.c **** *
+  38:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+  39:.\Generated_Source\PSoC4/Comp_1.c **** *  Performs all of the required initialization for the component and enables
+  40:.\Generated_Source\PSoC4/Comp_1.c **** *  power to the block. The first time the routine is executed, the component is
+  41:.\Generated_Source\PSoC4/Comp_1.c **** *  initialized to the configuration from the customizer. When called to restart
+  42:.\Generated_Source\PSoC4/Comp_1.c **** *  the comparator following a Comp_1_Stop() call, the current
+  43:.\Generated_Source\PSoC4/Comp_1.c **** *  component parameter settings are retained.
+  44:.\Generated_Source\PSoC4/Comp_1.c **** *
+  45:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+  46:.\Generated_Source\PSoC4/Comp_1.c **** *   None
+  47:.\Generated_Source\PSoC4/Comp_1.c **** *
+  48:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+  49:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+  50:.\Generated_Source\PSoC4/Comp_1.c **** *
+  51:.\Generated_Source\PSoC4/Comp_1.c **** * Global variables:
+  52:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_initVar: Is modified when this function is called for the
+  53:.\Generated_Source\PSoC4/Comp_1.c **** *   first time. Is used to ensure that initialization happens only once.
+  54:.\Generated_Source\PSoC4/Comp_1.c **** *
+  55:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+  56:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_Start(void)
+  57:.\Generated_Source\PSoC4/Comp_1.c **** {
+  58:.\Generated_Source\PSoC4/Comp_1.c ****     if(0u == Comp_1_initVar)
+  59:.\Generated_Source\PSoC4/Comp_1.c ****     {
+  60:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_Init();
+  61:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_initVar = 1u;
+  62:.\Generated_Source\PSoC4/Comp_1.c ****     }
+  63:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_Enable();
+  64:.\Generated_Source\PSoC4/Comp_1.c **** }
+  65:.\Generated_Source\PSoC4/Comp_1.c **** 
+  66:.\Generated_Source\PSoC4/Comp_1.c **** 
+  67:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+  68:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_Init
+  69:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+  70:.\Generated_Source\PSoC4/Comp_1.c **** *
+  71:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+  72:.\Generated_Source\PSoC4/Comp_1.c **** *  Initializes or restores the component according to the customizer settings.
+  73:.\Generated_Source\PSoC4/Comp_1.c **** *  It is not necessary to call Comp_1_Init() because the
+  74:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_Start() API calls this function and is the preferred method
+  75:.\Generated_Source\PSoC4/Comp_1.c **** *  to begin component operation.
+  76:.\Generated_Source\PSoC4/Comp_1.c **** *
+  77:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+  78:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+  79:.\Generated_Source\PSoC4/Comp_1.c **** *
+  80:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+  81:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+  82:.\Generated_Source\PSoC4/Comp_1.c **** *
+  83:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+  84:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_Init(void)
+  85:.\Generated_Source\PSoC4/Comp_1.c **** {
+  26              		.loc 1 85 0
+  27              		.cfi_startproc
+  28 0000 10B5     		push	{r4, lr}
+  29              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 3
+
+
+  30              		.cfi_offset 4, -8
+  31              		.cfi_offset 14, -4
+  86:.\Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+  87:.\Generated_Source\PSoC4/Comp_1.c **** 
+  88:.\Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+  32              		.loc 1 88 0
+  33 0002 FFF7FEFF 		bl	CyEnterCriticalSection
+  34              	.LVL0:
+  35 0006 041C     		mov	r4, r0
+  36              	.LVL1:
+  89:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG |= Comp_1_CONFIG_REG_DEFAULT;
+  37              		.loc 1 89 0
+  38 0008 0C4B     		ldr	r3, .L4
+  39 000a 1A68     		ldr	r2, [r3]
+  40 000c 0C49     		ldr	r1, .L4+4
+  41 000e 0A43     		orr	r2, r1
+  42 0010 1A60     		str	r2, [r3]
+  90:.\Generated_Source\PSoC4/Comp_1.c ****     
+  91:.\Generated_Source\PSoC4/Comp_1.c ****     #if (Comp_1_CY_LPCOMP_V2)
+  92:.\Generated_Source\PSoC4/Comp_1.c ****         if (CySysPmGetResetReason() == CY_PM_RESET_REASON_WAKEUP_HIB)
+  43              		.loc 1 92 0
+  44 0012 FFF7FEFF 		bl	CySysPmGetResetReason
+  45              	.LVL2:
+  46 0016 0228     		cmp	r0, #2
+  47 0018 06D1     		bne	.L2
+  93:.\Generated_Source\PSoC4/Comp_1.c ****         {
+  94:.\Generated_Source\PSoC4/Comp_1.c ****             /* Restore the INTR_MASK register state since it get reset after 
+  95:.\Generated_Source\PSoC4/Comp_1.c ****             * wakeup from Hibernate.  
+  96:.\Generated_Source\PSoC4/Comp_1.c ****             */
+  97:.\Generated_Source\PSoC4/Comp_1.c ****             Comp_1_INTR_MASK_REG |= Comp_1_intrMaskRegState;  
+  48              		.loc 1 97 0
+  49 001a 0A4B     		ldr	r3, .L4+8
+  50 001c 1968     		ldr	r1, [r3]
+  51 001e 0A4A     		ldr	r2, .L4+12
+  52 0020 1268     		ldr	r2, [r2]
+  53 0022 0A43     		orr	r2, r1
+  54 0024 1A60     		str	r2, [r3]
+  55 0026 05E0     		b	.L3
+  56              	.L2:
+  98:.\Generated_Source\PSoC4/Comp_1.c ****         }
+  99:.\Generated_Source\PSoC4/Comp_1.c ****         else
+ 100:.\Generated_Source\PSoC4/Comp_1.c ****         {
+ 101:.\Generated_Source\PSoC4/Comp_1.c ****             Comp_1_INTR_MASK_REG |= Comp_1_INTR_MASK_REG_DEFAULT;    
+  57              		.loc 1 101 0
+  58 0028 064B     		ldr	r3, .L4+8
+  59 002a 1A68     		ldr	r2, [r3]
+  60 002c 1A60     		str	r2, [r3]
+ 102:.\Generated_Source\PSoC4/Comp_1.c ****             Comp_1_intrMaskRegState = Comp_1_INTR_MASK_REG;
+  61              		.loc 1 102 0
+  62 002e 1A68     		ldr	r2, [r3]
+  63 0030 054B     		ldr	r3, .L4+12
+  64 0032 1A60     		str	r2, [r3]
+  65              	.L3:
+ 103:.\Generated_Source\PSoC4/Comp_1.c ****         }
+ 104:.\Generated_Source\PSoC4/Comp_1.c ****     #endif /* (Comp_1_CY_LPCOMP_V2) */
+ 105:.\Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+  66              		.loc 1 105 0
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 4
+
+
+  67 0034 201C     		mov	r0, r4
+  68 0036 FFF7FEFF 		bl	CyExitCriticalSection
+  69              	.LVL3:
+ 106:.\Generated_Source\PSoC4/Comp_1.c **** }
+  70              		.loc 1 106 0
+  71              		@ sp needed
+  72              	.LVL4:
+  73 003a 10BD     		pop	{r4, pc}
+  74              	.L5:
+  75              		.align	2
+  76              	.L4:
+  77 003c 04002B40 		.word	1076559876
+  78 0040 35000100 		.word	65589
+  79 0044 18002B40 		.word	1076559896
+  80 0048 00000000 		.word	.LANCHOR0
+  81              		.cfi_endproc
+  82              	.LFE3:
+  83              		.size	Comp_1_Init, .-Comp_1_Init
+  84              		.section	.text.Comp_1_Enable,"ax",%progbits
+  85              		.align	2
+  86              		.global	Comp_1_Enable
+  87              		.code	16
+  88              		.thumb_func
+  89              		.type	Comp_1_Enable, %function
+  90              	Comp_1_Enable:
+  91              	.LFB4:
+ 107:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 108:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 109:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 110:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_Enable
+ 111:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 112:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 113:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 114:.\Generated_Source\PSoC4/Comp_1.c **** *  Activates the hardware and begins component operation. It is not necessary
+ 115:.\Generated_Source\PSoC4/Comp_1.c **** *  to call Comp_1_Enable() because the Comp_1_Start() API
+ 116:.\Generated_Source\PSoC4/Comp_1.c **** *  calls this function, which is the preferred method to begin component
+ 117:.\Generated_Source\PSoC4/Comp_1.c **** *  operation.
+ 118:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 119:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 120:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 121:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 122:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 123:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 124:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 125:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 126:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_Enable(void)
+ 127:.\Generated_Source\PSoC4/Comp_1.c **** {
+  92              		.loc 1 127 0
+  93              		.cfi_startproc
+  94 0000 08B5     		push	{r3, lr}
+  95              		.cfi_def_cfa_offset 8
+  96              		.cfi_offset 3, -8
+  97              		.cfi_offset 14, -4
+ 128:.\Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 129:.\Generated_Source\PSoC4/Comp_1.c ****     
+ 130:.\Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+  98              		.loc 1 130 0
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 5
+
+
+  99 0002 FFF7FEFF 		bl	CyEnterCriticalSection
+ 100              	.LVL5:
+ 131:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG |= Comp_1_CONFIG_EN;
+ 101              		.loc 1 131 0
+ 102 0006 064B     		ldr	r3, .L7
+ 103 0008 1968     		ldr	r1, [r3]
+ 104 000a 8022     		mov	r2, #128
+ 105 000c 0A43     		orr	r2, r1
+ 106 000e 1A60     		str	r2, [r3]
+ 132:.\Generated_Source\PSoC4/Comp_1.c ****     
+ 133:.\Generated_Source\PSoC4/Comp_1.c ****     /*******************************************************
+ 134:.\Generated_Source\PSoC4/Comp_1.c ****     * When the Enable() API is called the CONFIG_EN bit is set. 
+ 135:.\Generated_Source\PSoC4/Comp_1.c ****     * This can cause fake interrupt because of the output delay 
+ 136:.\Generated_Source\PSoC4/Comp_1.c ****     * of the analog. This requires setting the CONFIG_INTR bits 
+ 137:.\Generated_Source\PSoC4/Comp_1.c ****     * after the CONFIG_EN bit is set.
+ 138:.\Generated_Source\PSoC4/Comp_1.c ****     *******************************************************/
+ 139:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG |= Comp_1_internalIntr;
+ 107              		.loc 1 139 0
+ 108 0010 1968     		ldr	r1, [r3]
+ 109 0012 044A     		ldr	r2, .L7+4
+ 110 0014 1268     		ldr	r2, [r2]
+ 111 0016 0A43     		orr	r2, r1
+ 112 0018 1A60     		str	r2, [r3]
+ 140:.\Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 113              		.loc 1 140 0
+ 114 001a FFF7FEFF 		bl	CyExitCriticalSection
+ 115              	.LVL6:
+ 141:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 116              		.loc 1 141 0
+ 117              		@ sp needed
+ 118 001e 08BD     		pop	{r3, pc}
+ 119              	.L8:
+ 120              		.align	2
+ 121              	.L7:
+ 122 0020 04002B40 		.word	1076559876
+ 123 0024 00000000 		.word	.LANCHOR1
+ 124              		.cfi_endproc
+ 125              	.LFE4:
+ 126              		.size	Comp_1_Enable, .-Comp_1_Enable
+ 127              		.section	.text.Comp_1_Start,"ax",%progbits
+ 128              		.align	2
+ 129              		.global	Comp_1_Start
+ 130              		.code	16
+ 131              		.thumb_func
+ 132              		.type	Comp_1_Start, %function
+ 133              	Comp_1_Start:
+ 134              	.LFB2:
+  57:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 135              		.loc 1 57 0
+ 136              		.cfi_startproc
+ 137 0000 08B5     		push	{r3, lr}
+ 138              		.cfi_def_cfa_offset 8
+ 139              		.cfi_offset 3, -8
+ 140              		.cfi_offset 14, -4
+  58:.\Generated_Source\PSoC4/Comp_1.c ****     if(0u == Comp_1_initVar)
+ 141              		.loc 1 58 0
+ 142 0002 064B     		ldr	r3, .L11
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 6
+
+
+ 143 0004 1B79     		ldrb	r3, [r3, #4]
+ 144 0006 002B     		cmp	r3, #0
+ 145 0008 04D1     		bne	.L10
+  60:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_Init();
+ 146              		.loc 1 60 0
+ 147 000a FFF7FEFF 		bl	Comp_1_Init
+ 148              	.LVL7:
+  61:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_initVar = 1u;
+ 149              		.loc 1 61 0
+ 150 000e 0122     		mov	r2, #1
+ 151 0010 024B     		ldr	r3, .L11
+ 152 0012 1A71     		strb	r2, [r3, #4]
+ 153              	.L10:
+  63:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_Enable();
+ 154              		.loc 1 63 0
+ 155 0014 FFF7FEFF 		bl	Comp_1_Enable
+ 156              	.LVL8:
+  64:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 157              		.loc 1 64 0
+ 158              		@ sp needed
+ 159 0018 08BD     		pop	{r3, pc}
+ 160              	.L12:
+ 161 001a C046     		.align	2
+ 162              	.L11:
+ 163 001c 00000000 		.word	.LANCHOR1
+ 164              		.cfi_endproc
+ 165              	.LFE2:
+ 166              		.size	Comp_1_Start, .-Comp_1_Start
+ 167              		.section	.text.Comp_1_Stop,"ax",%progbits
+ 168              		.align	2
+ 169              		.global	Comp_1_Stop
+ 170              		.code	16
+ 171              		.thumb_func
+ 172              		.type	Comp_1_Stop, %function
+ 173              	Comp_1_Stop:
+ 174              	.LFB5:
+ 142:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 143:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 144:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 145:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_Stop
+ 146:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 147:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 148:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 149:.\Generated_Source\PSoC4/Comp_1.c **** *  Turns off the LP Comparator.
+ 150:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 151:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 152:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 153:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 154:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 155:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 156:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 157:.\Generated_Source\PSoC4/Comp_1.c **** * Side Effects:
+ 158:.\Generated_Source\PSoC4/Comp_1.c **** *  The function doesn't change component Speed settings.
+ 159:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 160:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 161:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_Stop(void)
+ 162:.\Generated_Source\PSoC4/Comp_1.c **** {
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 7
+
+
+ 175              		.loc 1 162 0
+ 176              		.cfi_startproc
+ 177 0000 08B5     		push	{r3, lr}
+ 178              		.cfi_def_cfa_offset 8
+ 179              		.cfi_offset 3, -8
+ 180              		.cfi_offset 14, -4
+ 163:.\Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 164:.\Generated_Source\PSoC4/Comp_1.c ****     
+ 165:.\Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 181              		.loc 1 165 0
+ 182 0002 FFF7FEFF 		bl	CyEnterCriticalSection
+ 183              	.LVL9:
+ 166:.\Generated_Source\PSoC4/Comp_1.c ****     #if (Comp_1_CY_LPCOMP_V0)
+ 167:.\Generated_Source\PSoC4/Comp_1.c ****         /*******************************************************
+ 168:.\Generated_Source\PSoC4/Comp_1.c ****         * When the Stop() API is called the CONFIG_EN bit is 
+ 169:.\Generated_Source\PSoC4/Comp_1.c ****         * cleared. This causes the output of the comparator to go 
+ 170:.\Generated_Source\PSoC4/Comp_1.c ****         * low. If the comparator output was high and the Interrupt 
+ 171:.\Generated_Source\PSoC4/Comp_1.c ****         * Configuration is set for Falling edge disabling the 
+ 172:.\Generated_Source\PSoC4/Comp_1.c ****         * comparator will cause an fake interrupt. This requires 
+ 173:.\Generated_Source\PSoC4/Comp_1.c ****         * to clear the CONFIG_INTR bits before the CONFIG_EN bit 
+ 174:.\Generated_Source\PSoC4/Comp_1.c ****         * is cleared.
+ 175:.\Generated_Source\PSoC4/Comp_1.c ****         *******************************************************/
+ 176:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_CONFIG_REG &= (uint32)~Comp_1_CONFIG_INTR_MASK;
+ 177:.\Generated_Source\PSoC4/Comp_1.c ****     #endif /* (Comp_1_CY_LPCOMP_V0) */
+ 178:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 179:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG &= (uint32)~Comp_1_CONFIG_EN;
+ 184              		.loc 1 179 0
+ 185 0006 044B     		ldr	r3, .L14
+ 186 0008 1A68     		ldr	r2, [r3]
+ 187 000a 8021     		mov	r1, #128
+ 188 000c 8A43     		bic	r2, r1
+ 189 000e 1A60     		str	r2, [r3]
+ 180:.\Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 190              		.loc 1 180 0
+ 191 0010 FFF7FEFF 		bl	CyExitCriticalSection
+ 192              	.LVL10:
+ 181:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 193              		.loc 1 181 0
+ 194              		@ sp needed
+ 195 0014 08BD     		pop	{r3, pc}
+ 196              	.L15:
+ 197 0016 C046     		.align	2
+ 198              	.L14:
+ 199 0018 04002B40 		.word	1076559876
+ 200              		.cfi_endproc
+ 201              	.LFE5:
+ 202              		.size	Comp_1_Stop, .-Comp_1_Stop
+ 203              		.section	.text.Comp_1_SetSpeed,"ax",%progbits
+ 204              		.align	2
+ 205              		.global	Comp_1_SetSpeed
+ 206              		.code	16
+ 207              		.thumb_func
+ 208              		.type	Comp_1_SetSpeed, %function
+ 209              	Comp_1_SetSpeed:
+ 210              	.LFB6:
+ 182:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 183:.\Generated_Source\PSoC4/Comp_1.c **** 
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 8
+
+
+ 184:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 185:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetSpeed
+ 186:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 187:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 188:.\Generated_Source\PSoC4/Comp_1.c **** *  Sets the drive power and speed to one of three settings.
+ 189:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 190:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 191:.\Generated_Source\PSoC4/Comp_1.c **** *  uint32 speed: Sets operation mode of the component:
+ 192:.\Generated_Source\PSoC4/Comp_1.c **** *   Comp_1_LOW_SPEED  - Slow/ultra low 
+ 193:.\Generated_Source\PSoC4/Comp_1.c **** *   Comp_1_MED_SPEED  - Medium/low 
+ 194:.\Generated_Source\PSoC4/Comp_1.c **** *   Comp_1_HIGH_SPEED - Fast/normal 
+ 195:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 196:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 197:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 198:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 199:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 200:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetSpeed(uint32 speed)
+ 201:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 211              		.loc 1 201 0
+ 212              		.cfi_startproc
+ 213              	.LVL11:
+ 214 0000 10B5     		push	{r4, lr}
+ 215              		.cfi_def_cfa_offset 8
+ 216              		.cfi_offset 4, -8
+ 217              		.cfi_offset 14, -4
+ 218 0002 041C     		mov	r4, r0
+ 202:.\Generated_Source\PSoC4/Comp_1.c ****     uint32 config;
+ 203:.\Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 204:.\Generated_Source\PSoC4/Comp_1.c ****     
+ 205:.\Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 219              		.loc 1 205 0
+ 220 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+ 221              	.LVL12:
+ 206:.\Generated_Source\PSoC4/Comp_1.c ****     config = Comp_1_CONFIG_REG & (uint32)~Comp_1_CONFIG_SPEED_MODE_MASK;
+ 222              		.loc 1 206 0
+ 223 0008 044B     		ldr	r3, .L17
+ 224 000a 1968     		ldr	r1, [r3]
+ 225 000c 0322     		mov	r2, #3
+ 226 000e 9143     		bic	r1, r2
+ 227              	.LVL13:
+ 207:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG = config | Comp_1_GET_CONFIG_SPEED_MODE(speed);
+ 228              		.loc 1 207 0
+ 229 0010 2240     		and	r2, r4
+ 230 0012 0A43     		orr	r2, r1
+ 231 0014 1A60     		str	r2, [r3]
+ 208:.\Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 232              		.loc 1 208 0
+ 233 0016 FFF7FEFF 		bl	CyExitCriticalSection
+ 234              	.LVL14:
+ 209:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 235              		.loc 1 209 0
+ 236              		@ sp needed
+ 237              	.LVL15:
+ 238 001a 10BD     		pop	{r4, pc}
+ 239              	.L18:
+ 240              		.align	2
+ 241              	.L17:
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 9
+
+
+ 242 001c 04002B40 		.word	1076559876
+ 243              		.cfi_endproc
+ 244              	.LFE6:
+ 245              		.size	Comp_1_SetSpeed, .-Comp_1_SetSpeed
+ 246              		.section	.text.Comp_1_SetInterruptMode,"ax",%progbits
+ 247              		.align	2
+ 248              		.global	Comp_1_SetInterruptMode
+ 249              		.code	16
+ 250              		.thumb_func
+ 251              		.type	Comp_1_SetInterruptMode, %function
+ 252              	Comp_1_SetInterruptMode:
+ 253              	.LFB7:
+ 210:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 211:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 212:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 213:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetInterruptMode
+ 214:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 215:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 216:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 217:.\Generated_Source\PSoC4/Comp_1.c **** *  Sets the interrupt edge detect mode. This also controls the value provided
+ 218:.\Generated_Source\PSoC4/Comp_1.c **** *  on the output.
+ 219:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 220:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 221:.\Generated_Source\PSoC4/Comp_1.c **** *  uint32 mode: Enumerated edge detect mode value:
+ 222:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_INTR_DISABLE - Disable
+ 223:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_INTR_RISING  - Rising edge detect
+ 224:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_INTR_FALLING - Falling edge detect
+ 225:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_INTR_BOTH    - Detect both edges
+ 226:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 227:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 228:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 229:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 230:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 231:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetInterruptMode(uint32 mode)
+ 232:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 254              		.loc 1 232 0
+ 255              		.cfi_startproc
+ 256              	.LVL16:
+ 257 0000 38B5     		push	{r3, r4, r5, lr}
+ 258              		.cfi_def_cfa_offset 16
+ 259              		.cfi_offset 3, -16
+ 260              		.cfi_offset 4, -12
+ 261              		.cfi_offset 5, -8
+ 262              		.cfi_offset 14, -4
+ 233:.\Generated_Source\PSoC4/Comp_1.c ****     uint32 config;
+ 234:.\Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 235:.\Generated_Source\PSoC4/Comp_1.c ****     
+ 236:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_internalIntr = Comp_1_GET_CONFIG_INTR(mode);
+ 263              		.loc 1 236 0
+ 264 0002 0001     		lsl	r0, r0, #4
+ 265              	.LVL17:
+ 266 0004 3025     		mov	r5, #48
+ 267 0006 2840     		and	r0, r5
+ 268 0008 064C     		ldr	r4, .L20
+ 269 000a 2060     		str	r0, [r4]
+ 237:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 238:.\Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 10
+
+
+ 270              		.loc 1 238 0
+ 271 000c FFF7FEFF 		bl	CyEnterCriticalSection
+ 272              	.LVL18:
+ 239:.\Generated_Source\PSoC4/Comp_1.c ****     config = Comp_1_CONFIG_REG & (uint32)~Comp_1_CONFIG_INTR_MASK;
+ 273              		.loc 1 239 0
+ 274 0010 054B     		ldr	r3, .L20+4
+ 275 0012 1A68     		ldr	r2, [r3]
+ 276 0014 AA43     		bic	r2, r5
+ 277              	.LVL19:
+ 240:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG = config | Comp_1_internalIntr;
+ 278              		.loc 1 240 0
+ 279 0016 2168     		ldr	r1, [r4]
+ 280 0018 0A43     		orr	r2, r1
+ 281              	.LVL20:
+ 282 001a 1A60     		str	r2, [r3]
+ 241:.\Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 283              		.loc 1 241 0
+ 284 001c FFF7FEFF 		bl	CyExitCriticalSection
+ 285              	.LVL21:
+ 242:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 286              		.loc 1 242 0
+ 287              		@ sp needed
+ 288 0020 38BD     		pop	{r3, r4, r5, pc}
+ 289              	.L21:
+ 290 0022 C046     		.align	2
+ 291              	.L20:
+ 292 0024 00000000 		.word	.LANCHOR1
+ 293 0028 04002B40 		.word	1076559876
+ 294              		.cfi_endproc
+ 295              	.LFE7:
+ 296              		.size	Comp_1_SetInterruptMode, .-Comp_1_SetInterruptMode
+ 297              		.section	.text.Comp_1_GetInterruptSource,"ax",%progbits
+ 298              		.align	2
+ 299              		.global	Comp_1_GetInterruptSource
+ 300              		.code	16
+ 301              		.thumb_func
+ 302              		.type	Comp_1_GetInterruptSource, %function
+ 303              	Comp_1_GetInterruptSource:
+ 304              	.LFB8:
+ 243:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 244:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 245:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 246:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_GetInterruptSource
+ 247:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 248:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 249:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 250:.\Generated_Source\PSoC4/Comp_1.c **** *  Gets the interrupt requests. This function is for use when using the combined
+ 251:.\Generated_Source\PSoC4/Comp_1.c **** *  interrupt signal from the global signal reference. This function from either
+ 252:.\Generated_Source\PSoC4/Comp_1.c **** *  component instance can be used to determine the interrupt source for both the
+ 253:.\Generated_Source\PSoC4/Comp_1.c **** *  interrupts combined.
+ 254:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 255:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 256:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 257:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 258:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 259:.\Generated_Source\PSoC4/Comp_1.c **** *  uint32: Interrupt source. Each component instance has a mask value:
+ 260:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_INTR.
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 11
+
+
+ 261:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 262:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 263:.\Generated_Source\PSoC4/Comp_1.c **** uint32 Comp_1_GetInterruptSource(void)
+ 264:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 305              		.loc 1 264 0
+ 306              		.cfi_startproc
+ 265:.\Generated_Source\PSoC4/Comp_1.c ****     return (Comp_1_INTR_REG); 
+ 307              		.loc 1 265 0
+ 308 0000 014B     		ldr	r3, .L23
+ 309 0002 1868     		ldr	r0, [r3]
+ 266:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 310              		.loc 1 266 0
+ 311              		@ sp needed
+ 312 0004 7047     		bx	lr
+ 313              	.L24:
+ 314 0006 C046     		.align	2
+ 315              	.L23:
+ 316 0008 10002B40 		.word	1076559888
+ 317              		.cfi_endproc
+ 318              	.LFE8:
+ 319              		.size	Comp_1_GetInterruptSource, .-Comp_1_GetInterruptSource
+ 320              		.section	.text.Comp_1_ClearInterrupt,"ax",%progbits
+ 321              		.align	2
+ 322              		.global	Comp_1_ClearInterrupt
+ 323              		.code	16
+ 324              		.thumb_func
+ 325              		.type	Comp_1_ClearInterrupt, %function
+ 326              	Comp_1_ClearInterrupt:
+ 327              	.LFB9:
+ 267:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 268:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 269:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 270:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_ClearInterrupt
+ 271:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 272:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 273:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 274:.\Generated_Source\PSoC4/Comp_1.c **** *  Clears the interrupt request. This function is for use when using the
+ 275:.\Generated_Source\PSoC4/Comp_1.c **** *  combined interrupt signal from the global signal reference. This function
+ 276:.\Generated_Source\PSoC4/Comp_1.c **** *  from either component instance can be used to clear either or both
+ 277:.\Generated_Source\PSoC4/Comp_1.c **** *  interrupts.
+ 278:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 279:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 280:.\Generated_Source\PSoC4/Comp_1.c **** *  uint32 interruptMask: Mask of interrupts to clear. Each component instance
+ 281:.\Generated_Source\PSoC4/Comp_1.c **** *  has a mask value: Comp_1_INTR.
+ 282:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 283:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 284:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 285:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 286:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 287:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_ClearInterrupt(uint32 interruptMask)
+ 288:.\Generated_Source\PSoC4/Comp_1.c **** {   
+ 328              		.loc 1 288 0
+ 329              		.cfi_startproc
+ 330              	.LVL22:
+ 289:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_INTR_REG = interruptMask;
+ 331              		.loc 1 289 0
+ 332 0000 014B     		ldr	r3, .L26
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 12
+
+
+ 333 0002 1860     		str	r0, [r3]
+ 290:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 334              		.loc 1 290 0
+ 335              		@ sp needed
+ 336 0004 7047     		bx	lr
+ 337              	.L27:
+ 338 0006 C046     		.align	2
+ 339              	.L26:
+ 340 0008 10002B40 		.word	1076559888
+ 341              		.cfi_endproc
+ 342              	.LFE9:
+ 343              		.size	Comp_1_ClearInterrupt, .-Comp_1_ClearInterrupt
+ 344              		.section	.text.Comp_1_SetInterrupt,"ax",%progbits
+ 345              		.align	2
+ 346              		.global	Comp_1_SetInterrupt
+ 347              		.code	16
+ 348              		.thumb_func
+ 349              		.type	Comp_1_SetInterrupt, %function
+ 350              	Comp_1_SetInterrupt:
+ 351              	.LFB10:
+ 291:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 292:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 293:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 294:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetInterrupt
+ 295:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 296:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 297:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 298:.\Generated_Source\PSoC4/Comp_1.c **** *  Sets a software interrupt request. This function is for use when using the
+ 299:.\Generated_Source\PSoC4/Comp_1.c **** *  combined interrupt signal from the global signal reference. This function
+ 300:.\Generated_Source\PSoC4/Comp_1.c **** *  from either component instance can be used to trigger either or both software
+ 301:.\Generated_Source\PSoC4/Comp_1.c **** *  interrupts.
+ 302:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 303:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 304:.\Generated_Source\PSoC4/Comp_1.c **** *  uint32 interruptMask: Mask of interrupts to set. Each component instance has
+ 305:.\Generated_Source\PSoC4/Comp_1.c **** *  a mask value: Comp_1_INTR_SET.
+ 306:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 307:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 308:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 309:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 310:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 311:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetInterrupt(uint32 interruptMask)
+ 312:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 352              		.loc 1 312 0
+ 353              		.cfi_startproc
+ 354              	.LVL23:
+ 355 0000 10B5     		push	{r4, lr}
+ 356              		.cfi_def_cfa_offset 8
+ 357              		.cfi_offset 4, -8
+ 358              		.cfi_offset 14, -4
+ 359 0002 041C     		mov	r4, r0
+ 313:.\Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 314:.\Generated_Source\PSoC4/Comp_1.c ****     
+ 315:.\Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 360              		.loc 1 315 0
+ 361 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+ 362              	.LVL24:
+ 316:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_INTR_SET_REG |= interruptMask;
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 13
+
+
+ 363              		.loc 1 316 0
+ 364 0008 034B     		ldr	r3, .L29
+ 365 000a 1A68     		ldr	r2, [r3]
+ 366 000c 1443     		orr	r4, r2
+ 367              	.LVL25:
+ 368 000e 1C60     		str	r4, [r3]
+ 317:.\Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 369              		.loc 1 317 0
+ 370 0010 FFF7FEFF 		bl	CyExitCriticalSection
+ 371              	.LVL26:
+ 318:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 372              		.loc 1 318 0
+ 373              		@ sp needed
+ 374 0014 10BD     		pop	{r4, pc}
+ 375              	.L30:
+ 376 0016 C046     		.align	2
+ 377              	.L29:
+ 378 0018 14002B40 		.word	1076559892
+ 379              		.cfi_endproc
+ 380              	.LFE10:
+ 381              		.size	Comp_1_SetInterrupt, .-Comp_1_SetInterrupt
+ 382              		.section	.text.Comp_1_SetHysteresis,"ax",%progbits
+ 383              		.align	2
+ 384              		.global	Comp_1_SetHysteresis
+ 385              		.code	16
+ 386              		.thumb_func
+ 387              		.type	Comp_1_SetHysteresis, %function
+ 388              	Comp_1_SetHysteresis:
+ 389              	.LFB11:
+ 319:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 320:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 321:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 322:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetHysteresis
+ 323:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 324:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 325:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 326:.\Generated_Source\PSoC4/Comp_1.c **** *  Enables or disables the hysteresis.
+ 327:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 328:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 329:.\Generated_Source\PSoC4/Comp_1.c **** *  hysteresis: (uint32) Enables or disables the hysteresis setting.
+ 330:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_HYST_ENABLE     - Enable hysteresis
+ 331:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_HYST_DISABLE    - Disable hysteresis
+ 332:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 333:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 334:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 335:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 336:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 337:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetHysteresis(uint32 hysteresis)
+ 338:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 390              		.loc 1 338 0
+ 391              		.cfi_startproc
+ 392              	.LVL27:
+ 393 0000 10B5     		push	{r4, lr}
+ 394              		.cfi_def_cfa_offset 8
+ 395              		.cfi_offset 4, -8
+ 396              		.cfi_offset 14, -4
+ 397 0002 041C     		mov	r4, r0
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 14
+
+
+ 339:.\Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 340:.\Generated_Source\PSoC4/Comp_1.c ****     
+ 341:.\Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 398              		.loc 1 341 0
+ 399 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+ 400              	.LVL28:
+ 342:.\Generated_Source\PSoC4/Comp_1.c ****     if(0u != hysteresis)
+ 401              		.loc 1 342 0
+ 402 0008 002C     		cmp	r4, #0
+ 403 000a 05D0     		beq	.L32
+ 343:.\Generated_Source\PSoC4/Comp_1.c ****     {
+ 344:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_CONFIG_REG |= Comp_1_CONFIG_HYST;
+ 404              		.loc 1 344 0
+ 405 000c 064B     		ldr	r3, .L34
+ 406 000e 1968     		ldr	r1, [r3]
+ 407 0010 0422     		mov	r2, #4
+ 408 0012 0A43     		orr	r2, r1
+ 409 0014 1A60     		str	r2, [r3]
+ 410 0016 04E0     		b	.L33
+ 411              	.L32:
+ 345:.\Generated_Source\PSoC4/Comp_1.c ****     }
+ 346:.\Generated_Source\PSoC4/Comp_1.c ****     else
+ 347:.\Generated_Source\PSoC4/Comp_1.c ****     {
+ 348:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_CONFIG_REG &= (uint32)~Comp_1_CONFIG_HYST;
+ 412              		.loc 1 348 0
+ 413 0018 034B     		ldr	r3, .L34
+ 414 001a 1A68     		ldr	r2, [r3]
+ 415 001c 0421     		mov	r1, #4
+ 416 001e 8A43     		bic	r2, r1
+ 417 0020 1A60     		str	r2, [r3]
+ 418              	.L33:
+ 349:.\Generated_Source\PSoC4/Comp_1.c ****     }
+ 350:.\Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 419              		.loc 1 350 0
+ 420 0022 FFF7FEFF 		bl	CyExitCriticalSection
+ 421              	.LVL29:
+ 351:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 422              		.loc 1 351 0
+ 423              		@ sp needed
+ 424              	.LVL30:
+ 425 0026 10BD     		pop	{r4, pc}
+ 426              	.L35:
+ 427              		.align	2
+ 428              	.L34:
+ 429 0028 04002B40 		.word	1076559876
+ 430              		.cfi_endproc
+ 431              	.LFE11:
+ 432              		.size	Comp_1_SetHysteresis, .-Comp_1_SetHysteresis
+ 433              		.section	.text.Comp_1_SetFilter,"ax",%progbits
+ 434              		.align	2
+ 435              		.global	Comp_1_SetFilter
+ 436              		.code	16
+ 437              		.thumb_func
+ 438              		.type	Comp_1_SetFilter, %function
+ 439              	Comp_1_SetFilter:
+ 440              	.LFB12:
+ 352:.\Generated_Source\PSoC4/Comp_1.c **** 
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 15
+
+
+ 353:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 354:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 355:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetFilter
+ 356:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 357:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 358:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 359:.\Generated_Source\PSoC4/Comp_1.c **** *  Enables or disables the digital filter. This still exists for saving backward 
+ 360:.\Generated_Source\PSoC4/Comp_1.c **** *  compatibility, but not recommended for using.
+ 361:.\Generated_Source\PSoC4/Comp_1.c **** *  This API is DEPRECATED and should not be used in new projects.
+ 362:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 363:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 364:.\Generated_Source\PSoC4/Comp_1.c **** *  uint32 filter: filter enable.
+ 365:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_FILT_ENABLE  - Enable filter
+ 366:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_FILT_DISABLE - Disable filter
+ 367:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 368:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 369:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 370:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 371:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 372:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetFilter(uint32 filter)
+ 373:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 441              		.loc 1 373 0
+ 442              		.cfi_startproc
+ 443              	.LVL31:
+ 444 0000 10B5     		push	{r4, lr}
+ 445              		.cfi_def_cfa_offset 8
+ 446              		.cfi_offset 4, -8
+ 447              		.cfi_offset 14, -4
+ 448 0002 041C     		mov	r4, r0
+ 374:.\Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 375:.\Generated_Source\PSoC4/Comp_1.c ****     
+ 376:.\Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 449              		.loc 1 376 0
+ 450 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+ 451              	.LVL32:
+ 377:.\Generated_Source\PSoC4/Comp_1.c ****     if( 0u != filter)
+ 452              		.loc 1 377 0
+ 453 0008 002C     		cmp	r4, #0
+ 454 000a 05D0     		beq	.L37
+ 378:.\Generated_Source\PSoC4/Comp_1.c ****     {
+ 379:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_CONFIG_REG |= Comp_1_CONFIG_FILT;
+ 455              		.loc 1 379 0
+ 456 000c 064B     		ldr	r3, .L39
+ 457 000e 1968     		ldr	r1, [r3]
+ 458 0010 0822     		mov	r2, #8
+ 459 0012 0A43     		orr	r2, r1
+ 460 0014 1A60     		str	r2, [r3]
+ 461 0016 04E0     		b	.L38
+ 462              	.L37:
+ 380:.\Generated_Source\PSoC4/Comp_1.c ****     }
+ 381:.\Generated_Source\PSoC4/Comp_1.c ****     else
+ 382:.\Generated_Source\PSoC4/Comp_1.c ****     {
+ 383:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_CONFIG_REG &= (uint32)~Comp_1_CONFIG_FILT;
+ 463              		.loc 1 383 0
+ 464 0018 034B     		ldr	r3, .L39
+ 465 001a 1A68     		ldr	r2, [r3]
+ 466 001c 0821     		mov	r1, #8
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 16
+
+
+ 467 001e 8A43     		bic	r2, r1
+ 468 0020 1A60     		str	r2, [r3]
+ 469              	.L38:
+ 384:.\Generated_Source\PSoC4/Comp_1.c ****     }
+ 385:.\Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 470              		.loc 1 385 0
+ 471 0022 FFF7FEFF 		bl	CyExitCriticalSection
+ 472              	.LVL33:
+ 386:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 473              		.loc 1 386 0
+ 474              		@ sp needed
+ 475              	.LVL34:
+ 476 0026 10BD     		pop	{r4, pc}
+ 477              	.L40:
+ 478              		.align	2
+ 479              	.L39:
+ 480 0028 04002B40 		.word	1076559876
+ 481              		.cfi_endproc
+ 482              	.LFE12:
+ 483              		.size	Comp_1_SetFilter, .-Comp_1_SetFilter
+ 484              		.section	.text.Comp_1_GetCompare,"ax",%progbits
+ 485              		.align	2
+ 486              		.global	Comp_1_GetCompare
+ 487              		.code	16
+ 488              		.thumb_func
+ 489              		.type	Comp_1_GetCompare, %function
+ 490              	Comp_1_GetCompare:
+ 491              	.LFB13:
+ 387:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 388:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 389:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 390:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_GetCompare
+ 391:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 392:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 393:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 394:.\Generated_Source\PSoC4/Comp_1.c **** *  This function returns a nonzero value when the voltage connected to the
+ 395:.\Generated_Source\PSoC4/Comp_1.c **** *  positive input is greater than the negative input voltage.
+ 396:.\Generated_Source\PSoC4/Comp_1.c **** *  This function reads the direct (unflopped) comparator output which can also be 
+ 397:.\Generated_Source\PSoC4/Comp_1.c **** *  metastable (since it may result in incorrect data).
+ 398:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 399:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 400:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 401:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 402:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 403:.\Generated_Source\PSoC4/Comp_1.c **** *  (uint32) Comparator output state. This value is not impacted by the interrupt
+ 404:.\Generated_Source\PSoC4/Comp_1.c **** *  edge detect setting:
+ 405:.\Generated_Source\PSoC4/Comp_1.c **** *   0 - if positive input is less than negative one.
+ 406:.\Generated_Source\PSoC4/Comp_1.c **** *   1 - if positive input greater than negative one.
+ 407:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 408:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 409:.\Generated_Source\PSoC4/Comp_1.c **** uint32 Comp_1_GetCompare(void)
+ 410:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 492              		.loc 1 410 0
+ 493              		.cfi_startproc
+ 411:.\Generated_Source\PSoC4/Comp_1.c ****     return((uint32)((0u == (Comp_1_CONFIG_REG & Comp_1_CONFIG_OUT)) ? 0u : 1u));
+ 494              		.loc 1 411 0
+ 495 0000 024B     		ldr	r3, .L42
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 17
+
+
+ 496 0002 1868     		ldr	r0, [r3]
+ 497 0004 4006     		lsl	r0, r0, #25
+ 498 0006 C00F     		lsr	r0, r0, #31
+ 412:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 499              		.loc 1 412 0
+ 500              		@ sp needed
+ 501 0008 7047     		bx	lr
+ 502              	.L43:
+ 503 000a C046     		.align	2
+ 504              	.L42:
+ 505 000c 04002B40 		.word	1076559876
+ 506              		.cfi_endproc
+ 507              	.LFE13:
+ 508              		.size	Comp_1_GetCompare, .-Comp_1_GetCompare
+ 509              		.section	.text.Comp_1_ZeroCal,"ax",%progbits
+ 510              		.align	2
+ 511              		.global	Comp_1_ZeroCal
+ 512              		.code	16
+ 513              		.thumb_func
+ 514              		.type	Comp_1_ZeroCal, %function
+ 515              	Comp_1_ZeroCal:
+ 516              	.LFB14:
+ 413:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 414:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 415:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 416:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_ZeroCal
+ 417:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 418:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 419:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 420:.\Generated_Source\PSoC4/Comp_1.c **** *  Performs custom calibration of the input offset to minimize error for a
+ 421:.\Generated_Source\PSoC4/Comp_1.c **** *  specific set of conditions: comparator reference voltage, supply voltage,
+ 422:.\Generated_Source\PSoC4/Comp_1.c **** *  and operating temperature. A reference voltage in the range at which the
+ 423:.\Generated_Source\PSoC4/Comp_1.c **** *  comparator will be used must be applied to one of the inputs. The two inputs
+ 424:.\Generated_Source\PSoC4/Comp_1.c **** *  will be shorted internally to perform the offset calibration.
+ 425:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 426:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 427:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 428:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 429:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 430:.\Generated_Source\PSoC4/Comp_1.c **** *  The value from the comparator trim register after the offset calibration is
+ 431:.\Generated_Source\PSoC4/Comp_1.c **** *  complete. This value has the same format as the input parameter for the
+ 432:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_LoadTrim() API routine.
+ 433:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 434:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 435:.\Generated_Source\PSoC4/Comp_1.c **** uint32 Comp_1_ZeroCal(void)
+ 436:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 517              		.loc 1 436 0
+ 518              		.cfi_startproc
+ 519 0000 70B5     		push	{r4, r5, r6, lr}
+ 520              		.cfi_def_cfa_offset 16
+ 521              		.cfi_offset 4, -16
+ 522              		.cfi_offset 5, -12
+ 523              		.cfi_offset 6, -8
+ 524              		.cfi_offset 14, -4
+ 437:.\Generated_Source\PSoC4/Comp_1.c ****     uint32 cmpOut;
+ 438:.\Generated_Source\PSoC4/Comp_1.c ****     uint32 i;
+ 439:.\Generated_Source\PSoC4/Comp_1.c **** 
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 18
+
+
+ 440:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_DFT_REG |= Comp_1_DFT_CAL_EN;
+ 525              		.loc 1 440 0
+ 526 0002 254B     		ldr	r3, .L53
+ 527 0004 1968     		ldr	r1, [r3]
+ 528 0006 0122     		mov	r2, #1
+ 529 0008 0A43     		orr	r2, r1
+ 530 000a 1A60     		str	r2, [r3]
+ 441:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_TRIMA_REG = 0u;
+ 531              		.loc 1 441 0
+ 532 000c 0023     		mov	r3, #0
+ 533 000e 234A     		ldr	r2, .L53+4
+ 534 0010 1360     		str	r3, [r2]
+ 442:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_TRIMB_REG = 0u;
+ 535              		.loc 1 442 0
+ 536 0012 234A     		ldr	r2, .L53+8
+ 537 0014 1360     		str	r3, [r2]
+ 443:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 444:.\Generated_Source\PSoC4/Comp_1.c ****     CyDelayUs(1u);
+ 538              		.loc 1 444 0
+ 539 0016 0120     		mov	r0, #1
+ 540 0018 FFF7FEFF 		bl	CyDelayUs
+ 541              	.LVL35:
+ 445:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 446:.\Generated_Source\PSoC4/Comp_1.c ****     cmpOut = Comp_1_GetCompare();
+ 542              		.loc 1 446 0
+ 543 001c FFF7FEFF 		bl	Comp_1_GetCompare
+ 544              	.LVL36:
+ 545 0020 061E     		sub	r6, r0, #0
+ 546              	.LVL37:
+ 447:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 448:.\Generated_Source\PSoC4/Comp_1.c ****     if(0u != cmpOut)
+ 547              		.loc 1 448 0
+ 548 0022 02D0     		beq	.L45
+ 449:.\Generated_Source\PSoC4/Comp_1.c ****     {
+ 450:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_TRIMA_REG = ((uint32) 0x01u << Comp_1_TRIMA_SIGNBIT);
+ 549              		.loc 1 450 0
+ 550 0024 1022     		mov	r2, #16
+ 551 0026 1D4B     		ldr	r3, .L53+4
+ 552 0028 1A60     		str	r2, [r3]
+ 553              	.L45:
+ 436:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 554              		.loc 1 436 0 discriminator 1
+ 555 002a 1024     		mov	r4, #16
+ 451:.\Generated_Source\PSoC4/Comp_1.c ****     }
+ 452:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 453:.\Generated_Source\PSoC4/Comp_1.c ****     for(i = (Comp_1_TRIMA_MAX_VALUE +1u ); i != 0u; i--)
+ 454:.\Generated_Source\PSoC4/Comp_1.c ****     {
+ 455:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_TRIMA_REG++;
+ 556              		.loc 1 455 0 discriminator 1
+ 557 002c 1B4D     		ldr	r5, .L53+4
+ 558 002e 0AE0     		b	.L46
+ 559              	.LVL38:
+ 560              	.L48:
+ 561              		.loc 1 455 0 is_stmt 0
+ 562 0030 2B68     		ldr	r3, [r5]
+ 563 0032 0133     		add	r3, r3, #1
+ 564 0034 2B60     		str	r3, [r5]
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 19
+
+
+ 456:.\Generated_Source\PSoC4/Comp_1.c ****         CyDelayUs(1u);
+ 565              		.loc 1 456 0 is_stmt 1
+ 566 0036 0120     		mov	r0, #1
+ 567 0038 FFF7FEFF 		bl	CyDelayUs
+ 568              	.LVL39:
+ 457:.\Generated_Source\PSoC4/Comp_1.c ****         if(cmpOut != Comp_1_GetCompare())
+ 569              		.loc 1 457 0
+ 570 003c FFF7FEFF 		bl	Comp_1_GetCompare
+ 571              	.LVL40:
+ 572 0040 B042     		cmp	r0, r6
+ 573 0042 02D1     		bne	.L47
+ 453:.\Generated_Source\PSoC4/Comp_1.c ****     for(i = (Comp_1_TRIMA_MAX_VALUE +1u ); i != 0u; i--)
+ 574              		.loc 1 453 0
+ 575 0044 013C     		sub	r4, r4, #1
+ 576              	.LVL41:
+ 577              	.L46:
+ 453:.\Generated_Source\PSoC4/Comp_1.c ****     for(i = (Comp_1_TRIMA_MAX_VALUE +1u ); i != 0u; i--)
+ 578              		.loc 1 453 0 is_stmt 0 discriminator 1
+ 579 0046 002C     		cmp	r4, #0
+ 580 0048 F2D1     		bne	.L48
+ 581              	.L47:
+ 458:.\Generated_Source\PSoC4/Comp_1.c ****         {
+ 459:.\Generated_Source\PSoC4/Comp_1.c ****             break;
+ 460:.\Generated_Source\PSoC4/Comp_1.c ****         }
+ 461:.\Generated_Source\PSoC4/Comp_1.c ****     }
+ 462:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 463:.\Generated_Source\PSoC4/Comp_1.c ****     if(((uint32)(Comp_1_CONFIG_REG >> Comp_1_CONFIG_REG_SHIFT) &
+ 582              		.loc 1 463 0 is_stmt 1
+ 583 004a 164B     		ldr	r3, .L53+12
+ 584 004c 1B68     		ldr	r3, [r3]
+ 585 004e 9A07     		lsl	r2, r3, #30
+ 586 0050 16D1     		bne	.L49
+ 464:.\Generated_Source\PSoC4/Comp_1.c ****         Comp_1_SPEED_PARAM_MASK) == Comp_1_MED_SPEED)
+ 465:.\Generated_Source\PSoC4/Comp_1.c ****     {
+ 466:.\Generated_Source\PSoC4/Comp_1.c ****         cmpOut = Comp_1_GetCompare();
+ 587              		.loc 1 466 0
+ 588 0052 FFF7FEFF 		bl	Comp_1_GetCompare
+ 589              	.LVL42:
+ 590 0056 061E     		sub	r6, r0, #0
+ 591              	.LVL43:
+ 467:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 468:.\Generated_Source\PSoC4/Comp_1.c ****         if(0u == cmpOut)
+ 592              		.loc 1 468 0
+ 593 0058 02D1     		bne	.L50
+ 469:.\Generated_Source\PSoC4/Comp_1.c ****         {
+ 470:.\Generated_Source\PSoC4/Comp_1.c ****             Comp_1_TRIMB_REG = ((uint32)1u << Comp_1_TRIMB_SIGNBIT);
+ 594              		.loc 1 470 0
+ 595 005a 1022     		mov	r2, #16
+ 596 005c 104B     		ldr	r3, .L53+8
+ 597 005e 1A60     		str	r2, [r3]
+ 598              	.L50:
+ 436:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 599              		.loc 1 436 0 discriminator 1
+ 600 0060 1024     		mov	r4, #16
+ 601              	.LVL44:
+ 471:.\Generated_Source\PSoC4/Comp_1.c ****         }
+ 472:.\Generated_Source\PSoC4/Comp_1.c **** 
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 20
+
+
+ 473:.\Generated_Source\PSoC4/Comp_1.c ****         for(i = (Comp_1_TRIMB_MAX_VALUE +1u ); i != 0u; i--)
+ 474:.\Generated_Source\PSoC4/Comp_1.c ****         {
+ 475:.\Generated_Source\PSoC4/Comp_1.c ****             Comp_1_TRIMB_REG++;
+ 602              		.loc 1 475 0 discriminator 1
+ 603 0062 0F4D     		ldr	r5, .L53+8
+ 604 0064 0AE0     		b	.L51
+ 605              	.LVL45:
+ 606              	.L52:
+ 607              		.loc 1 475 0 is_stmt 0
+ 608 0066 2B68     		ldr	r3, [r5]
+ 609 0068 0133     		add	r3, r3, #1
+ 610 006a 2B60     		str	r3, [r5]
+ 476:.\Generated_Source\PSoC4/Comp_1.c ****             CyDelayUs(1u);
+ 611              		.loc 1 476 0 is_stmt 1
+ 612 006c 0120     		mov	r0, #1
+ 613 006e FFF7FEFF 		bl	CyDelayUs
+ 614              	.LVL46:
+ 477:.\Generated_Source\PSoC4/Comp_1.c ****             if(cmpOut != Comp_1_GetCompare())
+ 615              		.loc 1 477 0
+ 616 0072 FFF7FEFF 		bl	Comp_1_GetCompare
+ 617              	.LVL47:
+ 618 0076 B042     		cmp	r0, r6
+ 619 0078 02D1     		bne	.L49
+ 473:.\Generated_Source\PSoC4/Comp_1.c ****         for(i = (Comp_1_TRIMB_MAX_VALUE +1u ); i != 0u; i--)
+ 620              		.loc 1 473 0
+ 621 007a 013C     		sub	r4, r4, #1
+ 622              	.LVL48:
+ 623              	.L51:
+ 473:.\Generated_Source\PSoC4/Comp_1.c ****         for(i = (Comp_1_TRIMB_MAX_VALUE +1u ); i != 0u; i--)
+ 624              		.loc 1 473 0 is_stmt 0 discriminator 1
+ 625 007c 002C     		cmp	r4, #0
+ 626 007e F2D1     		bne	.L52
+ 627              	.L49:
+ 478:.\Generated_Source\PSoC4/Comp_1.c ****             {
+ 479:.\Generated_Source\PSoC4/Comp_1.c ****                 break;
+ 480:.\Generated_Source\PSoC4/Comp_1.c ****             }
+ 481:.\Generated_Source\PSoC4/Comp_1.c ****         }
+ 482:.\Generated_Source\PSoC4/Comp_1.c ****     }
+ 483:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 484:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_DFT_REG &= ((uint32)~Comp_1_DFT_CAL_EN);
+ 628              		.loc 1 484 0 is_stmt 1
+ 629 0080 054B     		ldr	r3, .L53
+ 630 0082 1A68     		ldr	r2, [r3]
+ 631 0084 0121     		mov	r1, #1
+ 632 0086 8A43     		bic	r2, r1
+ 633 0088 1A60     		str	r2, [r3]
+ 485:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 486:.\Generated_Source\PSoC4/Comp_1.c ****     return (Comp_1_TRIMA_REG | ((uint32)Comp_1_TRIMB_REG << Comp_1_TRIMB_SHIFT));
+ 634              		.loc 1 486 0
+ 635 008a 044B     		ldr	r3, .L53+4
+ 636 008c 1B68     		ldr	r3, [r3]
+ 637 008e 044A     		ldr	r2, .L53+8
+ 638 0090 1068     		ldr	r0, [r2]
+ 639 0092 0002     		lsl	r0, r0, #8
+ 640 0094 1843     		orr	r0, r3
+ 487:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 641              		.loc 1 487 0
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 21
+
+
+ 642              		@ sp needed
+ 643              	.LVL49:
+ 644              	.LVL50:
+ 645 0096 70BD     		pop	{r4, r5, r6, pc}
+ 646              	.L54:
+ 647              		.align	2
+ 648              	.L53:
+ 649 0098 08002B40 		.word	1076559880
+ 650 009c 00FF2B40 		.word	1076625152
+ 651 00a0 04FF2B40 		.word	1076625156
+ 652 00a4 04002B40 		.word	1076559876
+ 653              		.cfi_endproc
+ 654              	.LFE14:
+ 655              		.size	Comp_1_ZeroCal, .-Comp_1_ZeroCal
+ 656              		.section	.text.Comp_1_LoadTrim,"ax",%progbits
+ 657              		.align	2
+ 658              		.global	Comp_1_LoadTrim
+ 659              		.code	16
+ 660              		.thumb_func
+ 661              		.type	Comp_1_LoadTrim, %function
+ 662              	Comp_1_LoadTrim:
+ 663              	.LFB15:
+ 488:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 489:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 490:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 491:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_LoadTrim
+ 492:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 493:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 494:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 495:.\Generated_Source\PSoC4/Comp_1.c **** *  This function writes a value into the comparator offset trim register.
+ 496:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 497:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 498:.\Generated_Source\PSoC4/Comp_1.c **** *  trimVal: Value to be stored in the comparator offset trim register. This
+ 499:.\Generated_Source\PSoC4/Comp_1.c **** *  value has the same format as the parameter returned by the
+ 500:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_ZeroCal() API routine.
+ 501:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 502:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 503:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 504:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 505:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 506:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_LoadTrim(uint32 trimVal)
+ 507:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 664              		.loc 1 507 0
+ 665              		.cfi_startproc
+ 666              	.LVL51:
+ 508:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_TRIMA_REG = (trimVal & Comp_1_TRIMA_MASK);
+ 667              		.loc 1 508 0
+ 668 0000 1F23     		mov	r3, #31
+ 669 0002 191C     		mov	r1, r3
+ 670 0004 0140     		and	r1, r0
+ 671 0006 034A     		ldr	r2, .L56
+ 672 0008 1160     		str	r1, [r2]
+ 509:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_TRIMB_REG = ((trimVal >> Comp_1_TRIMB_SHIFT) & Comp_1_TRIMB_MASK);
+ 673              		.loc 1 509 0
+ 674 000a 000A     		lsr	r0, r0, #8
+ 675              	.LVL52:
+ 676 000c 0340     		and	r3, r0
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 22
+
+
+ 677 000e 024A     		ldr	r2, .L56+4
+ 678 0010 1360     		str	r3, [r2]
+ 510:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 679              		.loc 1 510 0
+ 680              		@ sp needed
+ 681 0012 7047     		bx	lr
+ 682              	.L57:
+ 683              		.align	2
+ 684              	.L56:
+ 685 0014 00FF2B40 		.word	1076625152
+ 686 0018 04FF2B40 		.word	1076625156
+ 687              		.cfi_endproc
+ 688              	.LFE15:
+ 689              		.size	Comp_1_LoadTrim, .-Comp_1_LoadTrim
+ 690              		.section	.text.Comp_1_SetOutputMode,"ax",%progbits
+ 691              		.align	2
+ 692              		.global	Comp_1_SetOutputMode
+ 693              		.code	16
+ 694              		.thumb_func
+ 695              		.type	Comp_1_SetOutputMode, %function
+ 696              	Comp_1_SetOutputMode:
+ 697              	.LFB16:
+ 511:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 512:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 513:.\Generated_Source\PSoC4/Comp_1.c **** #if (Comp_1_CY_LPCOMP_V2)
+ 514:.\Generated_Source\PSoC4/Comp_1.c ****     
+ 515:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 516:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetOutputMode
+ 517:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 518:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 519:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 520:.\Generated_Source\PSoC4/Comp_1.c **** *  Set comparator output mode. 
+ 521:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 522:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 523:.\Generated_Source\PSoC4/Comp_1.c **** *  uint32 mode: Comparator output mode value
+ 524:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_OUT_DIRECT - Direct output
+ 525:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_OUT_SYNC   - Synchronized output
+ 526:.\Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_OUT_PULSE  - Pulse output
+ 527:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 528:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 529:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 530:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 531:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 532:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetOutputMode(uint32 mode)
+ 533:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 698              		.loc 1 533 0
+ 699              		.cfi_startproc
+ 700              	.LVL53:
+ 701 0000 10B5     		push	{r4, lr}
+ 702              		.cfi_def_cfa_offset 8
+ 703              		.cfi_offset 4, -8
+ 704              		.cfi_offset 14, -4
+ 705 0002 041C     		mov	r4, r0
+ 534:.\Generated_Source\PSoC4/Comp_1.c ****     uint32 config;
+ 535:.\Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 536:.\Generated_Source\PSoC4/Comp_1.c ****     
+ 537:.\Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 23
+
+
+ 706              		.loc 1 537 0
+ 707 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+ 708              	.LVL54:
+ 538:.\Generated_Source\PSoC4/Comp_1.c ****     config = Comp_1_CONFIG_REG & ((uint32)~(Comp_1_CONFIG_DSI_BYPASS | \
+ 709              		.loc 1 538 0
+ 710 0008 0B4B     		ldr	r3, .L63
+ 711 000a 1A68     		ldr	r2, [r3]
+ 712 000c 0B4B     		ldr	r3, .L63+4
+ 713 000e 1A40     		and	r2, r3
+ 714              	.LVL55:
+ 539:.\Generated_Source\PSoC4/Comp_1.c ****                                                      Comp_1_CONFIG_DSI_LEVEL));
+ 540:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG = config | Comp_1_GET_CONFIG_DSI_BYPASS(mode) | \
+ 715              		.loc 1 540 0
+ 716 0010 A307     		lsl	r3, r4, #30
+ 717 0012 02D5     		bpl	.L61
+ 718 0014 8023     		mov	r3, #128
+ 719 0016 5B02     		lsl	r3, r3, #9
+ 720 0018 00E0     		b	.L59
+ 721              	.L61:
+ 722 001a 0023     		mov	r3, #0
+ 723              	.L59:
+ 724              		.loc 1 540 0 is_stmt 0 discriminator 3
+ 725 001c 1A43     		orr	r2, r3
+ 726              	.LVL56:
+ 541:.\Generated_Source\PSoC4/Comp_1.c ****                                            Comp_1_GET_CONFIG_DSI_LEVEL(mode);
+ 727              		.loc 1 541 0 is_stmt 1 discriminator 3
+ 728 001e E307     		lsl	r3, r4, #31
+ 729 0020 02D5     		bpl	.L62
+ 730              		.loc 1 541 0 is_stmt 0
+ 731 0022 8023     		mov	r3, #128
+ 732 0024 9B02     		lsl	r3, r3, #10
+ 733 0026 00E0     		b	.L60
+ 734              	.L62:
+ 735 0028 0023     		mov	r3, #0
+ 736              	.L60:
+ 540:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG = config | Comp_1_GET_CONFIG_DSI_BYPASS(mode) | \
+ 737              		.loc 1 540 0 is_stmt 1
+ 738 002a 1A43     		orr	r2, r3
+ 739 002c 024B     		ldr	r3, .L63
+ 740 002e 1A60     		str	r2, [r3]
+ 542:.\Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 741              		.loc 1 542 0
+ 742 0030 FFF7FEFF 		bl	CyExitCriticalSection
+ 743              	.LVL57:
+ 543:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 744              		.loc 1 543 0
+ 745              		@ sp needed
+ 746              	.LVL58:
+ 747 0034 10BD     		pop	{r4, pc}
+ 748              	.L64:
+ 749 0036 C046     		.align	2
+ 750              	.L63:
+ 751 0038 04002B40 		.word	1076559876
+ 752 003c FFFFFCFF 		.word	-196609
+ 753              		.cfi_endproc
+ 754              	.LFE16:
+ 755              		.size	Comp_1_SetOutputMode, .-Comp_1_SetOutputMode
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 24
+
+
+ 756              		.section	.text.Comp_1_SetInterruptMask,"ax",%progbits
+ 757              		.align	2
+ 758              		.global	Comp_1_SetInterruptMask
+ 759              		.code	16
+ 760              		.thumb_func
+ 761              		.type	Comp_1_SetInterruptMask, %function
+ 762              	Comp_1_SetInterruptMask:
+ 763              	.LFB17:
+ 544:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 545:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 546:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 547:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetInterruptMask
+ 548:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 549:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 550:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 551:.\Generated_Source\PSoC4/Comp_1.c **** *  Configures which bits of interrupt request register will trigger an interrupt 
+ 552:.\Generated_Source\PSoC4/Comp_1.c **** *  event.
+ 553:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 554:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 555:.\Generated_Source\PSoC4/Comp_1.c **** *  uint32 interruptMask: Mask of interrupts to set. Each component instance has
+ 556:.\Generated_Source\PSoC4/Comp_1.c **** *  a mask value: Comp_1_INTR_MASK.
+ 557:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 558:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 559:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 560:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 561:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 562:.\Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetInterruptMask(uint32 interruptMask)
+ 563:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 764              		.loc 1 563 0
+ 765              		.cfi_startproc
+ 766              	.LVL59:
+ 564:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_intrMaskRegState = interruptMask;
+ 767              		.loc 1 564 0
+ 768 0000 024B     		ldr	r3, .L66
+ 769 0002 1860     		str	r0, [r3]
+ 565:.\Generated_Source\PSoC4/Comp_1.c ****     Comp_1_INTR_MASK_REG = Comp_1_intrMaskRegState;
+ 770              		.loc 1 565 0
+ 771 0004 024B     		ldr	r3, .L66+4
+ 772 0006 1860     		str	r0, [r3]
+ 566:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 773              		.loc 1 566 0
+ 774              		@ sp needed
+ 775 0008 7047     		bx	lr
+ 776              	.L67:
+ 777 000a C046     		.align	2
+ 778              	.L66:
+ 779 000c 00000000 		.word	.LANCHOR0
+ 780 0010 18002B40 		.word	1076559896
+ 781              		.cfi_endproc
+ 782              	.LFE17:
+ 783              		.size	Comp_1_SetInterruptMask, .-Comp_1_SetInterruptMask
+ 784              		.section	.text.Comp_1_GetInterruptMask,"ax",%progbits
+ 785              		.align	2
+ 786              		.global	Comp_1_GetInterruptMask
+ 787              		.code	16
+ 788              		.thumb_func
+ 789              		.type	Comp_1_GetInterruptMask, %function
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 25
+
+
+ 790              	Comp_1_GetInterruptMask:
+ 791              	.LFB18:
+ 567:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 568:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 569:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 570:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_GetInterruptMask
+ 571:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 572:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 573:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 574:.\Generated_Source\PSoC4/Comp_1.c **** *  Returns interrupt mask.
+ 575:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 576:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 577:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 578:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 579:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 580:.\Generated_Source\PSoC4/Comp_1.c **** *  uint32:  Mask of enabled interrupt source. Each component instance 
+ 581:.\Generated_Source\PSoC4/Comp_1.c **** *  has a mask value: Comp_1_INTR_MASK.
+ 582:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 583:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 584:.\Generated_Source\PSoC4/Comp_1.c **** uint32 Comp_1_GetInterruptMask(void)
+ 585:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 792              		.loc 1 585 0
+ 793              		.cfi_startproc
+ 586:.\Generated_Source\PSoC4/Comp_1.c ****     return (Comp_1_INTR_MASK_REG);
+ 794              		.loc 1 586 0
+ 795 0000 014B     		ldr	r3, .L69
+ 796 0002 1868     		ldr	r0, [r3]
+ 587:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 797              		.loc 1 587 0
+ 798              		@ sp needed
+ 799 0004 7047     		bx	lr
+ 800              	.L70:
+ 801 0006 C046     		.align	2
+ 802              	.L69:
+ 803 0008 18002B40 		.word	1076559896
+ 804              		.cfi_endproc
+ 805              	.LFE18:
+ 806              		.size	Comp_1_GetInterruptMask, .-Comp_1_GetInterruptMask
+ 807              		.section	.text.Comp_1_GetInterruptSourceMasked,"ax",%progbits
+ 808              		.align	2
+ 809              		.global	Comp_1_GetInterruptSourceMasked
+ 810              		.code	16
+ 811              		.thumb_func
+ 812              		.type	Comp_1_GetInterruptSourceMasked, %function
+ 813              	Comp_1_GetInterruptSourceMasked:
+ 814              	.LFB19:
+ 588:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 589:.\Generated_Source\PSoC4/Comp_1.c **** 
+ 590:.\Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 591:.\Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_GetInterruptSourceMasked
+ 592:.\Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 593:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 594:.\Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 595:.\Generated_Source\PSoC4/Comp_1.c **** *  Returns interrupt request register masked by interrupt mask. Returns the result 
+ 596:.\Generated_Source\PSoC4/Comp_1.c **** *  of bitwise AND operation between corresponding interrupt request and mask bits.
+ 597:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 598:.\Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 26
+
+
+ 599:.\Generated_Source\PSoC4/Comp_1.c **** *  None
+ 600:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 601:.\Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 602:.\Generated_Source\PSoC4/Comp_1.c **** *  uint32: Status of enabled interrupt source. Each component instance 
+ 603:.\Generated_Source\PSoC4/Comp_1.c **** *  has a mask value: Comp_1_INTR_MASKED.
+ 604:.\Generated_Source\PSoC4/Comp_1.c **** *
+ 605:.\Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 606:.\Generated_Source\PSoC4/Comp_1.c **** uint32 Comp_1_GetInterruptSourceMasked(void)
+ 607:.\Generated_Source\PSoC4/Comp_1.c **** {
+ 815              		.loc 1 607 0
+ 816              		.cfi_startproc
+ 608:.\Generated_Source\PSoC4/Comp_1.c ****     return (Comp_1_INTR_MASKED_REG);
+ 817              		.loc 1 608 0
+ 818 0000 014B     		ldr	r3, .L72
+ 819 0002 1868     		ldr	r0, [r3]
+ 609:.\Generated_Source\PSoC4/Comp_1.c **** }
+ 820              		.loc 1 609 0
+ 821              		@ sp needed
+ 822 0004 7047     		bx	lr
+ 823              	.L73:
+ 824 0006 C046     		.align	2
+ 825              	.L72:
+ 826 0008 1C002B40 		.word	1076559900
+ 827              		.cfi_endproc
+ 828              	.LFE19:
+ 829              		.size	Comp_1_GetInterruptSourceMasked, .-Comp_1_GetInterruptSourceMasked
+ 830              		.global	Comp_1_initVar
+ 831              		.section	.noinit,"aw",%progbits
+ 832              		.align	2
+ 833              		.set	.LANCHOR0,. + 0
+ 834              		.type	Comp_1_intrMaskRegState, %object
+ 835              		.size	Comp_1_intrMaskRegState, 4
+ 836              	Comp_1_intrMaskRegState:
+ 837 0000 00000000 		.space	4
+ 838              		.bss
+ 839              		.align	2
+ 840              		.set	.LANCHOR1,. + 0
+ 841              		.type	Comp_1_internalIntr, %object
+ 842              		.size	Comp_1_internalIntr, 4
+ 843              	Comp_1_internalIntr:
+ 844 0000 00000000 		.space	4
+ 845              		.type	Comp_1_initVar, %object
+ 846              		.size	Comp_1_initVar, 1
+ 847              	Comp_1_initVar:
+ 848 0004 00       		.space	1
+ 849 0005 000000   		.text
+ 850              	.Letext0:
+ 851              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
+ 852              		.file 3 ".\\Generated_Source\\PSoC4\\CyLib.h"
+ 853              		.file 4 ".\\Generated_Source\\PSoC4\\cyPm.h"
+ 854              		.section	.debug_info,"",%progbits
+ 855              	.Ldebug_info0:
+ 856 0000 37050000 		.4byte	0x537
+ 857 0004 0400     		.2byte	0x4
+ 858 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 859 000a 04       		.byte	0x4
+ 860 000b 01       		.uleb128 0x1
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 27
+
+
+ 861 000c 0F020000 		.4byte	.LASF47
+ 862 0010 01       		.byte	0x1
+ 863 0011 3A030000 		.4byte	.LASF48
+ 864 0015 73000000 		.4byte	.LASF49
+ 865 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 866 001d 00000000 		.4byte	0
+ 867 0021 00000000 		.4byte	.Ldebug_line0
+ 868 0025 02       		.uleb128 0x2
+ 869 0026 01       		.byte	0x1
+ 870 0027 06       		.byte	0x6
+ 871 0028 81030000 		.4byte	.LASF0
+ 872 002c 02       		.uleb128 0x2
+ 873 002d 01       		.byte	0x1
+ 874 002e 08       		.byte	0x8
+ 875 002f 13010000 		.4byte	.LASF1
+ 876 0033 02       		.uleb128 0x2
+ 877 0034 02       		.byte	0x2
+ 878 0035 05       		.byte	0x5
+ 879 0036 13030000 		.4byte	.LASF2
+ 880 003a 02       		.uleb128 0x2
+ 881 003b 02       		.byte	0x2
+ 882 003c 07       		.byte	0x7
+ 883 003d 48000000 		.4byte	.LASF3
+ 884 0041 02       		.uleb128 0x2
+ 885 0042 04       		.byte	0x4
+ 886 0043 05       		.byte	0x5
+ 887 0044 6A030000 		.4byte	.LASF4
+ 888 0048 02       		.uleb128 0x2
+ 889 0049 04       		.byte	0x4
+ 890 004a 07       		.byte	0x7
+ 891 004b 30010000 		.4byte	.LASF5
+ 892 004f 02       		.uleb128 0x2
+ 893 0050 08       		.byte	0x8
+ 894 0051 05       		.byte	0x5
+ 895 0052 E1020000 		.4byte	.LASF6
+ 896 0056 02       		.uleb128 0x2
+ 897 0057 08       		.byte	0x8
+ 898 0058 07       		.byte	0x7
+ 899 0059 D7000000 		.4byte	.LASF7
+ 900 005d 03       		.uleb128 0x3
+ 901 005e 04       		.byte	0x4
+ 902 005f 05       		.byte	0x5
+ 903 0060 696E7400 		.ascii	"int\000"
+ 904 0064 02       		.uleb128 0x2
+ 905 0065 04       		.byte	0x4
+ 906 0066 07       		.byte	0x7
+ 907 0067 B2010000 		.4byte	.LASF8
+ 908 006b 04       		.uleb128 0x4
+ 909 006c 42010000 		.4byte	.LASF9
+ 910 0070 02       		.byte	0x2
+ 911 0071 B3       		.byte	0xb3
+ 912 0072 2C000000 		.4byte	0x2c
+ 913 0076 04       		.uleb128 0x4
+ 914 0077 8D010000 		.4byte	.LASF10
+ 915 007b 02       		.byte	0x2
+ 916 007c B4       		.byte	0xb4
+ 917 007d 3A000000 		.4byte	0x3a
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 28
+
+
+ 918 0081 04       		.uleb128 0x4
+ 919 0082 94010000 		.4byte	.LASF11
+ 920 0086 02       		.byte	0x2
+ 921 0087 B5       		.byte	0xb5
+ 922 0088 48000000 		.4byte	0x48
+ 923 008c 02       		.uleb128 0x2
+ 924 008d 04       		.byte	0x4
+ 925 008e 04       		.byte	0x4
+ 926 008f 2A000000 		.4byte	.LASF12
+ 927 0093 02       		.uleb128 0x2
+ 928 0094 08       		.byte	0x8
+ 929 0095 04       		.byte	0x4
+ 930 0096 6E010000 		.4byte	.LASF13
+ 931 009a 02       		.uleb128 0x2
+ 932 009b 01       		.byte	0x1
+ 933 009c 08       		.byte	0x8
+ 934 009d 0E030000 		.4byte	.LASF14
+ 935 00a1 05       		.uleb128 0x5
+ 936 00a2 18000000 		.4byte	.LASF15
+ 937 00a6 02       		.byte	0x2
+ 938 00a7 5F01     		.2byte	0x15f
+ 939 00a9 AD000000 		.4byte	0xad
+ 940 00ad 06       		.uleb128 0x6
+ 941 00ae 81000000 		.4byte	0x81
+ 942 00b2 02       		.uleb128 0x2
+ 943 00b3 04       		.byte	0x4
+ 944 00b4 07       		.byte	0x7
+ 945 00b5 C2020000 		.4byte	.LASF16
+ 946 00b9 07       		.uleb128 0x7
+ 947 00ba 1E000000 		.4byte	.LASF17
+ 948 00be 01       		.byte	0x1
+ 949 00bf 54       		.byte	0x54
+ 950 00c0 00000000 		.4byte	.LFB3
+ 951 00c4 4C000000 		.4byte	.LFE3-.LFB3
+ 952 00c8 01       		.uleb128 0x1
+ 953 00c9 9C       		.byte	0x9c
+ 954 00ca 00010000 		.4byte	0x100
+ 955 00ce 08       		.uleb128 0x8
+ 956 00cf EE000000 		.4byte	.LASF19
+ 957 00d3 01       		.byte	0x1
+ 958 00d4 56       		.byte	0x56
+ 959 00d5 6B000000 		.4byte	0x6b
+ 960 00d9 00000000 		.4byte	.LLST0
+ 961 00dd 09       		.uleb128 0x9
+ 962 00de 06000000 		.4byte	.LVL0
+ 963 00e2 06050000 		.4byte	0x506
+ 964 00e6 09       		.uleb128 0x9
+ 965 00e7 16000000 		.4byte	.LVL2
+ 966 00eb 11050000 		.4byte	0x511
+ 967 00ef 0A       		.uleb128 0xa
+ 968 00f0 3A000000 		.4byte	.LVL3
+ 969 00f4 1C050000 		.4byte	0x51c
+ 970 00f8 0B       		.uleb128 0xb
+ 971 00f9 01       		.uleb128 0x1
+ 972 00fa 50       		.byte	0x50
+ 973 00fb 02       		.uleb128 0x2
+ 974 00fc 74       		.byte	0x74
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 29
+
+
+ 975 00fd 00       		.sleb128 0
+ 976 00fe 00       		.byte	0
+ 977 00ff 00       		.byte	0
+ 978 0100 07       		.uleb128 0x7
+ 979 0101 73030000 		.4byte	.LASF18
+ 980 0105 01       		.byte	0x1
+ 981 0106 7E       		.byte	0x7e
+ 982 0107 00000000 		.4byte	.LFB4
+ 983 010b 28000000 		.4byte	.LFE4-.LFB4
+ 984 010f 01       		.uleb128 0x1
+ 985 0110 9C       		.byte	0x9c
+ 986 0111 37010000 		.4byte	0x137
+ 987 0115 08       		.uleb128 0x8
+ 988 0116 EE000000 		.4byte	.LASF19
+ 989 011a 01       		.byte	0x1
+ 990 011b 80       		.byte	0x80
+ 991 011c 6B000000 		.4byte	0x6b
+ 992 0120 1E000000 		.4byte	.LLST1
+ 993 0124 09       		.uleb128 0x9
+ 994 0125 06000000 		.4byte	.LVL5
+ 995 0129 06050000 		.4byte	0x506
+ 996 012d 09       		.uleb128 0x9
+ 997 012e 1E000000 		.4byte	.LVL6
+ 998 0132 1C050000 		.4byte	0x51c
+ 999 0136 00       		.byte	0
+ 1000 0137 07       		.uleb128 0x7
+ 1001 0138 BC030000 		.4byte	.LASF20
+ 1002 013c 01       		.byte	0x1
+ 1003 013d 38       		.byte	0x38
+ 1004 013e 00000000 		.4byte	.LFB2
+ 1005 0142 20000000 		.4byte	.LFE2-.LFB2
+ 1006 0146 01       		.uleb128 0x1
+ 1007 0147 9C       		.byte	0x9c
+ 1008 0148 5F010000 		.4byte	0x15f
+ 1009 014c 09       		.uleb128 0x9
+ 1010 014d 0E000000 		.4byte	.LVL7
+ 1011 0151 B9000000 		.4byte	0xb9
+ 1012 0155 09       		.uleb128 0x9
+ 1013 0156 18000000 		.4byte	.LVL8
+ 1014 015a 00010000 		.4byte	0x100
+ 1015 015e 00       		.byte	0
+ 1016 015f 07       		.uleb128 0x7
+ 1017 0160 E9010000 		.4byte	.LASF21
+ 1018 0164 01       		.byte	0x1
+ 1019 0165 A1       		.byte	0xa1
+ 1020 0166 00000000 		.4byte	.LFB5
+ 1021 016a 1C000000 		.4byte	.LFE5-.LFB5
+ 1022 016e 01       		.uleb128 0x1
+ 1023 016f 9C       		.byte	0x9c
+ 1024 0170 96010000 		.4byte	0x196
+ 1025 0174 08       		.uleb128 0x8
+ 1026 0175 EE000000 		.4byte	.LASF19
+ 1027 0179 01       		.byte	0x1
+ 1028 017a A3       		.byte	0xa3
+ 1029 017b 6B000000 		.4byte	0x6b
+ 1030 017f 31000000 		.4byte	.LLST2
+ 1031 0183 09       		.uleb128 0x9
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 30
+
+
+ 1032 0184 06000000 		.4byte	.LVL9
+ 1033 0188 06050000 		.4byte	0x506
+ 1034 018c 09       		.uleb128 0x9
+ 1035 018d 14000000 		.4byte	.LVL10
+ 1036 0191 1C050000 		.4byte	0x51c
+ 1037 0195 00       		.byte	0
+ 1038 0196 07       		.uleb128 0x7
+ 1039 0197 08000000 		.4byte	.LASF22
+ 1040 019b 01       		.byte	0x1
+ 1041 019c C8       		.byte	0xc8
+ 1042 019d 00000000 		.4byte	.LFB6
+ 1043 01a1 20000000 		.4byte	.LFE6-.LFB6
+ 1044 01a5 01       		.uleb128 0x1
+ 1045 01a6 9C       		.byte	0x9c
+ 1046 01a7 EB010000 		.4byte	0x1eb
+ 1047 01ab 0C       		.uleb128 0xc
+ 1048 01ac BC020000 		.4byte	.LASF25
+ 1049 01b0 01       		.byte	0x1
+ 1050 01b1 C8       		.byte	0xc8
+ 1051 01b2 81000000 		.4byte	0x81
+ 1052 01b6 44000000 		.4byte	.LLST3
+ 1053 01ba 08       		.uleb128 0x8
+ 1054 01bb 67010000 		.4byte	.LASF23
+ 1055 01bf 01       		.byte	0x1
+ 1056 01c0 CA       		.byte	0xca
+ 1057 01c1 81000000 		.4byte	0x81
+ 1058 01c5 70000000 		.4byte	.LLST4
+ 1059 01c9 08       		.uleb128 0x8
+ 1060 01ca EE000000 		.4byte	.LASF19
+ 1061 01ce 01       		.byte	0x1
+ 1062 01cf CB       		.byte	0xcb
+ 1063 01d0 6B000000 		.4byte	0x6b
+ 1064 01d4 83000000 		.4byte	.LLST5
+ 1065 01d8 09       		.uleb128 0x9
+ 1066 01d9 08000000 		.4byte	.LVL12
+ 1067 01dd 06050000 		.4byte	0x506
+ 1068 01e1 09       		.uleb128 0x9
+ 1069 01e2 1A000000 		.4byte	.LVL14
+ 1070 01e6 1C050000 		.4byte	0x51c
+ 1071 01ea 00       		.byte	0
+ 1072 01eb 07       		.uleb128 0x7
+ 1073 01ec 30000000 		.4byte	.LASF24
+ 1074 01f0 01       		.byte	0x1
+ 1075 01f1 E7       		.byte	0xe7
+ 1076 01f2 00000000 		.4byte	.LFB7
+ 1077 01f6 2C000000 		.4byte	.LFE7-.LFB7
+ 1078 01fa 01       		.uleb128 0x1
+ 1079 01fb 9C       		.byte	0x9c
+ 1080 01fc 40020000 		.4byte	0x240
+ 1081 0200 0C       		.uleb128 0xc
+ 1082 0201 CB020000 		.4byte	.LASF26
+ 1083 0205 01       		.byte	0x1
+ 1084 0206 E7       		.byte	0xe7
+ 1085 0207 81000000 		.4byte	0x81
+ 1086 020b 96000000 		.4byte	.LLST6
+ 1087 020f 08       		.uleb128 0x8
+ 1088 0210 67010000 		.4byte	.LASF23
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 31
+
+
+ 1089 0214 01       		.byte	0x1
+ 1090 0215 E9       		.byte	0xe9
+ 1091 0216 81000000 		.4byte	0x81
+ 1092 021a B7000000 		.4byte	.LLST7
+ 1093 021e 08       		.uleb128 0x8
+ 1094 021f EE000000 		.4byte	.LASF19
+ 1095 0223 01       		.byte	0x1
+ 1096 0224 EA       		.byte	0xea
+ 1097 0225 6B000000 		.4byte	0x6b
+ 1098 0229 CA000000 		.4byte	.LLST8
+ 1099 022d 09       		.uleb128 0x9
+ 1100 022e 10000000 		.4byte	.LVL18
+ 1101 0232 06050000 		.4byte	0x506
+ 1102 0236 09       		.uleb128 0x9
+ 1103 0237 20000000 		.4byte	.LVL21
+ 1104 023b 1C050000 		.4byte	0x51c
+ 1105 023f 00       		.byte	0
+ 1106 0240 0D       		.uleb128 0xd
+ 1107 0241 F5010000 		.4byte	.LASF34
+ 1108 0245 01       		.byte	0x1
+ 1109 0246 0701     		.2byte	0x107
+ 1110 0248 81000000 		.4byte	0x81
+ 1111 024c 00000000 		.4byte	.LFB8
+ 1112 0250 0C000000 		.4byte	.LFE8-.LFB8
+ 1113 0254 01       		.uleb128 0x1
+ 1114 0255 9C       		.byte	0x9c
+ 1115 0256 0E       		.uleb128 0xe
+ 1116 0257 9B020000 		.4byte	.LASF27
+ 1117 025b 01       		.byte	0x1
+ 1118 025c 1F01     		.2byte	0x11f
+ 1119 025e 00000000 		.4byte	.LFB9
+ 1120 0262 0C000000 		.4byte	.LFE9-.LFB9
+ 1121 0266 01       		.uleb128 0x1
+ 1122 0267 9C       		.byte	0x9c
+ 1123 0268 7B020000 		.4byte	0x27b
+ 1124 026c 0F       		.uleb128 0xf
+ 1125 026d 5C030000 		.4byte	.LASF28
+ 1126 0271 01       		.byte	0x1
+ 1127 0272 1F01     		.2byte	0x11f
+ 1128 0274 81000000 		.4byte	0x81
+ 1129 0278 01       		.uleb128 0x1
+ 1130 0279 50       		.byte	0x50
+ 1131 027a 00       		.byte	0
+ 1132 027b 0E       		.uleb128 0xe
+ 1133 027c FF000000 		.4byte	.LASF29
+ 1134 0280 01       		.byte	0x1
+ 1135 0281 3701     		.2byte	0x137
+ 1136 0283 00000000 		.4byte	.LFB10
+ 1137 0287 1C000000 		.4byte	.LFE10-.LFB10
+ 1138 028b 01       		.uleb128 0x1
+ 1139 028c 9C       		.byte	0x9c
+ 1140 028d C4020000 		.4byte	0x2c4
+ 1141 0291 10       		.uleb128 0x10
+ 1142 0292 5C030000 		.4byte	.LASF28
+ 1143 0296 01       		.byte	0x1
+ 1144 0297 3701     		.2byte	0x137
+ 1145 0299 81000000 		.4byte	0x81
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 32
+
+
+ 1146 029d DD000000 		.4byte	.LLST9
+ 1147 02a1 11       		.uleb128 0x11
+ 1148 02a2 EE000000 		.4byte	.LASF19
+ 1149 02a6 01       		.byte	0x1
+ 1150 02a7 3901     		.2byte	0x139
+ 1151 02a9 6B000000 		.4byte	0x6b
+ 1152 02ad 09010000 		.4byte	.LLST10
+ 1153 02b1 09       		.uleb128 0x9
+ 1154 02b2 08000000 		.4byte	.LVL24
+ 1155 02b6 06050000 		.4byte	0x506
+ 1156 02ba 09       		.uleb128 0x9
+ 1157 02bb 14000000 		.4byte	.LVL26
+ 1158 02bf 1C050000 		.4byte	0x51c
+ 1159 02c3 00       		.byte	0
+ 1160 02c4 0E       		.uleb128 0xe
+ 1161 02c5 EF020000 		.4byte	.LASF30
+ 1162 02c9 01       		.byte	0x1
+ 1163 02ca 5101     		.2byte	0x151
+ 1164 02cc 00000000 		.4byte	.LFB11
+ 1165 02d0 2C000000 		.4byte	.LFE11-.LFB11
+ 1166 02d4 01       		.uleb128 0x1
+ 1167 02d5 9C       		.byte	0x9c
+ 1168 02d6 0D030000 		.4byte	0x30d
+ 1169 02da 10       		.uleb128 0x10
+ 1170 02db B1020000 		.4byte	.LASF31
+ 1171 02df 01       		.byte	0x1
+ 1172 02e0 5101     		.2byte	0x151
+ 1173 02e2 81000000 		.4byte	0x81
+ 1174 02e6 1C010000 		.4byte	.LLST11
+ 1175 02ea 11       		.uleb128 0x11
+ 1176 02eb EE000000 		.4byte	.LASF19
+ 1177 02ef 01       		.byte	0x1
+ 1178 02f0 5301     		.2byte	0x153
+ 1179 02f2 6B000000 		.4byte	0x6b
+ 1180 02f6 48010000 		.4byte	.LLST12
+ 1181 02fa 09       		.uleb128 0x9
+ 1182 02fb 08000000 		.4byte	.LVL28
+ 1183 02ff 06050000 		.4byte	0x506
+ 1184 0303 09       		.uleb128 0x9
+ 1185 0304 26000000 		.4byte	.LVL29
+ 1186 0308 1C050000 		.4byte	0x51c
+ 1187 030c 00       		.byte	0
+ 1188 030d 0E       		.uleb128 0xe
+ 1189 030e D0020000 		.4byte	.LASF32
+ 1190 0312 01       		.byte	0x1
+ 1191 0313 7401     		.2byte	0x174
+ 1192 0315 00000000 		.4byte	.LFB12
+ 1193 0319 2C000000 		.4byte	.LFE12-.LFB12
+ 1194 031d 01       		.uleb128 0x1
+ 1195 031e 9C       		.byte	0x9c
+ 1196 031f 56030000 		.4byte	0x356
+ 1197 0323 10       		.uleb128 0x10
+ 1198 0324 60010000 		.4byte	.LASF33
+ 1199 0328 01       		.byte	0x1
+ 1200 0329 7401     		.2byte	0x174
+ 1201 032b 81000000 		.4byte	0x81
+ 1202 032f 5B010000 		.4byte	.LLST13
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 33
+
+
+ 1203 0333 11       		.uleb128 0x11
+ 1204 0334 EE000000 		.4byte	.LASF19
+ 1205 0338 01       		.byte	0x1
+ 1206 0339 7601     		.2byte	0x176
+ 1207 033b 6B000000 		.4byte	0x6b
+ 1208 033f 87010000 		.4byte	.LLST14
+ 1209 0343 09       		.uleb128 0x9
+ 1210 0344 08000000 		.4byte	.LVL32
+ 1211 0348 06050000 		.4byte	0x506
+ 1212 034c 09       		.uleb128 0x9
+ 1213 034d 26000000 		.4byte	.LVL33
+ 1214 0351 1C050000 		.4byte	0x51c
+ 1215 0355 00       		.byte	0
+ 1216 0356 0D       		.uleb128 0xd
+ 1217 0357 C5000000 		.4byte	.LASF35
+ 1218 035b 01       		.byte	0x1
+ 1219 035c 9901     		.2byte	0x199
+ 1220 035e 81000000 		.4byte	0x81
+ 1221 0362 00000000 		.4byte	.LFB13
+ 1222 0366 10000000 		.4byte	.LFE13-.LFB13
+ 1223 036a 01       		.uleb128 0x1
+ 1224 036b 9C       		.byte	0x9c
+ 1225 036c 12       		.uleb128 0x12
+ 1226 036d 21010000 		.4byte	.LASF50
+ 1227 0371 01       		.byte	0x1
+ 1228 0372 B301     		.2byte	0x1b3
+ 1229 0374 81000000 		.4byte	0x81
+ 1230 0378 00000000 		.4byte	.LFB14
+ 1231 037c A8000000 		.4byte	.LFE14-.LFB14
+ 1232 0380 01       		.uleb128 0x1
+ 1233 0381 9C       		.byte	0x9c
+ 1234 0382 02040000 		.4byte	0x402
+ 1235 0386 11       		.uleb128 0x11
+ 1236 0387 33030000 		.4byte	.LASF36
+ 1237 038b 01       		.byte	0x1
+ 1238 038c B501     		.2byte	0x1b5
+ 1239 038e 81000000 		.4byte	0x81
+ 1240 0392 9A010000 		.4byte	.LLST15
+ 1241 0396 13       		.uleb128 0x13
+ 1242 0397 6900     		.ascii	"i\000"
+ 1243 0399 01       		.byte	0x1
+ 1244 039a B601     		.2byte	0x1b6
+ 1245 039c 81000000 		.4byte	0x81
+ 1246 03a0 CE010000 		.4byte	.LLST16
+ 1247 03a4 14       		.uleb128 0x14
+ 1248 03a5 1C000000 		.4byte	.LVL35
+ 1249 03a9 2D050000 		.4byte	0x52d
+ 1250 03ad B7030000 		.4byte	0x3b7
+ 1251 03b1 0B       		.uleb128 0xb
+ 1252 03b2 01       		.uleb128 0x1
+ 1253 03b3 50       		.byte	0x50
+ 1254 03b4 01       		.uleb128 0x1
+ 1255 03b5 31       		.byte	0x31
+ 1256 03b6 00       		.byte	0
+ 1257 03b7 09       		.uleb128 0x9
+ 1258 03b8 20000000 		.4byte	.LVL36
+ 1259 03bc 56030000 		.4byte	0x356
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 34
+
+
+ 1260 03c0 14       		.uleb128 0x14
+ 1261 03c1 3C000000 		.4byte	.LVL39
+ 1262 03c5 2D050000 		.4byte	0x52d
+ 1263 03c9 D3030000 		.4byte	0x3d3
+ 1264 03cd 0B       		.uleb128 0xb
+ 1265 03ce 01       		.uleb128 0x1
+ 1266 03cf 50       		.byte	0x50
+ 1267 03d0 01       		.uleb128 0x1
+ 1268 03d1 31       		.byte	0x31
+ 1269 03d2 00       		.byte	0
+ 1270 03d3 09       		.uleb128 0x9
+ 1271 03d4 40000000 		.4byte	.LVL40
+ 1272 03d8 56030000 		.4byte	0x356
+ 1273 03dc 09       		.uleb128 0x9
+ 1274 03dd 56000000 		.4byte	.LVL42
+ 1275 03e1 56030000 		.4byte	0x356
+ 1276 03e5 14       		.uleb128 0x14
+ 1277 03e6 72000000 		.4byte	.LVL46
+ 1278 03ea 2D050000 		.4byte	0x52d
+ 1279 03ee F8030000 		.4byte	0x3f8
+ 1280 03f2 0B       		.uleb128 0xb
+ 1281 03f3 01       		.uleb128 0x1
+ 1282 03f4 50       		.byte	0x50
+ 1283 03f5 01       		.uleb128 0x1
+ 1284 03f6 31       		.byte	0x31
+ 1285 03f7 00       		.byte	0
+ 1286 03f8 09       		.uleb128 0x9
+ 1287 03f9 76000000 		.4byte	.LVL47
+ 1288 03fd 56030000 		.4byte	0x356
+ 1289 0401 00       		.byte	0
+ 1290 0402 0E       		.uleb128 0xe
+ 1291 0403 8B020000 		.4byte	.LASF37
+ 1292 0407 01       		.byte	0x1
+ 1293 0408 FA01     		.2byte	0x1fa
+ 1294 040a 00000000 		.4byte	.LFB15
+ 1295 040e 1C000000 		.4byte	.LFE15-.LFB15
+ 1296 0412 01       		.uleb128 0x1
+ 1297 0413 9C       		.byte	0x9c
+ 1298 0414 29040000 		.4byte	0x429
+ 1299 0418 10       		.uleb128 0x10
+ 1300 0419 00000000 		.4byte	.LASF38
+ 1301 041d 01       		.byte	0x1
+ 1302 041e FA01     		.2byte	0x1fa
+ 1303 0420 81000000 		.4byte	0x81
+ 1304 0424 EC010000 		.4byte	.LLST17
+ 1305 0428 00       		.byte	0
+ 1306 0429 0E       		.uleb128 0xe
+ 1307 042a C9030000 		.4byte	.LASF39
+ 1308 042e 01       		.byte	0x1
+ 1309 042f 1402     		.2byte	0x214
+ 1310 0431 00000000 		.4byte	.LFB16
+ 1311 0435 40000000 		.4byte	.LFE16-.LFB16
+ 1312 0439 01       		.uleb128 0x1
+ 1313 043a 9C       		.byte	0x9c
+ 1314 043b 82040000 		.4byte	0x482
+ 1315 043f 10       		.uleb128 0x10
+ 1316 0440 CB020000 		.4byte	.LASF26
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 35
+
+
+ 1317 0444 01       		.byte	0x1
+ 1318 0445 1402     		.2byte	0x214
+ 1319 0447 81000000 		.4byte	0x81
+ 1320 044b 0D020000 		.4byte	.LLST18
+ 1321 044f 11       		.uleb128 0x11
+ 1322 0450 67010000 		.4byte	.LASF23
+ 1323 0454 01       		.byte	0x1
+ 1324 0455 1602     		.2byte	0x216
+ 1325 0457 81000000 		.4byte	0x81
+ 1326 045b 39020000 		.4byte	.LLST19
+ 1327 045f 11       		.uleb128 0x11
+ 1328 0460 EE000000 		.4byte	.LASF19
+ 1329 0464 01       		.byte	0x1
+ 1330 0465 1702     		.2byte	0x217
+ 1331 0467 6B000000 		.4byte	0x6b
+ 1332 046b 4C020000 		.4byte	.LLST20
+ 1333 046f 09       		.uleb128 0x9
+ 1334 0470 08000000 		.4byte	.LVL54
+ 1335 0474 06050000 		.4byte	0x506
+ 1336 0478 09       		.uleb128 0x9
+ 1337 0479 34000000 		.4byte	.LVL57
+ 1338 047d 1C050000 		.4byte	0x51c
+ 1339 0481 00       		.byte	0
+ 1340 0482 0E       		.uleb128 0xe
+ 1341 0483 5B000000 		.4byte	.LASF40
+ 1342 0487 01       		.byte	0x1
+ 1343 0488 3202     		.2byte	0x232
+ 1344 048a 00000000 		.4byte	.LFB17
+ 1345 048e 14000000 		.4byte	.LFE17-.LFB17
+ 1346 0492 01       		.uleb128 0x1
+ 1347 0493 9C       		.byte	0x9c
+ 1348 0494 A7040000 		.4byte	0x4a7
+ 1349 0498 0F       		.uleb128 0xf
+ 1350 0499 5C030000 		.4byte	.LASF28
+ 1351 049d 01       		.byte	0x1
+ 1352 049e 3202     		.2byte	0x232
+ 1353 04a0 81000000 		.4byte	0x81
+ 1354 04a4 01       		.uleb128 0x1
+ 1355 04a5 50       		.byte	0x50
+ 1356 04a6 00       		.byte	0
+ 1357 04a7 0D       		.uleb128 0xd
+ 1358 04a8 75010000 		.4byte	.LASF41
+ 1359 04ac 01       		.byte	0x1
+ 1360 04ad 4802     		.2byte	0x248
+ 1361 04af 81000000 		.4byte	0x81
+ 1362 04b3 00000000 		.4byte	.LFB18
+ 1363 04b7 0C000000 		.4byte	.LFE18-.LFB18
+ 1364 04bb 01       		.uleb128 0x1
+ 1365 04bc 9C       		.byte	0x9c
+ 1366 04bd 0D       		.uleb128 0xd
+ 1367 04be 9C030000 		.4byte	.LASF42
+ 1368 04c2 01       		.byte	0x1
+ 1369 04c3 5E02     		.2byte	0x25e
+ 1370 04c5 81000000 		.4byte	0x81
+ 1371 04c9 00000000 		.4byte	.LFB19
+ 1372 04cd 0C000000 		.4byte	.LFE19-.LFB19
+ 1373 04d1 01       		.uleb128 0x1
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 36
+
+
+ 1374 04d2 9C       		.byte	0x9c
+ 1375 04d3 15       		.uleb128 0x15
+ 1376 04d4 BF010000 		.4byte	.LASF43
+ 1377 04d8 01       		.byte	0x1
+ 1378 04d9 18       		.byte	0x18
+ 1379 04da 81000000 		.4byte	0x81
+ 1380 04de 05       		.uleb128 0x5
+ 1381 04df 03       		.byte	0x3
+ 1382 04e0 00000000 		.4byte	Comp_1_internalIntr
+ 1383 04e4 15       		.uleb128 0x15
+ 1384 04e5 48010000 		.4byte	.LASF44
+ 1385 04e9 01       		.byte	0x1
+ 1386 04ea 1E       		.byte	0x1e
+ 1387 04eb 81000000 		.4byte	0x81
+ 1388 04ef 05       		.uleb128 0x5
+ 1389 04f0 03       		.byte	0x3
+ 1390 04f1 00000000 		.4byte	Comp_1_intrMaskRegState
+ 1391 04f5 16       		.uleb128 0x16
+ 1392 04f6 8D030000 		.4byte	.LASF51
+ 1393 04fa 01       		.byte	0x1
+ 1394 04fb 17       		.byte	0x17
+ 1395 04fc 6B000000 		.4byte	0x6b
+ 1396 0500 05       		.uleb128 0x5
+ 1397 0501 03       		.byte	0x3
+ 1398 0502 00000000 		.4byte	Comp_1_initVar
+ 1399 0506 17       		.uleb128 0x17
+ 1400 0507 9B010000 		.4byte	.LASF45
+ 1401 050b 03       		.byte	0x3
+ 1402 050c 5E       		.byte	0x5e
+ 1403 050d 6B000000 		.4byte	0x6b
+ 1404 0511 17       		.uleb128 0x17
+ 1405 0512 1D030000 		.4byte	.LASF46
+ 1406 0516 04       		.byte	0x4
+ 1407 0517 23       		.byte	0x23
+ 1408 0518 81000000 		.4byte	0x81
+ 1409 051c 18       		.uleb128 0x18
+ 1410 051d D3010000 		.4byte	.LASF52
+ 1411 0521 03       		.byte	0x3
+ 1412 0522 5F       		.byte	0x5f
+ 1413 0523 2D050000 		.4byte	0x52d
+ 1414 0527 19       		.uleb128 0x19
+ 1415 0528 6B000000 		.4byte	0x6b
+ 1416 052c 00       		.byte	0
+ 1417 052d 1A       		.uleb128 0x1a
+ 1418 052e 04030000 		.4byte	.LASF53
+ 1419 0532 03       		.byte	0x3
+ 1420 0533 58       		.byte	0x58
+ 1421 0534 19       		.uleb128 0x19
+ 1422 0535 76000000 		.4byte	0x76
+ 1423 0539 00       		.byte	0
+ 1424 053a 00       		.byte	0
+ 1425              		.section	.debug_abbrev,"",%progbits
+ 1426              	.Ldebug_abbrev0:
+ 1427 0000 01       		.uleb128 0x1
+ 1428 0001 11       		.uleb128 0x11
+ 1429 0002 01       		.byte	0x1
+ 1430 0003 25       		.uleb128 0x25
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 37
+
+
+ 1431 0004 0E       		.uleb128 0xe
+ 1432 0005 13       		.uleb128 0x13
+ 1433 0006 0B       		.uleb128 0xb
+ 1434 0007 03       		.uleb128 0x3
+ 1435 0008 0E       		.uleb128 0xe
+ 1436 0009 1B       		.uleb128 0x1b
+ 1437 000a 0E       		.uleb128 0xe
+ 1438 000b 55       		.uleb128 0x55
+ 1439 000c 17       		.uleb128 0x17
+ 1440 000d 11       		.uleb128 0x11
+ 1441 000e 01       		.uleb128 0x1
+ 1442 000f 10       		.uleb128 0x10
+ 1443 0010 17       		.uleb128 0x17
+ 1444 0011 00       		.byte	0
+ 1445 0012 00       		.byte	0
+ 1446 0013 02       		.uleb128 0x2
+ 1447 0014 24       		.uleb128 0x24
+ 1448 0015 00       		.byte	0
+ 1449 0016 0B       		.uleb128 0xb
+ 1450 0017 0B       		.uleb128 0xb
+ 1451 0018 3E       		.uleb128 0x3e
+ 1452 0019 0B       		.uleb128 0xb
+ 1453 001a 03       		.uleb128 0x3
+ 1454 001b 0E       		.uleb128 0xe
+ 1455 001c 00       		.byte	0
+ 1456 001d 00       		.byte	0
+ 1457 001e 03       		.uleb128 0x3
+ 1458 001f 24       		.uleb128 0x24
+ 1459 0020 00       		.byte	0
+ 1460 0021 0B       		.uleb128 0xb
+ 1461 0022 0B       		.uleb128 0xb
+ 1462 0023 3E       		.uleb128 0x3e
+ 1463 0024 0B       		.uleb128 0xb
+ 1464 0025 03       		.uleb128 0x3
+ 1465 0026 08       		.uleb128 0x8
+ 1466 0027 00       		.byte	0
+ 1467 0028 00       		.byte	0
+ 1468 0029 04       		.uleb128 0x4
+ 1469 002a 16       		.uleb128 0x16
+ 1470 002b 00       		.byte	0
+ 1471 002c 03       		.uleb128 0x3
+ 1472 002d 0E       		.uleb128 0xe
+ 1473 002e 3A       		.uleb128 0x3a
+ 1474 002f 0B       		.uleb128 0xb
+ 1475 0030 3B       		.uleb128 0x3b
+ 1476 0031 0B       		.uleb128 0xb
+ 1477 0032 49       		.uleb128 0x49
+ 1478 0033 13       		.uleb128 0x13
+ 1479 0034 00       		.byte	0
+ 1480 0035 00       		.byte	0
+ 1481 0036 05       		.uleb128 0x5
+ 1482 0037 16       		.uleb128 0x16
+ 1483 0038 00       		.byte	0
+ 1484 0039 03       		.uleb128 0x3
+ 1485 003a 0E       		.uleb128 0xe
+ 1486 003b 3A       		.uleb128 0x3a
+ 1487 003c 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 38
+
+
+ 1488 003d 3B       		.uleb128 0x3b
+ 1489 003e 05       		.uleb128 0x5
+ 1490 003f 49       		.uleb128 0x49
+ 1491 0040 13       		.uleb128 0x13
+ 1492 0041 00       		.byte	0
+ 1493 0042 00       		.byte	0
+ 1494 0043 06       		.uleb128 0x6
+ 1495 0044 35       		.uleb128 0x35
+ 1496 0045 00       		.byte	0
+ 1497 0046 49       		.uleb128 0x49
+ 1498 0047 13       		.uleb128 0x13
+ 1499 0048 00       		.byte	0
+ 1500 0049 00       		.byte	0
+ 1501 004a 07       		.uleb128 0x7
+ 1502 004b 2E       		.uleb128 0x2e
+ 1503 004c 01       		.byte	0x1
+ 1504 004d 3F       		.uleb128 0x3f
+ 1505 004e 19       		.uleb128 0x19
+ 1506 004f 03       		.uleb128 0x3
+ 1507 0050 0E       		.uleb128 0xe
+ 1508 0051 3A       		.uleb128 0x3a
+ 1509 0052 0B       		.uleb128 0xb
+ 1510 0053 3B       		.uleb128 0x3b
+ 1511 0054 0B       		.uleb128 0xb
+ 1512 0055 27       		.uleb128 0x27
+ 1513 0056 19       		.uleb128 0x19
+ 1514 0057 11       		.uleb128 0x11
+ 1515 0058 01       		.uleb128 0x1
+ 1516 0059 12       		.uleb128 0x12
+ 1517 005a 06       		.uleb128 0x6
+ 1518 005b 40       		.uleb128 0x40
+ 1519 005c 18       		.uleb128 0x18
+ 1520 005d 9742     		.uleb128 0x2117
+ 1521 005f 19       		.uleb128 0x19
+ 1522 0060 01       		.uleb128 0x1
+ 1523 0061 13       		.uleb128 0x13
+ 1524 0062 00       		.byte	0
+ 1525 0063 00       		.byte	0
+ 1526 0064 08       		.uleb128 0x8
+ 1527 0065 34       		.uleb128 0x34
+ 1528 0066 00       		.byte	0
+ 1529 0067 03       		.uleb128 0x3
+ 1530 0068 0E       		.uleb128 0xe
+ 1531 0069 3A       		.uleb128 0x3a
+ 1532 006a 0B       		.uleb128 0xb
+ 1533 006b 3B       		.uleb128 0x3b
+ 1534 006c 0B       		.uleb128 0xb
+ 1535 006d 49       		.uleb128 0x49
+ 1536 006e 13       		.uleb128 0x13
+ 1537 006f 02       		.uleb128 0x2
+ 1538 0070 17       		.uleb128 0x17
+ 1539 0071 00       		.byte	0
+ 1540 0072 00       		.byte	0
+ 1541 0073 09       		.uleb128 0x9
+ 1542 0074 898201   		.uleb128 0x4109
+ 1543 0077 00       		.byte	0
+ 1544 0078 11       		.uleb128 0x11
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 39
+
+
+ 1545 0079 01       		.uleb128 0x1
+ 1546 007a 31       		.uleb128 0x31
+ 1547 007b 13       		.uleb128 0x13
+ 1548 007c 00       		.byte	0
+ 1549 007d 00       		.byte	0
+ 1550 007e 0A       		.uleb128 0xa
+ 1551 007f 898201   		.uleb128 0x4109
+ 1552 0082 01       		.byte	0x1
+ 1553 0083 11       		.uleb128 0x11
+ 1554 0084 01       		.uleb128 0x1
+ 1555 0085 31       		.uleb128 0x31
+ 1556 0086 13       		.uleb128 0x13
+ 1557 0087 00       		.byte	0
+ 1558 0088 00       		.byte	0
+ 1559 0089 0B       		.uleb128 0xb
+ 1560 008a 8A8201   		.uleb128 0x410a
+ 1561 008d 00       		.byte	0
+ 1562 008e 02       		.uleb128 0x2
+ 1563 008f 18       		.uleb128 0x18
+ 1564 0090 9142     		.uleb128 0x2111
+ 1565 0092 18       		.uleb128 0x18
+ 1566 0093 00       		.byte	0
+ 1567 0094 00       		.byte	0
+ 1568 0095 0C       		.uleb128 0xc
+ 1569 0096 05       		.uleb128 0x5
+ 1570 0097 00       		.byte	0
+ 1571 0098 03       		.uleb128 0x3
+ 1572 0099 0E       		.uleb128 0xe
+ 1573 009a 3A       		.uleb128 0x3a
+ 1574 009b 0B       		.uleb128 0xb
+ 1575 009c 3B       		.uleb128 0x3b
+ 1576 009d 0B       		.uleb128 0xb
+ 1577 009e 49       		.uleb128 0x49
+ 1578 009f 13       		.uleb128 0x13
+ 1579 00a0 02       		.uleb128 0x2
+ 1580 00a1 17       		.uleb128 0x17
+ 1581 00a2 00       		.byte	0
+ 1582 00a3 00       		.byte	0
+ 1583 00a4 0D       		.uleb128 0xd
+ 1584 00a5 2E       		.uleb128 0x2e
+ 1585 00a6 00       		.byte	0
+ 1586 00a7 3F       		.uleb128 0x3f
+ 1587 00a8 19       		.uleb128 0x19
+ 1588 00a9 03       		.uleb128 0x3
+ 1589 00aa 0E       		.uleb128 0xe
+ 1590 00ab 3A       		.uleb128 0x3a
+ 1591 00ac 0B       		.uleb128 0xb
+ 1592 00ad 3B       		.uleb128 0x3b
+ 1593 00ae 05       		.uleb128 0x5
+ 1594 00af 27       		.uleb128 0x27
+ 1595 00b0 19       		.uleb128 0x19
+ 1596 00b1 49       		.uleb128 0x49
+ 1597 00b2 13       		.uleb128 0x13
+ 1598 00b3 11       		.uleb128 0x11
+ 1599 00b4 01       		.uleb128 0x1
+ 1600 00b5 12       		.uleb128 0x12
+ 1601 00b6 06       		.uleb128 0x6
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 40
+
+
+ 1602 00b7 40       		.uleb128 0x40
+ 1603 00b8 18       		.uleb128 0x18
+ 1604 00b9 9742     		.uleb128 0x2117
+ 1605 00bb 19       		.uleb128 0x19
+ 1606 00bc 00       		.byte	0
+ 1607 00bd 00       		.byte	0
+ 1608 00be 0E       		.uleb128 0xe
+ 1609 00bf 2E       		.uleb128 0x2e
+ 1610 00c0 01       		.byte	0x1
+ 1611 00c1 3F       		.uleb128 0x3f
+ 1612 00c2 19       		.uleb128 0x19
+ 1613 00c3 03       		.uleb128 0x3
+ 1614 00c4 0E       		.uleb128 0xe
+ 1615 00c5 3A       		.uleb128 0x3a
+ 1616 00c6 0B       		.uleb128 0xb
+ 1617 00c7 3B       		.uleb128 0x3b
+ 1618 00c8 05       		.uleb128 0x5
+ 1619 00c9 27       		.uleb128 0x27
+ 1620 00ca 19       		.uleb128 0x19
+ 1621 00cb 11       		.uleb128 0x11
+ 1622 00cc 01       		.uleb128 0x1
+ 1623 00cd 12       		.uleb128 0x12
+ 1624 00ce 06       		.uleb128 0x6
+ 1625 00cf 40       		.uleb128 0x40
+ 1626 00d0 18       		.uleb128 0x18
+ 1627 00d1 9742     		.uleb128 0x2117
+ 1628 00d3 19       		.uleb128 0x19
+ 1629 00d4 01       		.uleb128 0x1
+ 1630 00d5 13       		.uleb128 0x13
+ 1631 00d6 00       		.byte	0
+ 1632 00d7 00       		.byte	0
+ 1633 00d8 0F       		.uleb128 0xf
+ 1634 00d9 05       		.uleb128 0x5
+ 1635 00da 00       		.byte	0
+ 1636 00db 03       		.uleb128 0x3
+ 1637 00dc 0E       		.uleb128 0xe
+ 1638 00dd 3A       		.uleb128 0x3a
+ 1639 00de 0B       		.uleb128 0xb
+ 1640 00df 3B       		.uleb128 0x3b
+ 1641 00e0 05       		.uleb128 0x5
+ 1642 00e1 49       		.uleb128 0x49
+ 1643 00e2 13       		.uleb128 0x13
+ 1644 00e3 02       		.uleb128 0x2
+ 1645 00e4 18       		.uleb128 0x18
+ 1646 00e5 00       		.byte	0
+ 1647 00e6 00       		.byte	0
+ 1648 00e7 10       		.uleb128 0x10
+ 1649 00e8 05       		.uleb128 0x5
+ 1650 00e9 00       		.byte	0
+ 1651 00ea 03       		.uleb128 0x3
+ 1652 00eb 0E       		.uleb128 0xe
+ 1653 00ec 3A       		.uleb128 0x3a
+ 1654 00ed 0B       		.uleb128 0xb
+ 1655 00ee 3B       		.uleb128 0x3b
+ 1656 00ef 05       		.uleb128 0x5
+ 1657 00f0 49       		.uleb128 0x49
+ 1658 00f1 13       		.uleb128 0x13
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 41
+
+
+ 1659 00f2 02       		.uleb128 0x2
+ 1660 00f3 17       		.uleb128 0x17
+ 1661 00f4 00       		.byte	0
+ 1662 00f5 00       		.byte	0
+ 1663 00f6 11       		.uleb128 0x11
+ 1664 00f7 34       		.uleb128 0x34
+ 1665 00f8 00       		.byte	0
+ 1666 00f9 03       		.uleb128 0x3
+ 1667 00fa 0E       		.uleb128 0xe
+ 1668 00fb 3A       		.uleb128 0x3a
+ 1669 00fc 0B       		.uleb128 0xb
+ 1670 00fd 3B       		.uleb128 0x3b
+ 1671 00fe 05       		.uleb128 0x5
+ 1672 00ff 49       		.uleb128 0x49
+ 1673 0100 13       		.uleb128 0x13
+ 1674 0101 02       		.uleb128 0x2
+ 1675 0102 17       		.uleb128 0x17
+ 1676 0103 00       		.byte	0
+ 1677 0104 00       		.byte	0
+ 1678 0105 12       		.uleb128 0x12
+ 1679 0106 2E       		.uleb128 0x2e
+ 1680 0107 01       		.byte	0x1
+ 1681 0108 3F       		.uleb128 0x3f
+ 1682 0109 19       		.uleb128 0x19
+ 1683 010a 03       		.uleb128 0x3
+ 1684 010b 0E       		.uleb128 0xe
+ 1685 010c 3A       		.uleb128 0x3a
+ 1686 010d 0B       		.uleb128 0xb
+ 1687 010e 3B       		.uleb128 0x3b
+ 1688 010f 05       		.uleb128 0x5
+ 1689 0110 27       		.uleb128 0x27
+ 1690 0111 19       		.uleb128 0x19
+ 1691 0112 49       		.uleb128 0x49
+ 1692 0113 13       		.uleb128 0x13
+ 1693 0114 11       		.uleb128 0x11
+ 1694 0115 01       		.uleb128 0x1
+ 1695 0116 12       		.uleb128 0x12
+ 1696 0117 06       		.uleb128 0x6
+ 1697 0118 40       		.uleb128 0x40
+ 1698 0119 18       		.uleb128 0x18
+ 1699 011a 9742     		.uleb128 0x2117
+ 1700 011c 19       		.uleb128 0x19
+ 1701 011d 01       		.uleb128 0x1
+ 1702 011e 13       		.uleb128 0x13
+ 1703 011f 00       		.byte	0
+ 1704 0120 00       		.byte	0
+ 1705 0121 13       		.uleb128 0x13
+ 1706 0122 34       		.uleb128 0x34
+ 1707 0123 00       		.byte	0
+ 1708 0124 03       		.uleb128 0x3
+ 1709 0125 08       		.uleb128 0x8
+ 1710 0126 3A       		.uleb128 0x3a
+ 1711 0127 0B       		.uleb128 0xb
+ 1712 0128 3B       		.uleb128 0x3b
+ 1713 0129 05       		.uleb128 0x5
+ 1714 012a 49       		.uleb128 0x49
+ 1715 012b 13       		.uleb128 0x13
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 42
+
+
+ 1716 012c 02       		.uleb128 0x2
+ 1717 012d 17       		.uleb128 0x17
+ 1718 012e 00       		.byte	0
+ 1719 012f 00       		.byte	0
+ 1720 0130 14       		.uleb128 0x14
+ 1721 0131 898201   		.uleb128 0x4109
+ 1722 0134 01       		.byte	0x1
+ 1723 0135 11       		.uleb128 0x11
+ 1724 0136 01       		.uleb128 0x1
+ 1725 0137 31       		.uleb128 0x31
+ 1726 0138 13       		.uleb128 0x13
+ 1727 0139 01       		.uleb128 0x1
+ 1728 013a 13       		.uleb128 0x13
+ 1729 013b 00       		.byte	0
+ 1730 013c 00       		.byte	0
+ 1731 013d 15       		.uleb128 0x15
+ 1732 013e 34       		.uleb128 0x34
+ 1733 013f 00       		.byte	0
+ 1734 0140 03       		.uleb128 0x3
+ 1735 0141 0E       		.uleb128 0xe
+ 1736 0142 3A       		.uleb128 0x3a
+ 1737 0143 0B       		.uleb128 0xb
+ 1738 0144 3B       		.uleb128 0x3b
+ 1739 0145 0B       		.uleb128 0xb
+ 1740 0146 49       		.uleb128 0x49
+ 1741 0147 13       		.uleb128 0x13
+ 1742 0148 02       		.uleb128 0x2
+ 1743 0149 18       		.uleb128 0x18
+ 1744 014a 00       		.byte	0
+ 1745 014b 00       		.byte	0
+ 1746 014c 16       		.uleb128 0x16
+ 1747 014d 34       		.uleb128 0x34
+ 1748 014e 00       		.byte	0
+ 1749 014f 03       		.uleb128 0x3
+ 1750 0150 0E       		.uleb128 0xe
+ 1751 0151 3A       		.uleb128 0x3a
+ 1752 0152 0B       		.uleb128 0xb
+ 1753 0153 3B       		.uleb128 0x3b
+ 1754 0154 0B       		.uleb128 0xb
+ 1755 0155 49       		.uleb128 0x49
+ 1756 0156 13       		.uleb128 0x13
+ 1757 0157 3F       		.uleb128 0x3f
+ 1758 0158 19       		.uleb128 0x19
+ 1759 0159 02       		.uleb128 0x2
+ 1760 015a 18       		.uleb128 0x18
+ 1761 015b 00       		.byte	0
+ 1762 015c 00       		.byte	0
+ 1763 015d 17       		.uleb128 0x17
+ 1764 015e 2E       		.uleb128 0x2e
+ 1765 015f 00       		.byte	0
+ 1766 0160 3F       		.uleb128 0x3f
+ 1767 0161 19       		.uleb128 0x19
+ 1768 0162 03       		.uleb128 0x3
+ 1769 0163 0E       		.uleb128 0xe
+ 1770 0164 3A       		.uleb128 0x3a
+ 1771 0165 0B       		.uleb128 0xb
+ 1772 0166 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 43
+
+
+ 1773 0167 0B       		.uleb128 0xb
+ 1774 0168 27       		.uleb128 0x27
+ 1775 0169 19       		.uleb128 0x19
+ 1776 016a 49       		.uleb128 0x49
+ 1777 016b 13       		.uleb128 0x13
+ 1778 016c 3C       		.uleb128 0x3c
+ 1779 016d 19       		.uleb128 0x19
+ 1780 016e 00       		.byte	0
+ 1781 016f 00       		.byte	0
+ 1782 0170 18       		.uleb128 0x18
+ 1783 0171 2E       		.uleb128 0x2e
+ 1784 0172 01       		.byte	0x1
+ 1785 0173 3F       		.uleb128 0x3f
+ 1786 0174 19       		.uleb128 0x19
+ 1787 0175 03       		.uleb128 0x3
+ 1788 0176 0E       		.uleb128 0xe
+ 1789 0177 3A       		.uleb128 0x3a
+ 1790 0178 0B       		.uleb128 0xb
+ 1791 0179 3B       		.uleb128 0x3b
+ 1792 017a 0B       		.uleb128 0xb
+ 1793 017b 27       		.uleb128 0x27
+ 1794 017c 19       		.uleb128 0x19
+ 1795 017d 3C       		.uleb128 0x3c
+ 1796 017e 19       		.uleb128 0x19
+ 1797 017f 01       		.uleb128 0x1
+ 1798 0180 13       		.uleb128 0x13
+ 1799 0181 00       		.byte	0
+ 1800 0182 00       		.byte	0
+ 1801 0183 19       		.uleb128 0x19
+ 1802 0184 05       		.uleb128 0x5
+ 1803 0185 00       		.byte	0
+ 1804 0186 49       		.uleb128 0x49
+ 1805 0187 13       		.uleb128 0x13
+ 1806 0188 00       		.byte	0
+ 1807 0189 00       		.byte	0
+ 1808 018a 1A       		.uleb128 0x1a
+ 1809 018b 2E       		.uleb128 0x2e
+ 1810 018c 01       		.byte	0x1
+ 1811 018d 3F       		.uleb128 0x3f
+ 1812 018e 19       		.uleb128 0x19
+ 1813 018f 03       		.uleb128 0x3
+ 1814 0190 0E       		.uleb128 0xe
+ 1815 0191 3A       		.uleb128 0x3a
+ 1816 0192 0B       		.uleb128 0xb
+ 1817 0193 3B       		.uleb128 0x3b
+ 1818 0194 0B       		.uleb128 0xb
+ 1819 0195 27       		.uleb128 0x27
+ 1820 0196 19       		.uleb128 0x19
+ 1821 0197 3C       		.uleb128 0x3c
+ 1822 0198 19       		.uleb128 0x19
+ 1823 0199 00       		.byte	0
+ 1824 019a 00       		.byte	0
+ 1825 019b 00       		.byte	0
+ 1826              		.section	.debug_loc,"",%progbits
+ 1827              	.Ldebug_loc0:
+ 1828              	.LLST0:
+ 1829 0000 08000000 		.4byte	.LVL1
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 44
+
+
+ 1830 0004 15000000 		.4byte	.LVL2-1
+ 1831 0008 0100     		.2byte	0x1
+ 1832 000a 50       		.byte	0x50
+ 1833 000b 15000000 		.4byte	.LVL2-1
+ 1834 000f 3A000000 		.4byte	.LVL4
+ 1835 0013 0100     		.2byte	0x1
+ 1836 0015 54       		.byte	0x54
+ 1837 0016 00000000 		.4byte	0
+ 1838 001a 00000000 		.4byte	0
+ 1839              	.LLST1:
+ 1840 001e 06000000 		.4byte	.LVL5
+ 1841 0022 1D000000 		.4byte	.LVL6-1
+ 1842 0026 0100     		.2byte	0x1
+ 1843 0028 50       		.byte	0x50
+ 1844 0029 00000000 		.4byte	0
+ 1845 002d 00000000 		.4byte	0
+ 1846              	.LLST2:
+ 1847 0031 06000000 		.4byte	.LVL9
+ 1848 0035 13000000 		.4byte	.LVL10-1
+ 1849 0039 0100     		.2byte	0x1
+ 1850 003b 50       		.byte	0x50
+ 1851 003c 00000000 		.4byte	0
+ 1852 0040 00000000 		.4byte	0
+ 1853              	.LLST3:
+ 1854 0044 00000000 		.4byte	.LVL11
+ 1855 0048 07000000 		.4byte	.LVL12-1
+ 1856 004c 0100     		.2byte	0x1
+ 1857 004e 50       		.byte	0x50
+ 1858 004f 07000000 		.4byte	.LVL12-1
+ 1859 0053 1A000000 		.4byte	.LVL15
+ 1860 0057 0100     		.2byte	0x1
+ 1861 0059 54       		.byte	0x54
+ 1862 005a 1A000000 		.4byte	.LVL15
+ 1863 005e 20000000 		.4byte	.LFE6
+ 1864 0062 0400     		.2byte	0x4
+ 1865 0064 F3       		.byte	0xf3
+ 1866 0065 01       		.uleb128 0x1
+ 1867 0066 50       		.byte	0x50
+ 1868 0067 9F       		.byte	0x9f
+ 1869 0068 00000000 		.4byte	0
+ 1870 006c 00000000 		.4byte	0
+ 1871              	.LLST4:
+ 1872 0070 10000000 		.4byte	.LVL13
+ 1873 0074 19000000 		.4byte	.LVL14-1
+ 1874 0078 0100     		.2byte	0x1
+ 1875 007a 51       		.byte	0x51
+ 1876 007b 00000000 		.4byte	0
+ 1877 007f 00000000 		.4byte	0
+ 1878              	.LLST5:
+ 1879 0083 08000000 		.4byte	.LVL12
+ 1880 0087 19000000 		.4byte	.LVL14-1
+ 1881 008b 0100     		.2byte	0x1
+ 1882 008d 50       		.byte	0x50
+ 1883 008e 00000000 		.4byte	0
+ 1884 0092 00000000 		.4byte	0
+ 1885              	.LLST6:
+ 1886 0096 00000000 		.4byte	.LVL16
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 45
+
+
+ 1887 009a 04000000 		.4byte	.LVL17
+ 1888 009e 0100     		.2byte	0x1
+ 1889 00a0 50       		.byte	0x50
+ 1890 00a1 04000000 		.4byte	.LVL17
+ 1891 00a5 2C000000 		.4byte	.LFE7
+ 1892 00a9 0400     		.2byte	0x4
+ 1893 00ab F3       		.byte	0xf3
+ 1894 00ac 01       		.uleb128 0x1
+ 1895 00ad 50       		.byte	0x50
+ 1896 00ae 9F       		.byte	0x9f
+ 1897 00af 00000000 		.4byte	0
+ 1898 00b3 00000000 		.4byte	0
+ 1899              	.LLST7:
+ 1900 00b7 16000000 		.4byte	.LVL19
+ 1901 00bb 1A000000 		.4byte	.LVL20
+ 1902 00bf 0100     		.2byte	0x1
+ 1903 00c1 52       		.byte	0x52
+ 1904 00c2 00000000 		.4byte	0
+ 1905 00c6 00000000 		.4byte	0
+ 1906              	.LLST8:
+ 1907 00ca 10000000 		.4byte	.LVL18
+ 1908 00ce 1F000000 		.4byte	.LVL21-1
+ 1909 00d2 0100     		.2byte	0x1
+ 1910 00d4 50       		.byte	0x50
+ 1911 00d5 00000000 		.4byte	0
+ 1912 00d9 00000000 		.4byte	0
+ 1913              	.LLST9:
+ 1914 00dd 00000000 		.4byte	.LVL23
+ 1915 00e1 07000000 		.4byte	.LVL24-1
+ 1916 00e5 0100     		.2byte	0x1
+ 1917 00e7 50       		.byte	0x50
+ 1918 00e8 07000000 		.4byte	.LVL24-1
+ 1919 00ec 0E000000 		.4byte	.LVL25
+ 1920 00f0 0100     		.2byte	0x1
+ 1921 00f2 54       		.byte	0x54
+ 1922 00f3 0E000000 		.4byte	.LVL25
+ 1923 00f7 1C000000 		.4byte	.LFE10
+ 1924 00fb 0400     		.2byte	0x4
+ 1925 00fd F3       		.byte	0xf3
+ 1926 00fe 01       		.uleb128 0x1
+ 1927 00ff 50       		.byte	0x50
+ 1928 0100 9F       		.byte	0x9f
+ 1929 0101 00000000 		.4byte	0
+ 1930 0105 00000000 		.4byte	0
+ 1931              	.LLST10:
+ 1932 0109 08000000 		.4byte	.LVL24
+ 1933 010d 13000000 		.4byte	.LVL26-1
+ 1934 0111 0100     		.2byte	0x1
+ 1935 0113 50       		.byte	0x50
+ 1936 0114 00000000 		.4byte	0
+ 1937 0118 00000000 		.4byte	0
+ 1938              	.LLST11:
+ 1939 011c 00000000 		.4byte	.LVL27
+ 1940 0120 07000000 		.4byte	.LVL28-1
+ 1941 0124 0100     		.2byte	0x1
+ 1942 0126 50       		.byte	0x50
+ 1943 0127 07000000 		.4byte	.LVL28-1
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 46
+
+
+ 1944 012b 26000000 		.4byte	.LVL30
+ 1945 012f 0100     		.2byte	0x1
+ 1946 0131 54       		.byte	0x54
+ 1947 0132 26000000 		.4byte	.LVL30
+ 1948 0136 2C000000 		.4byte	.LFE11
+ 1949 013a 0400     		.2byte	0x4
+ 1950 013c F3       		.byte	0xf3
+ 1951 013d 01       		.uleb128 0x1
+ 1952 013e 50       		.byte	0x50
+ 1953 013f 9F       		.byte	0x9f
+ 1954 0140 00000000 		.4byte	0
+ 1955 0144 00000000 		.4byte	0
+ 1956              	.LLST12:
+ 1957 0148 08000000 		.4byte	.LVL28
+ 1958 014c 25000000 		.4byte	.LVL29-1
+ 1959 0150 0100     		.2byte	0x1
+ 1960 0152 50       		.byte	0x50
+ 1961 0153 00000000 		.4byte	0
+ 1962 0157 00000000 		.4byte	0
+ 1963              	.LLST13:
+ 1964 015b 00000000 		.4byte	.LVL31
+ 1965 015f 07000000 		.4byte	.LVL32-1
+ 1966 0163 0100     		.2byte	0x1
+ 1967 0165 50       		.byte	0x50
+ 1968 0166 07000000 		.4byte	.LVL32-1
+ 1969 016a 26000000 		.4byte	.LVL34
+ 1970 016e 0100     		.2byte	0x1
+ 1971 0170 54       		.byte	0x54
+ 1972 0171 26000000 		.4byte	.LVL34
+ 1973 0175 2C000000 		.4byte	.LFE12
+ 1974 0179 0400     		.2byte	0x4
+ 1975 017b F3       		.byte	0xf3
+ 1976 017c 01       		.uleb128 0x1
+ 1977 017d 50       		.byte	0x50
+ 1978 017e 9F       		.byte	0x9f
+ 1979 017f 00000000 		.4byte	0
+ 1980 0183 00000000 		.4byte	0
+ 1981              	.LLST14:
+ 1982 0187 08000000 		.4byte	.LVL32
+ 1983 018b 25000000 		.4byte	.LVL33-1
+ 1984 018f 0100     		.2byte	0x1
+ 1985 0191 50       		.byte	0x50
+ 1986 0192 00000000 		.4byte	0
+ 1987 0196 00000000 		.4byte	0
+ 1988              	.LLST15:
+ 1989 019a 22000000 		.4byte	.LVL37
+ 1990 019e 30000000 		.4byte	.LVL38
+ 1991 01a2 0100     		.2byte	0x1
+ 1992 01a4 50       		.byte	0x50
+ 1993 01a5 30000000 		.4byte	.LVL38
+ 1994 01a9 58000000 		.4byte	.LVL43
+ 1995 01ad 0100     		.2byte	0x1
+ 1996 01af 56       		.byte	0x56
+ 1997 01b0 58000000 		.4byte	.LVL43
+ 1998 01b4 66000000 		.4byte	.LVL45
+ 1999 01b8 0100     		.2byte	0x1
+ 2000 01ba 50       		.byte	0x50
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 47
+
+
+ 2001 01bb 66000000 		.4byte	.LVL45
+ 2002 01bf 96000000 		.4byte	.LVL50
+ 2003 01c3 0100     		.2byte	0x1
+ 2004 01c5 56       		.byte	0x56
+ 2005 01c6 00000000 		.4byte	0
+ 2006 01ca 00000000 		.4byte	0
+ 2007              	.LLST16:
+ 2008 01ce 30000000 		.4byte	.LVL38
+ 2009 01d2 62000000 		.4byte	.LVL44
+ 2010 01d6 0100     		.2byte	0x1
+ 2011 01d8 54       		.byte	0x54
+ 2012 01d9 66000000 		.4byte	.LVL45
+ 2013 01dd 96000000 		.4byte	.LVL49
+ 2014 01e1 0100     		.2byte	0x1
+ 2015 01e3 54       		.byte	0x54
+ 2016 01e4 00000000 		.4byte	0
+ 2017 01e8 00000000 		.4byte	0
+ 2018              	.LLST17:
+ 2019 01ec 00000000 		.4byte	.LVL51
+ 2020 01f0 0C000000 		.4byte	.LVL52
+ 2021 01f4 0100     		.2byte	0x1
+ 2022 01f6 50       		.byte	0x50
+ 2023 01f7 0C000000 		.4byte	.LVL52
+ 2024 01fb 1C000000 		.4byte	.LFE15
+ 2025 01ff 0400     		.2byte	0x4
+ 2026 0201 F3       		.byte	0xf3
+ 2027 0202 01       		.uleb128 0x1
+ 2028 0203 50       		.byte	0x50
+ 2029 0204 9F       		.byte	0x9f
+ 2030 0205 00000000 		.4byte	0
+ 2031 0209 00000000 		.4byte	0
+ 2032              	.LLST18:
+ 2033 020d 00000000 		.4byte	.LVL53
+ 2034 0211 07000000 		.4byte	.LVL54-1
+ 2035 0215 0100     		.2byte	0x1
+ 2036 0217 50       		.byte	0x50
+ 2037 0218 07000000 		.4byte	.LVL54-1
+ 2038 021c 34000000 		.4byte	.LVL58
+ 2039 0220 0100     		.2byte	0x1
+ 2040 0222 54       		.byte	0x54
+ 2041 0223 34000000 		.4byte	.LVL58
+ 2042 0227 40000000 		.4byte	.LFE16
+ 2043 022b 0400     		.2byte	0x4
+ 2044 022d F3       		.byte	0xf3
+ 2045 022e 01       		.uleb128 0x1
+ 2046 022f 50       		.byte	0x50
+ 2047 0230 9F       		.byte	0x9f
+ 2048 0231 00000000 		.4byte	0
+ 2049 0235 00000000 		.4byte	0
+ 2050              	.LLST19:
+ 2051 0239 10000000 		.4byte	.LVL55
+ 2052 023d 1E000000 		.4byte	.LVL56
+ 2053 0241 0100     		.2byte	0x1
+ 2054 0243 52       		.byte	0x52
+ 2055 0244 00000000 		.4byte	0
+ 2056 0248 00000000 		.4byte	0
+ 2057              	.LLST20:
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 48
+
+
+ 2058 024c 08000000 		.4byte	.LVL54
+ 2059 0250 33000000 		.4byte	.LVL57-1
+ 2060 0254 0100     		.2byte	0x1
+ 2061 0256 50       		.byte	0x50
+ 2062 0257 00000000 		.4byte	0
+ 2063 025b 00000000 		.4byte	0
+ 2064              		.section	.debug_aranges,"",%progbits
+ 2065 0000 A4000000 		.4byte	0xa4
+ 2066 0004 0200     		.2byte	0x2
+ 2067 0006 00000000 		.4byte	.Ldebug_info0
+ 2068 000a 04       		.byte	0x4
+ 2069 000b 00       		.byte	0
+ 2070 000c 0000     		.2byte	0
+ 2071 000e 0000     		.2byte	0
+ 2072 0010 00000000 		.4byte	.LFB3
+ 2073 0014 4C000000 		.4byte	.LFE3-.LFB3
+ 2074 0018 00000000 		.4byte	.LFB4
+ 2075 001c 28000000 		.4byte	.LFE4-.LFB4
+ 2076 0020 00000000 		.4byte	.LFB2
+ 2077 0024 20000000 		.4byte	.LFE2-.LFB2
+ 2078 0028 00000000 		.4byte	.LFB5
+ 2079 002c 1C000000 		.4byte	.LFE5-.LFB5
+ 2080 0030 00000000 		.4byte	.LFB6
+ 2081 0034 20000000 		.4byte	.LFE6-.LFB6
+ 2082 0038 00000000 		.4byte	.LFB7
+ 2083 003c 2C000000 		.4byte	.LFE7-.LFB7
+ 2084 0040 00000000 		.4byte	.LFB8
+ 2085 0044 0C000000 		.4byte	.LFE8-.LFB8
+ 2086 0048 00000000 		.4byte	.LFB9
+ 2087 004c 0C000000 		.4byte	.LFE9-.LFB9
+ 2088 0050 00000000 		.4byte	.LFB10
+ 2089 0054 1C000000 		.4byte	.LFE10-.LFB10
+ 2090 0058 00000000 		.4byte	.LFB11
+ 2091 005c 2C000000 		.4byte	.LFE11-.LFB11
+ 2092 0060 00000000 		.4byte	.LFB12
+ 2093 0064 2C000000 		.4byte	.LFE12-.LFB12
+ 2094 0068 00000000 		.4byte	.LFB13
+ 2095 006c 10000000 		.4byte	.LFE13-.LFB13
+ 2096 0070 00000000 		.4byte	.LFB14
+ 2097 0074 A8000000 		.4byte	.LFE14-.LFB14
+ 2098 0078 00000000 		.4byte	.LFB15
+ 2099 007c 1C000000 		.4byte	.LFE15-.LFB15
+ 2100 0080 00000000 		.4byte	.LFB16
+ 2101 0084 40000000 		.4byte	.LFE16-.LFB16
+ 2102 0088 00000000 		.4byte	.LFB17
+ 2103 008c 14000000 		.4byte	.LFE17-.LFB17
+ 2104 0090 00000000 		.4byte	.LFB18
+ 2105 0094 0C000000 		.4byte	.LFE18-.LFB18
+ 2106 0098 00000000 		.4byte	.LFB19
+ 2107 009c 0C000000 		.4byte	.LFE19-.LFB19
+ 2108 00a0 00000000 		.4byte	0
+ 2109 00a4 00000000 		.4byte	0
+ 2110              		.section	.debug_ranges,"",%progbits
+ 2111              	.Ldebug_ranges0:
+ 2112 0000 00000000 		.4byte	.LFB3
+ 2113 0004 4C000000 		.4byte	.LFE3
+ 2114 0008 00000000 		.4byte	.LFB4
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 49
+
+
+ 2115 000c 28000000 		.4byte	.LFE4
+ 2116 0010 00000000 		.4byte	.LFB2
+ 2117 0014 20000000 		.4byte	.LFE2
+ 2118 0018 00000000 		.4byte	.LFB5
+ 2119 001c 1C000000 		.4byte	.LFE5
+ 2120 0020 00000000 		.4byte	.LFB6
+ 2121 0024 20000000 		.4byte	.LFE6
+ 2122 0028 00000000 		.4byte	.LFB7
+ 2123 002c 2C000000 		.4byte	.LFE7
+ 2124 0030 00000000 		.4byte	.LFB8
+ 2125 0034 0C000000 		.4byte	.LFE8
+ 2126 0038 00000000 		.4byte	.LFB9
+ 2127 003c 0C000000 		.4byte	.LFE9
+ 2128 0040 00000000 		.4byte	.LFB10
+ 2129 0044 1C000000 		.4byte	.LFE10
+ 2130 0048 00000000 		.4byte	.LFB11
+ 2131 004c 2C000000 		.4byte	.LFE11
+ 2132 0050 00000000 		.4byte	.LFB12
+ 2133 0054 2C000000 		.4byte	.LFE12
+ 2134 0058 00000000 		.4byte	.LFB13
+ 2135 005c 10000000 		.4byte	.LFE13
+ 2136 0060 00000000 		.4byte	.LFB14
+ 2137 0064 A8000000 		.4byte	.LFE14
+ 2138 0068 00000000 		.4byte	.LFB15
+ 2139 006c 1C000000 		.4byte	.LFE15
+ 2140 0070 00000000 		.4byte	.LFB16
+ 2141 0074 40000000 		.4byte	.LFE16
+ 2142 0078 00000000 		.4byte	.LFB17
+ 2143 007c 14000000 		.4byte	.LFE17
+ 2144 0080 00000000 		.4byte	.LFB18
+ 2145 0084 0C000000 		.4byte	.LFE18
+ 2146 0088 00000000 		.4byte	.LFB19
+ 2147 008c 0C000000 		.4byte	.LFE19
+ 2148 0090 00000000 		.4byte	0
+ 2149 0094 00000000 		.4byte	0
+ 2150              		.section	.debug_line,"",%progbits
+ 2151              	.Ldebug_line0:
+ 2152 0000 1F020000 		.section	.debug_str,"MS",%progbits,1
+ 2152      02005A00 
+ 2152      00000201 
+ 2152      FB0E0D00 
+ 2152      01010101 
+ 2153              	.LASF38:
+ 2154 0000 7472696D 		.ascii	"trimVal\000"
+ 2154      56616C00 
+ 2155              	.LASF22:
+ 2156 0008 436F6D70 		.ascii	"Comp_1_SetSpeed\000"
+ 2156      5F315F53 
+ 2156      65745370 
+ 2156      65656400 
+ 2157              	.LASF15:
+ 2158 0018 72656733 		.ascii	"reg32\000"
+ 2158      3200
+ 2159              	.LASF17:
+ 2160 001e 436F6D70 		.ascii	"Comp_1_Init\000"
+ 2160      5F315F49 
+ 2160      6E697400 
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 50
+
+
+ 2161              	.LASF12:
+ 2162 002a 666C6F61 		.ascii	"float\000"
+ 2162      7400
+ 2163              	.LASF24:
+ 2164 0030 436F6D70 		.ascii	"Comp_1_SetInterruptMode\000"
+ 2164      5F315F53 
+ 2164      6574496E 
+ 2164      74657272 
+ 2164      7570744D 
+ 2165              	.LASF3:
+ 2166 0048 73686F72 		.ascii	"short unsigned int\000"
+ 2166      7420756E 
+ 2166      7369676E 
+ 2166      65642069 
+ 2166      6E7400
+ 2167              	.LASF40:
+ 2168 005b 436F6D70 		.ascii	"Comp_1_SetInterruptMask\000"
+ 2168      5F315F53 
+ 2168      6574496E 
+ 2168      74657272 
+ 2168      7570744D 
+ 2169              	.LASF49:
+ 2170 0073 413A5C44 		.ascii	"A:\\Documents\\School\\ECEG-721_Embedded_Systems\\L"
+ 2170      6F63756D 
+ 2170      656E7473 
+ 2170      5C536368 
+ 2170      6F6F6C5C 
+ 2171 00a2 6162735C 		.ascii	"abs\\Lab7\\BLE Lab 1\\BLE Lab 1.cydsn\000"
+ 2171      4C616237 
+ 2171      5C424C45 
+ 2171      204C6162 
+ 2171      20315C42 
+ 2172              	.LASF35:
+ 2173 00c5 436F6D70 		.ascii	"Comp_1_GetCompare\000"
+ 2173      5F315F47 
+ 2173      6574436F 
+ 2173      6D706172 
+ 2173      6500
+ 2174              	.LASF7:
+ 2175 00d7 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2175      206C6F6E 
+ 2175      6720756E 
+ 2175      7369676E 
+ 2175      65642069 
+ 2176              	.LASF19:
+ 2177 00ee 656E6162 		.ascii	"enableInterrupts\000"
+ 2177      6C65496E 
+ 2177      74657272 
+ 2177      75707473 
+ 2177      00
+ 2178              	.LASF29:
+ 2179 00ff 436F6D70 		.ascii	"Comp_1_SetInterrupt\000"
+ 2179      5F315F53 
+ 2179      6574496E 
+ 2179      74657272 
+ 2179      75707400 
+ 2180              	.LASF1:
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 51
+
+
+ 2181 0113 756E7369 		.ascii	"unsigned char\000"
+ 2181      676E6564 
+ 2181      20636861 
+ 2181      7200
+ 2182              	.LASF50:
+ 2183 0121 436F6D70 		.ascii	"Comp_1_ZeroCal\000"
+ 2183      5F315F5A 
+ 2183      65726F43 
+ 2183      616C00
+ 2184              	.LASF5:
+ 2185 0130 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2185      20756E73 
+ 2185      69676E65 
+ 2185      6420696E 
+ 2185      7400
+ 2186              	.LASF9:
+ 2187 0142 75696E74 		.ascii	"uint8\000"
+ 2187      3800
+ 2188              	.LASF44:
+ 2189 0148 436F6D70 		.ascii	"Comp_1_intrMaskRegState\000"
+ 2189      5F315F69 
+ 2189      6E74724D 
+ 2189      61736B52 
+ 2189      65675374 
+ 2190              	.LASF33:
+ 2191 0160 66696C74 		.ascii	"filter\000"
+ 2191      657200
+ 2192              	.LASF23:
+ 2193 0167 636F6E66 		.ascii	"config\000"
+ 2193      696700
+ 2194              	.LASF13:
+ 2195 016e 646F7562 		.ascii	"double\000"
+ 2195      6C6500
+ 2196              	.LASF41:
+ 2197 0175 436F6D70 		.ascii	"Comp_1_GetInterruptMask\000"
+ 2197      5F315F47 
+ 2197      6574496E 
+ 2197      74657272 
+ 2197      7570744D 
+ 2198              	.LASF10:
+ 2199 018d 75696E74 		.ascii	"uint16\000"
+ 2199      313600
+ 2200              	.LASF11:
+ 2201 0194 75696E74 		.ascii	"uint32\000"
+ 2201      333200
+ 2202              	.LASF45:
+ 2203 019b 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 2203      74657243 
+ 2203      72697469 
+ 2203      63616C53 
+ 2203      65637469 
+ 2204              	.LASF8:
+ 2205 01b2 756E7369 		.ascii	"unsigned int\000"
+ 2205      676E6564 
+ 2205      20696E74 
+ 2205      00
+ 2206              	.LASF43:
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 52
+
+
+ 2207 01bf 436F6D70 		.ascii	"Comp_1_internalIntr\000"
+ 2207      5F315F69 
+ 2207      6E746572 
+ 2207      6E616C49 
+ 2207      6E747200 
+ 2208              	.LASF52:
+ 2209 01d3 43794578 		.ascii	"CyExitCriticalSection\000"
+ 2209      69744372 
+ 2209      69746963 
+ 2209      616C5365 
+ 2209      6374696F 
+ 2210              	.LASF21:
+ 2211 01e9 436F6D70 		.ascii	"Comp_1_Stop\000"
+ 2211      5F315F53 
+ 2211      746F7000 
+ 2212              	.LASF34:
+ 2213 01f5 436F6D70 		.ascii	"Comp_1_GetInterruptSource\000"
+ 2213      5F315F47 
+ 2213      6574496E 
+ 2213      74657272 
+ 2213      75707453 
+ 2214              	.LASF47:
+ 2215 020f 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 2215      4320342E 
+ 2215      382E3420 
+ 2215      32303134 
+ 2215      30353236 
+ 2216 0242 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 2216      20726576 
+ 2216      6973696F 
+ 2216      6E203231 
+ 2216      31333538 
+ 2217 0275 67202D66 		.ascii	"g -ffunction-sections\000"
+ 2217      66756E63 
+ 2217      74696F6E 
+ 2217      2D736563 
+ 2217      74696F6E 
+ 2218              	.LASF37:
+ 2219 028b 436F6D70 		.ascii	"Comp_1_LoadTrim\000"
+ 2219      5F315F4C 
+ 2219      6F616454 
+ 2219      72696D00 
+ 2220              	.LASF27:
+ 2221 029b 436F6D70 		.ascii	"Comp_1_ClearInterrupt\000"
+ 2221      5F315F43 
+ 2221      6C656172 
+ 2221      496E7465 
+ 2221      72727570 
+ 2222              	.LASF31:
+ 2223 02b1 68797374 		.ascii	"hysteresis\000"
+ 2223      65726573 
+ 2223      697300
+ 2224              	.LASF25:
+ 2225 02bc 73706565 		.ascii	"speed\000"
+ 2225      6400
+ 2226              	.LASF16:
+ 2227 02c2 73697A65 		.ascii	"sizetype\000"
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 53
+
+
+ 2227      74797065 
+ 2227      00
+ 2228              	.LASF26:
+ 2229 02cb 6D6F6465 		.ascii	"mode\000"
+ 2229      00
+ 2230              	.LASF32:
+ 2231 02d0 436F6D70 		.ascii	"Comp_1_SetFilter\000"
+ 2231      5F315F53 
+ 2231      65744669 
+ 2231      6C746572 
+ 2231      00
+ 2232              	.LASF6:
+ 2233 02e1 6C6F6E67 		.ascii	"long long int\000"
+ 2233      206C6F6E 
+ 2233      6720696E 
+ 2233      7400
+ 2234              	.LASF30:
+ 2235 02ef 436F6D70 		.ascii	"Comp_1_SetHysteresis\000"
+ 2235      5F315F53 
+ 2235      65744879 
+ 2235      73746572 
+ 2235      65736973 
+ 2236              	.LASF53:
+ 2237 0304 43794465 		.ascii	"CyDelayUs\000"
+ 2237      6C617955 
+ 2237      7300
+ 2238              	.LASF14:
+ 2239 030e 63686172 		.ascii	"char\000"
+ 2239      00
+ 2240              	.LASF2:
+ 2241 0313 73686F72 		.ascii	"short int\000"
+ 2241      7420696E 
+ 2241      7400
+ 2242              	.LASF46:
+ 2243 031d 43795379 		.ascii	"CySysPmGetResetReason\000"
+ 2243      73506D47 
+ 2243      65745265 
+ 2243      73657452 
+ 2243      6561736F 
+ 2244              	.LASF36:
+ 2245 0333 636D704F 		.ascii	"cmpOut\000"
+ 2245      757400
+ 2246              	.LASF48:
+ 2247 033a 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\Comp_1.c\000"
+ 2247      6E657261 
+ 2247      7465645F 
+ 2247      536F7572 
+ 2247      63655C50 
+ 2248              	.LASF28:
+ 2249 035c 696E7465 		.ascii	"interruptMask\000"
+ 2249      72727570 
+ 2249      744D6173 
+ 2249      6B00
+ 2250              	.LASF4:
+ 2251 036a 6C6F6E67 		.ascii	"long int\000"
+ 2251      20696E74 
+ 2251      00
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\cc978npf.s 			page 54
+
+
+ 2252              	.LASF18:
+ 2253 0373 436F6D70 		.ascii	"Comp_1_Enable\000"
+ 2253      5F315F45 
+ 2253      6E61626C 
+ 2253      6500
+ 2254              	.LASF0:
+ 2255 0381 7369676E 		.ascii	"signed char\000"
+ 2255      65642063 
+ 2255      68617200 
+ 2256              	.LASF51:
+ 2257 038d 436F6D70 		.ascii	"Comp_1_initVar\000"
+ 2257      5F315F69 
+ 2257      6E697456 
+ 2257      617200
+ 2258              	.LASF42:
+ 2259 039c 436F6D70 		.ascii	"Comp_1_GetInterruptSourceMasked\000"
+ 2259      5F315F47 
+ 2259      6574496E 
+ 2259      74657272 
+ 2259      75707453 
+ 2260              	.LASF20:
+ 2261 03bc 436F6D70 		.ascii	"Comp_1_Start\000"
+ 2261      5F315F53 
+ 2261      74617274 
+ 2261      00
+ 2262              	.LASF39:
+ 2263 03c9 436F6D70 		.ascii	"Comp_1_SetOutputMode\000"
+ 2263      5F315F53 
+ 2263      65744F75 
+ 2263      74707574 
+ 2263      4D6F6465 
+ 2264              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

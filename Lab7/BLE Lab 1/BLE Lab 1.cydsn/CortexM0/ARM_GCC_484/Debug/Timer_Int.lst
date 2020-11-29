@@ -1,0 +1,2046 @@
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"Timer_Int.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.Timer_Int_Interrupt,"ax",%progbits
+  18              		.align	2
+  19              		.global	Timer_Int_Interrupt
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	Timer_Int_Interrupt, %function
+  23              	Timer_Int_Interrupt:
+  24              	.LFB5:
+  25              		.file 1 ".\\Generated_Source\\PSoC4\\Timer_Int.c"
+   1:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/Timer_Int.c **** * File Name: Timer_Int.c  
+   3:.\Generated_Source\PSoC4/Timer_Int.c **** * Version 1.70
+   4:.\Generated_Source\PSoC4/Timer_Int.c **** *
+   5:.\Generated_Source\PSoC4/Timer_Int.c **** *  Description:
+   6:.\Generated_Source\PSoC4/Timer_Int.c **** *   API for controlling the state of an interrupt.
+   7:.\Generated_Source\PSoC4/Timer_Int.c **** *
+   8:.\Generated_Source\PSoC4/Timer_Int.c **** *
+   9:.\Generated_Source\PSoC4/Timer_Int.c **** *  Note:
+  10:.\Generated_Source\PSoC4/Timer_Int.c **** *
+  11:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC4/Timer_Int.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC4/Timer_Int.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC4/Timer_Int.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC4/Timer_Int.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  18:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  19:.\Generated_Source\PSoC4/Timer_Int.c **** #include <cydevice_trm.h>
+  20:.\Generated_Source\PSoC4/Timer_Int.c **** #include <CyLib.h>
+  21:.\Generated_Source\PSoC4/Timer_Int.c **** #include <Timer_Int.h>
+  22:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  23:.\Generated_Source\PSoC4/Timer_Int.c **** #if !defined(Timer_Int__REMOVED) /* Check for removal by optimization */
+  24:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  25:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC4/Timer_Int.c **** *  Place your includes, defines and code here 
+  27:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************/
+  28:.\Generated_Source\PSoC4/Timer_Int.c **** /* `#START Timer_Int_intc` */
+  29:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  30:.\Generated_Source\PSoC4/Timer_Int.c **** /* `#END` */
+  31:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  32:.\Generated_Source\PSoC4/Timer_Int.c **** extern cyisraddress CyRamVectors[CYINT_IRQ_BASE + CY_NUM_INTERRUPTS];
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 2
+
+
+  33:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  34:.\Generated_Source\PSoC4/Timer_Int.c **** /* Declared in startup, used to set unused interrupts to. */
+  35:.\Generated_Source\PSoC4/Timer_Int.c **** CY_ISR_PROTO(IntDefaultHandler);
+  36:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  37:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  38:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+  39:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_Start
+  40:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+  41:.\Generated_Source\PSoC4/Timer_Int.c **** *
+  42:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+  43:.\Generated_Source\PSoC4/Timer_Int.c **** *  Set up the interrupt and enable it. This function disables the interrupt, 
+  44:.\Generated_Source\PSoC4/Timer_Int.c **** *  sets the default interrupt vector, sets the priority from the value in the
+  45:.\Generated_Source\PSoC4/Timer_Int.c **** *  Design Wide Resources Interrupt Editor, then enables the interrupt to the 
+  46:.\Generated_Source\PSoC4/Timer_Int.c **** *  interrupt controller.
+  47:.\Generated_Source\PSoC4/Timer_Int.c **** *
+  48:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:  
+  49:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+  50:.\Generated_Source\PSoC4/Timer_Int.c **** *
+  51:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+  52:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+  53:.\Generated_Source\PSoC4/Timer_Int.c **** *
+  54:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+  55:.\Generated_Source\PSoC4/Timer_Int.c **** void Timer_Int_Start(void)
+  56:.\Generated_Source\PSoC4/Timer_Int.c **** {
+  57:.\Generated_Source\PSoC4/Timer_Int.c ****     /* For all we know the interrupt is active. */
+  58:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_Disable();
+  59:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  60:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Set the ISR to point to the Timer_Int Interrupt. */
+  61:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_SetVector(&Timer_Int_Interrupt);
+  62:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  63:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Set the priority. */
+  64:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_SetPriority((uint8)Timer_Int_INTC_PRIOR_NUMBER);
+  65:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  66:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Enable it. */
+  67:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_Enable();
+  68:.\Generated_Source\PSoC4/Timer_Int.c **** }
+  69:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  70:.\Generated_Source\PSoC4/Timer_Int.c **** 
+  71:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+  72:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_StartEx
+  73:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+  74:.\Generated_Source\PSoC4/Timer_Int.c **** *
+  75:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+  76:.\Generated_Source\PSoC4/Timer_Int.c **** *  Sets up the interrupt and enables it. This function disables the interrupt,
+  77:.\Generated_Source\PSoC4/Timer_Int.c **** *  sets the interrupt vector based on the address passed in, sets the priority 
+  78:.\Generated_Source\PSoC4/Timer_Int.c **** *  from the value in the Design Wide Resources Interrupt Editor, then enables 
+  79:.\Generated_Source\PSoC4/Timer_Int.c **** *  the interrupt to the interrupt controller.
+  80:.\Generated_Source\PSoC4/Timer_Int.c **** *  
+  81:.\Generated_Source\PSoC4/Timer_Int.c **** *  When defining ISR functions, the CY_ISR and CY_ISR_PROTO macros should be 
+  82:.\Generated_Source\PSoC4/Timer_Int.c **** *  used to provide consistent definition across compilers:
+  83:.\Generated_Source\PSoC4/Timer_Int.c **** *  
+  84:.\Generated_Source\PSoC4/Timer_Int.c **** *  Function definition example:
+  85:.\Generated_Source\PSoC4/Timer_Int.c **** *   CY_ISR(MyISR)
+  86:.\Generated_Source\PSoC4/Timer_Int.c **** *   {
+  87:.\Generated_Source\PSoC4/Timer_Int.c **** *   }
+  88:.\Generated_Source\PSoC4/Timer_Int.c **** *   Function prototype example:
+  89:.\Generated_Source\PSoC4/Timer_Int.c **** *   CY_ISR_PROTO(MyISR);
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 3
+
+
+  90:.\Generated_Source\PSoC4/Timer_Int.c **** *
+  91:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:  
+  92:.\Generated_Source\PSoC4/Timer_Int.c **** *   address: Address of the ISR to set in the interrupt vector table.
+  93:.\Generated_Source\PSoC4/Timer_Int.c **** *
+  94:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+  95:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+  96:.\Generated_Source\PSoC4/Timer_Int.c **** *
+  97:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+  98:.\Generated_Source\PSoC4/Timer_Int.c **** void Timer_Int_StartEx(cyisraddress address)
+  99:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 100:.\Generated_Source\PSoC4/Timer_Int.c ****     /* For all we know the interrupt is active. */
+ 101:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_Disable();
+ 102:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 103:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Set the ISR to point to the Timer_Int Interrupt. */
+ 104:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_SetVector(address);
+ 105:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 106:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Set the priority. */
+ 107:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_SetPriority((uint8)Timer_Int_INTC_PRIOR_NUMBER);
+ 108:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 109:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Enable it. */
+ 110:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_Enable();
+ 111:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 112:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 113:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 114:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 115:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_Stop
+ 116:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 117:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 118:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 119:.\Generated_Source\PSoC4/Timer_Int.c **** *   Disables and removes the interrupt.
+ 120:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 121:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:  
+ 122:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 123:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 124:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 125:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 126:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 127:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 128:.\Generated_Source\PSoC4/Timer_Int.c **** void Timer_Int_Stop(void)
+ 129:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 130:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Disable this interrupt. */
+ 131:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_Disable();
+ 132:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 133:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Set the ISR to point to the passive one. */
+ 134:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_SetVector(&IntDefaultHandler);
+ 135:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 136:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 137:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 138:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 139:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_Interrupt
+ 140:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 141:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 142:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 143:.\Generated_Source\PSoC4/Timer_Int.c **** *   The default Interrupt Service Routine for Timer_Int.
+ 144:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 145:.\Generated_Source\PSoC4/Timer_Int.c **** *   Add custom code between the START and END comments to keep the next version
+ 146:.\Generated_Source\PSoC4/Timer_Int.c **** *   of this file from over-writing your code.
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 4
+
+
+ 147:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 148:.\Generated_Source\PSoC4/Timer_Int.c **** *   Note You may use either the default ISR by using this API, or you may define
+ 149:.\Generated_Source\PSoC4/Timer_Int.c **** *   your own separate ISR through ISR_StartEx().
+ 150:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 151:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:  
+ 152:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 153:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 154:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 155:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 156:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 157:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 158:.\Generated_Source\PSoC4/Timer_Int.c **** CY_ISR(Timer_Int_Interrupt)
+ 159:.\Generated_Source\PSoC4/Timer_Int.c **** {
+  26              		.loc 1 159 0
+  27              		.cfi_startproc
+ 160:.\Generated_Source\PSoC4/Timer_Int.c ****     /*  Place your Interrupt code here. */
+ 161:.\Generated_Source\PSoC4/Timer_Int.c ****     /* `#START Timer_Int_Interrupt` */
+ 162:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 163:.\Generated_Source\PSoC4/Timer_Int.c ****     /* `#END` */
+ 164:.\Generated_Source\PSoC4/Timer_Int.c **** }
+  28              		.loc 1 164 0
+  29              		@ sp needed
+  30 0000 7047     		bx	lr
+  31              		.cfi_endproc
+  32              	.LFE5:
+  33              		.size	Timer_Int_Interrupt, .-Timer_Int_Interrupt
+  34 0002 C046     		.section	.text.Timer_Int_SetVector,"ax",%progbits
+  35              		.align	2
+  36              		.global	Timer_Int_SetVector
+  37              		.code	16
+  38              		.thumb_func
+  39              		.type	Timer_Int_SetVector, %function
+  40              	Timer_Int_SetVector:
+  41              	.LFB6:
+ 165:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 166:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 167:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 168:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_SetVector
+ 169:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 170:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 171:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 172:.\Generated_Source\PSoC4/Timer_Int.c **** *   Change the ISR vector for the Interrupt. Note calling Timer_Int_Start
+ 173:.\Generated_Source\PSoC4/Timer_Int.c **** *   will override any effect this method would have had. To set the vector 
+ 174:.\Generated_Source\PSoC4/Timer_Int.c **** *   before the component has been started use Timer_Int_StartEx instead.
+ 175:.\Generated_Source\PSoC4/Timer_Int.c **** * 
+ 176:.\Generated_Source\PSoC4/Timer_Int.c **** *   When defining ISR functions, the CY_ISR and CY_ISR_PROTO macros should be 
+ 177:.\Generated_Source\PSoC4/Timer_Int.c **** *   used to provide consistent definition across compilers:
+ 178:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 179:.\Generated_Source\PSoC4/Timer_Int.c **** *   Function definition example:
+ 180:.\Generated_Source\PSoC4/Timer_Int.c **** *   CY_ISR(MyISR)
+ 181:.\Generated_Source\PSoC4/Timer_Int.c **** *   {
+ 182:.\Generated_Source\PSoC4/Timer_Int.c **** *   }
+ 183:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 184:.\Generated_Source\PSoC4/Timer_Int.c **** *   Function prototype example:
+ 185:.\Generated_Source\PSoC4/Timer_Int.c **** *     CY_ISR_PROTO(MyISR);
+ 186:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 187:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 5
+
+
+ 188:.\Generated_Source\PSoC4/Timer_Int.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 189:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 190:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 191:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 192:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 193:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 194:.\Generated_Source\PSoC4/Timer_Int.c **** void Timer_Int_SetVector(cyisraddress address)
+ 195:.\Generated_Source\PSoC4/Timer_Int.c **** {
+  42              		.loc 1 195 0
+  43              		.cfi_startproc
+  44              	.LVL0:
+ 196:.\Generated_Source\PSoC4/Timer_Int.c ****     CyRamVectors[CYINT_IRQ_BASE + Timer_Int__INTC_NUMBER] = address;
+  45              		.loc 1 196 0
+  46 0000 8423     		mov	r3, #132
+  47 0002 014A     		ldr	r2, .L3
+  48 0004 D050     		str	r0, [r2, r3]
+ 197:.\Generated_Source\PSoC4/Timer_Int.c **** }
+  49              		.loc 1 197 0
+  50              		@ sp needed
+  51 0006 7047     		bx	lr
+  52              	.L4:
+  53              		.align	2
+  54              	.L3:
+  55 0008 00000000 		.word	CyRamVectors
+  56              		.cfi_endproc
+  57              	.LFE6:
+  58              		.size	Timer_Int_SetVector, .-Timer_Int_SetVector
+  59              		.section	.text.Timer_Int_GetVector,"ax",%progbits
+  60              		.align	2
+  61              		.global	Timer_Int_GetVector
+  62              		.code	16
+  63              		.thumb_func
+  64              		.type	Timer_Int_GetVector, %function
+  65              	Timer_Int_GetVector:
+  66              	.LFB7:
+ 198:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 199:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 200:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 201:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_GetVector
+ 202:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 203:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 204:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 205:.\Generated_Source\PSoC4/Timer_Int.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
+ 206:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 207:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:
+ 208:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 209:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 210:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 211:.\Generated_Source\PSoC4/Timer_Int.c **** *   Address of the ISR in the interrupt vector table.
+ 212:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 213:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 214:.\Generated_Source\PSoC4/Timer_Int.c **** cyisraddress Timer_Int_GetVector(void)
+ 215:.\Generated_Source\PSoC4/Timer_Int.c **** {
+  67              		.loc 1 215 0
+  68              		.cfi_startproc
+ 216:.\Generated_Source\PSoC4/Timer_Int.c ****     return CyRamVectors[CYINT_IRQ_BASE + Timer_Int__INTC_NUMBER];
+  69              		.loc 1 216 0
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 6
+
+
+  70 0000 8423     		mov	r3, #132
+  71 0002 014A     		ldr	r2, .L6
+  72 0004 D058     		ldr	r0, [r2, r3]
+ 217:.\Generated_Source\PSoC4/Timer_Int.c **** }
+  73              		.loc 1 217 0
+  74              		@ sp needed
+  75 0006 7047     		bx	lr
+  76              	.L7:
+  77              		.align	2
+  78              	.L6:
+  79 0008 00000000 		.word	CyRamVectors
+  80              		.cfi_endproc
+  81              	.LFE7:
+  82              		.size	Timer_Int_GetVector, .-Timer_Int_GetVector
+  83              		.section	.text.Timer_Int_SetPriority,"ax",%progbits
+  84              		.align	2
+  85              		.global	Timer_Int_SetPriority
+  86              		.code	16
+  87              		.thumb_func
+  88              		.type	Timer_Int_SetPriority, %function
+  89              	Timer_Int_SetPriority:
+  90              	.LFB8:
+ 218:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 219:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 220:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 221:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_SetPriority
+ 222:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 223:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 224:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 225:.\Generated_Source\PSoC4/Timer_Int.c **** *   Sets the Priority of the Interrupt. 
+ 226:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 227:.\Generated_Source\PSoC4/Timer_Int.c **** *   Note calling Timer_Int_Start or Timer_Int_StartEx will 
+ 228:.\Generated_Source\PSoC4/Timer_Int.c **** *   override any effect this API would have had. This API should only be called
+ 229:.\Generated_Source\PSoC4/Timer_Int.c **** *   after Timer_Int_Start or Timer_Int_StartEx has been called. 
+ 230:.\Generated_Source\PSoC4/Timer_Int.c **** *   To set the initial priority for the component, use the Design-Wide Resources
+ 231:.\Generated_Source\PSoC4/Timer_Int.c **** *   Interrupt Editor.
+ 232:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 233:.\Generated_Source\PSoC4/Timer_Int.c **** *   Note This API has no effect on Non-maskable interrupt NMI).
+ 234:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 235:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:
+ 236:.\Generated_Source\PSoC4/Timer_Int.c **** *   priority: Priority of the interrupt, 0 being the highest priority
+ 237:.\Generated_Source\PSoC4/Timer_Int.c **** *             PSoC 3 and PSoC 5LP: Priority is from 0 to 7.
+ 238:.\Generated_Source\PSoC4/Timer_Int.c **** *             PSoC 4: Priority is from 0 to 3.
+ 239:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 240:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 241:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 242:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 243:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 244:.\Generated_Source\PSoC4/Timer_Int.c **** void Timer_Int_SetPriority(uint8 priority)
+ 245:.\Generated_Source\PSoC4/Timer_Int.c **** {
+  91              		.loc 1 245 0
+  92              		.cfi_startproc
+  93              	.LVL1:
+  94 0000 10B5     		push	{r4, lr}
+  95              		.cfi_def_cfa_offset 8
+  96              		.cfi_offset 4, -8
+  97              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 7
+
+
+  98 0002 041C     		mov	r4, r0
+  99              	.LVL2:
+ 246:.\Generated_Source\PSoC4/Timer_Int.c **** 	uint8 interruptState;
+ 247:.\Generated_Source\PSoC4/Timer_Int.c ****     uint32 priorityOffset = ((Timer_Int__INTC_NUMBER % 4u) * 8u) + 6u;
+ 248:.\Generated_Source\PSoC4/Timer_Int.c ****     
+ 249:.\Generated_Source\PSoC4/Timer_Int.c **** 	interruptState = CyEnterCriticalSection();
+ 100              		.loc 1 249 0
+ 101 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+ 102              	.LVL3:
+ 250:.\Generated_Source\PSoC4/Timer_Int.c ****     *Timer_Int_INTC_PRIOR = (*Timer_Int_INTC_PRIOR & (uint32)(~Timer_Int__INTC_PRIOR_MASK)) |
+ 103              		.loc 1 250 0
+ 104 0008 054B     		ldr	r3, .L9
+ 105 000a 1968     		ldr	r1, [r3]
+ 106 000c 054A     		ldr	r2, .L9+4
+ 107 000e 1140     		and	r1, r2
+ 251:.\Generated_Source\PSoC4/Timer_Int.c ****                                     ((uint32)priority << priorityOffset);
+ 108              		.loc 1 251 0
+ 109 0010 A203     		lsl	r2, r4, #14
+ 250:.\Generated_Source\PSoC4/Timer_Int.c ****     *Timer_Int_INTC_PRIOR = (*Timer_Int_INTC_PRIOR & (uint32)(~Timer_Int__INTC_PRIOR_MASK)) |
+ 110              		.loc 1 250 0
+ 111 0012 0C1C     		mov	r4, r1
+ 112 0014 1443     		orr	r4, r2
+ 113 0016 1C60     		str	r4, [r3]
+ 252:.\Generated_Source\PSoC4/Timer_Int.c **** 	CyExitCriticalSection(interruptState);
+ 114              		.loc 1 252 0
+ 115 0018 FFF7FEFF 		bl	CyExitCriticalSection
+ 116              	.LVL4:
+ 253:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 117              		.loc 1 253 0
+ 118              		@ sp needed
+ 119 001c 10BD     		pop	{r4, pc}
+ 120              	.L10:
+ 121 001e C046     		.align	2
+ 122              	.L9:
+ 123 0020 10E400E0 		.word	-536812528
+ 124 0024 FF3FFFFF 		.word	-49153
+ 125              		.cfi_endproc
+ 126              	.LFE8:
+ 127              		.size	Timer_Int_SetPriority, .-Timer_Int_SetPriority
+ 128              		.section	.text.Timer_Int_GetPriority,"ax",%progbits
+ 129              		.align	2
+ 130              		.global	Timer_Int_GetPriority
+ 131              		.code	16
+ 132              		.thumb_func
+ 133              		.type	Timer_Int_GetPriority, %function
+ 134              	Timer_Int_GetPriority:
+ 135              	.LFB9:
+ 254:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 255:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 256:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 257:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_GetPriority
+ 258:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 259:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 260:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 261:.\Generated_Source\PSoC4/Timer_Int.c **** *   Gets the Priority of the Interrupt.
+ 262:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 263:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 8
+
+
+ 264:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 265:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 266:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 267:.\Generated_Source\PSoC4/Timer_Int.c **** *   Priority of the interrupt, 0 being the highest priority
+ 268:.\Generated_Source\PSoC4/Timer_Int.c **** *    PSoC 3 and PSoC 5LP: Priority is from 0 to 7.
+ 269:.\Generated_Source\PSoC4/Timer_Int.c **** *    PSoC 4: Priority is from 0 to 3.
+ 270:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 271:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 272:.\Generated_Source\PSoC4/Timer_Int.c **** uint8 Timer_Int_GetPriority(void)
+ 273:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 136              		.loc 1 273 0
+ 137              		.cfi_startproc
+ 138              	.LVL5:
+ 274:.\Generated_Source\PSoC4/Timer_Int.c ****     uint32 priority;
+ 275:.\Generated_Source\PSoC4/Timer_Int.c **** 	uint32 priorityOffset = ((Timer_Int__INTC_NUMBER % 4u) * 8u) + 6u;
+ 276:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 277:.\Generated_Source\PSoC4/Timer_Int.c ****     priority = (*Timer_Int_INTC_PRIOR & Timer_Int__INTC_PRIOR_MASK) >> priorityOffset;
+ 139              		.loc 1 277 0
+ 140 0000 024B     		ldr	r3, .L12
+ 141 0002 1868     		ldr	r0, [r3]
+ 142 0004 0004     		lsl	r0, r0, #16
+ 143              	.LVL6:
+ 278:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 279:.\Generated_Source\PSoC4/Timer_Int.c ****     return (uint8)priority;
+ 144              		.loc 1 279 0
+ 145 0006 800F     		lsr	r0, r0, #30
+ 146              	.LVL7:
+ 280:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 147              		.loc 1 280 0
+ 148              		@ sp needed
+ 149 0008 7047     		bx	lr
+ 150              	.L13:
+ 151 000a C046     		.align	2
+ 152              	.L12:
+ 153 000c 10E400E0 		.word	-536812528
+ 154              		.cfi_endproc
+ 155              	.LFE9:
+ 156              		.size	Timer_Int_GetPriority, .-Timer_Int_GetPriority
+ 157              		.section	.text.Timer_Int_Enable,"ax",%progbits
+ 158              		.align	2
+ 159              		.global	Timer_Int_Enable
+ 160              		.code	16
+ 161              		.thumb_func
+ 162              		.type	Timer_Int_Enable, %function
+ 163              	Timer_Int_Enable:
+ 164              	.LFB10:
+ 281:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 282:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 283:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 284:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_Enable
+ 285:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 286:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 287:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 288:.\Generated_Source\PSoC4/Timer_Int.c **** *   Enables the interrupt to the interrupt controller. Do not call this function
+ 289:.\Generated_Source\PSoC4/Timer_Int.c **** *   unless ISR_Start() has been called or the functionality of the ISR_Start() 
+ 290:.\Generated_Source\PSoC4/Timer_Int.c **** *   function, which sets the vector and the priority, has been called.
+ 291:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 9
+
+
+ 292:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:
+ 293:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 294:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 295:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 296:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 297:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 298:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 299:.\Generated_Source\PSoC4/Timer_Int.c **** void Timer_Int_Enable(void)
+ 300:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 165              		.loc 1 300 0
+ 166              		.cfi_startproc
+ 301:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Enable the general interrupt. */
+ 302:.\Generated_Source\PSoC4/Timer_Int.c ****     *Timer_Int_INTC_SET_EN = Timer_Int__INTC_MASK;
+ 167              		.loc 1 302 0
+ 168 0000 8022     		mov	r2, #128
+ 169 0002 9202     		lsl	r2, r2, #10
+ 170 0004 014B     		ldr	r3, .L15
+ 171 0006 1A60     		str	r2, [r3]
+ 303:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 172              		.loc 1 303 0
+ 173              		@ sp needed
+ 174 0008 7047     		bx	lr
+ 175              	.L16:
+ 176 000a C046     		.align	2
+ 177              	.L15:
+ 178 000c 00E100E0 		.word	-536813312
+ 179              		.cfi_endproc
+ 180              	.LFE10:
+ 181              		.size	Timer_Int_Enable, .-Timer_Int_Enable
+ 182              		.section	.text.Timer_Int_GetState,"ax",%progbits
+ 183              		.align	2
+ 184              		.global	Timer_Int_GetState
+ 185              		.code	16
+ 186              		.thumb_func
+ 187              		.type	Timer_Int_GetState, %function
+ 188              	Timer_Int_GetState:
+ 189              	.LFB11:
+ 304:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 305:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 306:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 307:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_GetState
+ 308:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 309:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 310:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 311:.\Generated_Source\PSoC4/Timer_Int.c **** *   Gets the state (enabled, disabled) of the Interrupt.
+ 312:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 313:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:
+ 314:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 315:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 316:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 317:.\Generated_Source\PSoC4/Timer_Int.c **** *   1 if enabled, 0 if disabled.
+ 318:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 319:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 320:.\Generated_Source\PSoC4/Timer_Int.c **** uint8 Timer_Int_GetState(void)
+ 321:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 190              		.loc 1 321 0
+ 191              		.cfi_startproc
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 10
+
+
+ 322:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Get the state of the general interrupt. */
+ 323:.\Generated_Source\PSoC4/Timer_Int.c ****     return ((*Timer_Int_INTC_SET_EN & (uint32)Timer_Int__INTC_MASK) != 0u) ? 1u:0u;
+ 192              		.loc 1 323 0
+ 193 0000 034B     		ldr	r3, .L20
+ 194 0002 1B68     		ldr	r3, [r3]
+ 195 0004 9A03     		lsl	r2, r3, #14
+ 196 0006 01D5     		bpl	.L19
+ 197 0008 0120     		mov	r0, #1
+ 198 000a 00E0     		b	.L18
+ 199              	.L19:
+ 200 000c 0020     		mov	r0, #0
+ 201              	.L18:
+ 324:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 202              		.loc 1 324 0 discriminator 3
+ 203              		@ sp needed
+ 204 000e 7047     		bx	lr
+ 205              	.L21:
+ 206              		.align	2
+ 207              	.L20:
+ 208 0010 00E100E0 		.word	-536813312
+ 209              		.cfi_endproc
+ 210              	.LFE11:
+ 211              		.size	Timer_Int_GetState, .-Timer_Int_GetState
+ 212              		.section	.text.Timer_Int_Disable,"ax",%progbits
+ 213              		.align	2
+ 214              		.global	Timer_Int_Disable
+ 215              		.code	16
+ 216              		.thumb_func
+ 217              		.type	Timer_Int_Disable, %function
+ 218              	Timer_Int_Disable:
+ 219              	.LFB12:
+ 325:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 326:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 327:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 328:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_Disable
+ 329:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 330:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 331:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 332:.\Generated_Source\PSoC4/Timer_Int.c **** *   Disables the Interrupt in the interrupt controller.
+ 333:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 334:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:
+ 335:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 336:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 337:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 338:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 339:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 340:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 341:.\Generated_Source\PSoC4/Timer_Int.c **** void Timer_Int_Disable(void)
+ 342:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 220              		.loc 1 342 0
+ 221              		.cfi_startproc
+ 343:.\Generated_Source\PSoC4/Timer_Int.c ****     /* Disable the general interrupt. */
+ 344:.\Generated_Source\PSoC4/Timer_Int.c ****     *Timer_Int_INTC_CLR_EN = Timer_Int__INTC_MASK;
+ 222              		.loc 1 344 0
+ 223 0000 8022     		mov	r2, #128
+ 224 0002 9202     		lsl	r2, r2, #10
+ 225 0004 014B     		ldr	r3, .L23
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 11
+
+
+ 226 0006 1A60     		str	r2, [r3]
+ 345:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 227              		.loc 1 345 0
+ 228              		@ sp needed
+ 229 0008 7047     		bx	lr
+ 230              	.L24:
+ 231 000a C046     		.align	2
+ 232              	.L23:
+ 233 000c 80E100E0 		.word	-536813184
+ 234              		.cfi_endproc
+ 235              	.LFE12:
+ 236              		.size	Timer_Int_Disable, .-Timer_Int_Disable
+ 237              		.section	.text.Timer_Int_Start,"ax",%progbits
+ 238              		.align	2
+ 239              		.global	Timer_Int_Start
+ 240              		.code	16
+ 241              		.thumb_func
+ 242              		.type	Timer_Int_Start, %function
+ 243              	Timer_Int_Start:
+ 244              	.LFB2:
+  56:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 245              		.loc 1 56 0
+ 246              		.cfi_startproc
+ 247 0000 08B5     		push	{r3, lr}
+ 248              		.cfi_def_cfa_offset 8
+ 249              		.cfi_offset 3, -8
+ 250              		.cfi_offset 14, -4
+  58:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_Disable();
+ 251              		.loc 1 58 0
+ 252 0002 FFF7FEFF 		bl	Timer_Int_Disable
+ 253              	.LVL8:
+  61:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_SetVector(&Timer_Int_Interrupt);
+ 254              		.loc 1 61 0
+ 255 0006 0448     		ldr	r0, .L26
+ 256 0008 FFF7FEFF 		bl	Timer_Int_SetVector
+ 257              	.LVL9:
+  64:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_SetPriority((uint8)Timer_Int_INTC_PRIOR_NUMBER);
+ 258              		.loc 1 64 0
+ 259 000c 0320     		mov	r0, #3
+ 260 000e FFF7FEFF 		bl	Timer_Int_SetPriority
+ 261              	.LVL10:
+  67:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_Enable();
+ 262              		.loc 1 67 0
+ 263 0012 FFF7FEFF 		bl	Timer_Int_Enable
+ 264              	.LVL11:
+  68:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 265              		.loc 1 68 0
+ 266              		@ sp needed
+ 267 0016 08BD     		pop	{r3, pc}
+ 268              	.L27:
+ 269              		.align	2
+ 270              	.L26:
+ 271 0018 00000000 		.word	Timer_Int_Interrupt
+ 272              		.cfi_endproc
+ 273              	.LFE2:
+ 274              		.size	Timer_Int_Start, .-Timer_Int_Start
+ 275              		.section	.text.Timer_Int_StartEx,"ax",%progbits
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 12
+
+
+ 276              		.align	2
+ 277              		.global	Timer_Int_StartEx
+ 278              		.code	16
+ 279              		.thumb_func
+ 280              		.type	Timer_Int_StartEx, %function
+ 281              	Timer_Int_StartEx:
+ 282              	.LFB3:
+  99:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 283              		.loc 1 99 0
+ 284              		.cfi_startproc
+ 285              	.LVL12:
+ 286 0000 10B5     		push	{r4, lr}
+ 287              		.cfi_def_cfa_offset 8
+ 288              		.cfi_offset 4, -8
+ 289              		.cfi_offset 14, -4
+ 290 0002 041C     		mov	r4, r0
+ 101:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_Disable();
+ 291              		.loc 1 101 0
+ 292 0004 FFF7FEFF 		bl	Timer_Int_Disable
+ 293              	.LVL13:
+ 104:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_SetVector(address);
+ 294              		.loc 1 104 0
+ 295 0008 201C     		mov	r0, r4
+ 296 000a FFF7FEFF 		bl	Timer_Int_SetVector
+ 297              	.LVL14:
+ 107:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_SetPriority((uint8)Timer_Int_INTC_PRIOR_NUMBER);
+ 298              		.loc 1 107 0
+ 299 000e 0320     		mov	r0, #3
+ 300 0010 FFF7FEFF 		bl	Timer_Int_SetPriority
+ 301              	.LVL15:
+ 110:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_Enable();
+ 302              		.loc 1 110 0
+ 303 0014 FFF7FEFF 		bl	Timer_Int_Enable
+ 304              	.LVL16:
+ 111:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 305              		.loc 1 111 0
+ 306              		@ sp needed
+ 307              	.LVL17:
+ 308 0018 10BD     		pop	{r4, pc}
+ 309              		.cfi_endproc
+ 310              	.LFE3:
+ 311              		.size	Timer_Int_StartEx, .-Timer_Int_StartEx
+ 312 001a C046     		.section	.text.Timer_Int_Stop,"ax",%progbits
+ 313              		.align	2
+ 314              		.global	Timer_Int_Stop
+ 315              		.code	16
+ 316              		.thumb_func
+ 317              		.type	Timer_Int_Stop, %function
+ 318              	Timer_Int_Stop:
+ 319              	.LFB4:
+ 129:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 320              		.loc 1 129 0
+ 321              		.cfi_startproc
+ 322 0000 08B5     		push	{r3, lr}
+ 323              		.cfi_def_cfa_offset 8
+ 324              		.cfi_offset 3, -8
+ 325              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 13
+
+
+ 131:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_Disable();
+ 326              		.loc 1 131 0
+ 327 0002 FFF7FEFF 		bl	Timer_Int_Disable
+ 328              	.LVL18:
+ 134:.\Generated_Source\PSoC4/Timer_Int.c ****     Timer_Int_SetVector(&IntDefaultHandler);
+ 329              		.loc 1 134 0
+ 330 0006 0248     		ldr	r0, .L30
+ 331 0008 FFF7FEFF 		bl	Timer_Int_SetVector
+ 332              	.LVL19:
+ 135:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 333              		.loc 1 135 0
+ 334              		@ sp needed
+ 335 000c 08BD     		pop	{r3, pc}
+ 336              	.L31:
+ 337 000e C046     		.align	2
+ 338              	.L30:
+ 339 0010 00000000 		.word	IntDefaultHandler
+ 340              		.cfi_endproc
+ 341              	.LFE4:
+ 342              		.size	Timer_Int_Stop, .-Timer_Int_Stop
+ 343              		.section	.text.Timer_Int_SetPending,"ax",%progbits
+ 344              		.align	2
+ 345              		.global	Timer_Int_SetPending
+ 346              		.code	16
+ 347              		.thumb_func
+ 348              		.type	Timer_Int_SetPending, %function
+ 349              	Timer_Int_SetPending:
+ 350              	.LFB13:
+ 346:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 347:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 348:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 349:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_SetPending
+ 350:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 351:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 352:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 353:.\Generated_Source\PSoC4/Timer_Int.c **** *   Causes the Interrupt to enter the pending state, a software method of
+ 354:.\Generated_Source\PSoC4/Timer_Int.c **** *   generating the interrupt.
+ 355:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 356:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:
+ 357:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 358:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 359:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 360:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 361:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 362:.\Generated_Source\PSoC4/Timer_Int.c **** * Side Effects:
+ 363:.\Generated_Source\PSoC4/Timer_Int.c **** *   If interrupts are enabled and the interrupt is set up properly, the ISR is
+ 364:.\Generated_Source\PSoC4/Timer_Int.c **** *   entered (depending on the priority of this interrupt and other pending 
+ 365:.\Generated_Source\PSoC4/Timer_Int.c **** *   interrupts).
+ 366:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 367:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 368:.\Generated_Source\PSoC4/Timer_Int.c **** void Timer_Int_SetPending(void)
+ 369:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 351              		.loc 1 369 0
+ 352              		.cfi_startproc
+ 370:.\Generated_Source\PSoC4/Timer_Int.c ****     *Timer_Int_INTC_SET_PD = Timer_Int__INTC_MASK;
+ 353              		.loc 1 370 0
+ 354 0000 8022     		mov	r2, #128
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 14
+
+
+ 355 0002 9202     		lsl	r2, r2, #10
+ 356 0004 014B     		ldr	r3, .L33
+ 357 0006 1A60     		str	r2, [r3]
+ 371:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 358              		.loc 1 371 0
+ 359              		@ sp needed
+ 360 0008 7047     		bx	lr
+ 361              	.L34:
+ 362 000a C046     		.align	2
+ 363              	.L33:
+ 364 000c 00E200E0 		.word	-536813056
+ 365              		.cfi_endproc
+ 366              	.LFE13:
+ 367              		.size	Timer_Int_SetPending, .-Timer_Int_SetPending
+ 368              		.section	.text.Timer_Int_ClearPending,"ax",%progbits
+ 369              		.align	2
+ 370              		.global	Timer_Int_ClearPending
+ 371              		.code	16
+ 372              		.thumb_func
+ 373              		.type	Timer_Int_ClearPending, %function
+ 374              	Timer_Int_ClearPending:
+ 375              	.LFB14:
+ 372:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 373:.\Generated_Source\PSoC4/Timer_Int.c **** 
+ 374:.\Generated_Source\PSoC4/Timer_Int.c **** /*******************************************************************************
+ 375:.\Generated_Source\PSoC4/Timer_Int.c **** * Function Name: Timer_Int_ClearPending
+ 376:.\Generated_Source\PSoC4/Timer_Int.c **** ********************************************************************************
+ 377:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 378:.\Generated_Source\PSoC4/Timer_Int.c **** * Summary:
+ 379:.\Generated_Source\PSoC4/Timer_Int.c **** *   Clears a pending interrupt in the interrupt controller.
+ 380:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 381:.\Generated_Source\PSoC4/Timer_Int.c **** *   Note Some interrupt sources are clear-on-read and require the block 
+ 382:.\Generated_Source\PSoC4/Timer_Int.c **** *   interrupt/status register to be read/cleared with the appropriate block API 
+ 383:.\Generated_Source\PSoC4/Timer_Int.c **** *   (GPIO, UART, and so on). Otherwise the ISR will continue to remain in 
+ 384:.\Generated_Source\PSoC4/Timer_Int.c **** *   pending state even though the interrupt itself is cleared using this API.
+ 385:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 386:.\Generated_Source\PSoC4/Timer_Int.c **** * Parameters:
+ 387:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 388:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 389:.\Generated_Source\PSoC4/Timer_Int.c **** * Return:
+ 390:.\Generated_Source\PSoC4/Timer_Int.c **** *   None
+ 391:.\Generated_Source\PSoC4/Timer_Int.c **** *
+ 392:.\Generated_Source\PSoC4/Timer_Int.c **** *******************************************************************************/
+ 393:.\Generated_Source\PSoC4/Timer_Int.c **** void Timer_Int_ClearPending(void)
+ 394:.\Generated_Source\PSoC4/Timer_Int.c **** {
+ 376              		.loc 1 394 0
+ 377              		.cfi_startproc
+ 395:.\Generated_Source\PSoC4/Timer_Int.c ****     *Timer_Int_INTC_CLR_PD = Timer_Int__INTC_MASK;
+ 378              		.loc 1 395 0
+ 379 0000 8022     		mov	r2, #128
+ 380 0002 9202     		lsl	r2, r2, #10
+ 381 0004 014B     		ldr	r3, .L36
+ 382 0006 1A60     		str	r2, [r3]
+ 396:.\Generated_Source\PSoC4/Timer_Int.c **** }
+ 383              		.loc 1 396 0
+ 384              		@ sp needed
+ 385 0008 7047     		bx	lr
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 15
+
+
+ 386              	.L37:
+ 387 000a C046     		.align	2
+ 388              	.L36:
+ 389 000c 80E200E0 		.word	-536812928
+ 390              		.cfi_endproc
+ 391              	.LFE14:
+ 392              		.size	Timer_Int_ClearPending, .-Timer_Int_ClearPending
+ 393              		.text
+ 394              	.Letext0:
+ 395              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 396              		.file 3 "Generated_Source\\PSoC4/CyLib.h"
+ 397              		.section	.debug_info,"",%progbits
+ 398              	.Ldebug_info0:
+ 399 0000 FA020000 		.4byte	0x2fa
+ 400 0004 0400     		.2byte	0x4
+ 401 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 402 000a 04       		.byte	0x4
+ 403 000b 01       		.uleb128 0x1
+ 404 000c F6010000 		.4byte	.LASF33
+ 405 0010 01       		.byte	0x1
+ 406 0011 37010000 		.4byte	.LASF34
+ 407 0015 74000000 		.4byte	.LASF35
+ 408 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 409 001d 00000000 		.4byte	0
+ 410 0021 00000000 		.4byte	.Ldebug_line0
+ 411 0025 02       		.uleb128 0x2
+ 412 0026 01       		.byte	0x1
+ 413 0027 06       		.byte	0x6
+ 414 0028 F9020000 		.4byte	.LASF0
+ 415 002c 02       		.uleb128 0x2
+ 416 002d 01       		.byte	0x1
+ 417 002e 08       		.byte	0x8
+ 418 002f E3000000 		.4byte	.LASF1
+ 419 0033 02       		.uleb128 0x2
+ 420 0034 02       		.byte	0x2
+ 421 0035 05       		.byte	0x5
+ 422 0036 B2020000 		.4byte	.LASF2
+ 423 003a 02       		.uleb128 0x2
+ 424 003b 02       		.byte	0x2
+ 425 003c 07       		.byte	0x7
+ 426 003d 4F000000 		.4byte	.LASF3
+ 427 0041 02       		.uleb128 0x2
+ 428 0042 04       		.byte	0x4
+ 429 0043 05       		.byte	0x5
+ 430 0044 E0020000 		.4byte	.LASF4
+ 431 0048 02       		.uleb128 0x2
+ 432 0049 04       		.byte	0x4
+ 433 004a 07       		.byte	0x7
+ 434 004b 00010000 		.4byte	.LASF5
+ 435 004f 02       		.uleb128 0x2
+ 436 0050 08       		.byte	0x8
+ 437 0051 05       		.byte	0x5
+ 438 0052 88020000 		.4byte	.LASF6
+ 439 0056 02       		.uleb128 0x2
+ 440 0057 08       		.byte	0x8
+ 441 0058 07       		.byte	0x7
+ 442 0059 CC000000 		.4byte	.LASF7
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 16
+
+
+ 443 005d 03       		.uleb128 0x3
+ 444 005e 04       		.byte	0x4
+ 445 005f 05       		.byte	0x5
+ 446 0060 696E7400 		.ascii	"int\000"
+ 447 0064 02       		.uleb128 0x2
+ 448 0065 04       		.byte	0x4
+ 449 0066 07       		.byte	0x7
+ 450 0067 A9010000 		.4byte	.LASF8
+ 451 006b 04       		.uleb128 0x4
+ 452 006c 12010000 		.4byte	.LASF9
+ 453 0070 02       		.byte	0x2
+ 454 0071 B3       		.byte	0xb3
+ 455 0072 2C000000 		.4byte	0x2c
+ 456 0076 04       		.uleb128 0x4
+ 457 0077 8B010000 		.4byte	.LASF10
+ 458 007b 02       		.byte	0x2
+ 459 007c B5       		.byte	0xb5
+ 460 007d 48000000 		.4byte	0x48
+ 461 0081 02       		.uleb128 0x2
+ 462 0082 04       		.byte	0x4
+ 463 0083 04       		.byte	0x4
+ 464 0084 C6000000 		.4byte	.LASF11
+ 465 0088 02       		.uleb128 0x2
+ 466 0089 08       		.byte	0x8
+ 467 008a 04       		.byte	0x4
+ 468 008b 70010000 		.4byte	.LASF12
+ 469 008f 02       		.uleb128 0x2
+ 470 0090 01       		.byte	0x1
+ 471 0091 08       		.byte	0x8
+ 472 0092 96020000 		.4byte	.LASF13
+ 473 0096 05       		.uleb128 0x5
+ 474 0097 00000000 		.4byte	.LASF14
+ 475 009b 02       		.byte	0x2
+ 476 009c 5F01     		.2byte	0x15f
+ 477 009e A2000000 		.4byte	0xa2
+ 478 00a2 06       		.uleb128 0x6
+ 479 00a3 76000000 		.4byte	0x76
+ 480 00a7 05       		.uleb128 0x5
+ 481 00a8 72020000 		.4byte	.LASF15
+ 482 00ac 02       		.byte	0x2
+ 483 00ad 6F01     		.2byte	0x16f
+ 484 00af B3000000 		.4byte	0xb3
+ 485 00b3 07       		.uleb128 0x7
+ 486 00b4 04       		.byte	0x4
+ 487 00b5 B9000000 		.4byte	0xb9
+ 488 00b9 08       		.uleb128 0x8
+ 489 00ba 02       		.uleb128 0x2
+ 490 00bb 04       		.byte	0x4
+ 491 00bc 07       		.byte	0x7
+ 492 00bd 7F020000 		.4byte	.LASF16
+ 493 00c1 09       		.uleb128 0x9
+ 494 00c2 77010000 		.4byte	.LASF23
+ 495 00c6 01       		.byte	0x1
+ 496 00c7 9E       		.byte	0x9e
+ 497 00c8 00000000 		.4byte	.LFB5
+ 498 00cc 02000000 		.4byte	.LFE5-.LFB5
+ 499 00d0 01       		.uleb128 0x1
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 17
+
+
+ 500 00d1 9C       		.byte	0x9c
+ 501 00d2 0A       		.uleb128 0xa
+ 502 00d3 18000000 		.4byte	.LASF17
+ 503 00d7 01       		.byte	0x1
+ 504 00d8 C2       		.byte	0xc2
+ 505 00d9 00000000 		.4byte	.LFB6
+ 506 00dd 0C000000 		.4byte	.LFE6-.LFB6
+ 507 00e1 01       		.uleb128 0x1
+ 508 00e2 9C       		.byte	0x9c
+ 509 00e3 F5000000 		.4byte	0xf5
+ 510 00e7 0B       		.uleb128 0xb
+ 511 00e8 B6010000 		.4byte	.LASF19
+ 512 00ec 01       		.byte	0x1
+ 513 00ed C2       		.byte	0xc2
+ 514 00ee A7000000 		.4byte	0xa7
+ 515 00f2 01       		.uleb128 0x1
+ 516 00f3 50       		.byte	0x50
+ 517 00f4 00       		.byte	0
+ 518 00f5 0C       		.uleb128 0xc
+ 519 00f6 5C010000 		.4byte	.LASF25
+ 520 00fa 01       		.byte	0x1
+ 521 00fb D6       		.byte	0xd6
+ 522 00fc A7000000 		.4byte	0xa7
+ 523 0100 00000000 		.4byte	.LFB7
+ 524 0104 0C000000 		.4byte	.LFE7-.LFB7
+ 525 0108 01       		.uleb128 0x1
+ 526 0109 9C       		.byte	0x9c
+ 527 010a 0A       		.uleb128 0xa
+ 528 010b 18010000 		.4byte	.LASF18
+ 529 010f 01       		.byte	0x1
+ 530 0110 F4       		.byte	0xf4
+ 531 0111 00000000 		.4byte	.LFB8
+ 532 0115 28000000 		.4byte	.LFE8-.LFB8
+ 533 0119 01       		.uleb128 0x1
+ 534 011a 9C       		.byte	0x9c
+ 535 011b 5C010000 		.4byte	0x15c
+ 536 011f 0D       		.uleb128 0xd
+ 537 0120 2E010000 		.4byte	.LASF20
+ 538 0124 01       		.byte	0x1
+ 539 0125 F4       		.byte	0xf4
+ 540 0126 6B000000 		.4byte	0x6b
+ 541 012a 00000000 		.4byte	.LLST0
+ 542 012e 0E       		.uleb128 0xe
+ 543 012f F1000000 		.4byte	.LASF21
+ 544 0133 01       		.byte	0x1
+ 545 0134 F6       		.byte	0xf6
+ 546 0135 6B000000 		.4byte	0x6b
+ 547 0139 21000000 		.4byte	.LLST1
+ 548 013d 0F       		.uleb128 0xf
+ 549 013e D1020000 		.4byte	.LASF22
+ 550 0142 01       		.byte	0x1
+ 551 0143 F7       		.byte	0xf7
+ 552 0144 76000000 		.4byte	0x76
+ 553 0148 0E       		.byte	0xe
+ 554 0149 10       		.uleb128 0x10
+ 555 014a 08000000 		.4byte	.LVL3
+ 556 014e E5020000 		.4byte	0x2e5
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 18
+
+
+ 557 0152 10       		.uleb128 0x10
+ 558 0153 1C000000 		.4byte	.LVL4
+ 559 0157 F0020000 		.4byte	0x2f0
+ 560 015b 00       		.byte	0
+ 561 015c 11       		.uleb128 0x11
+ 562 015d 39000000 		.4byte	.LASF36
+ 563 0161 01       		.byte	0x1
+ 564 0162 1001     		.2byte	0x110
+ 565 0164 6B000000 		.4byte	0x6b
+ 566 0168 00000000 		.4byte	.LFB9
+ 567 016c 10000000 		.4byte	.LFE9-.LFB9
+ 568 0170 01       		.uleb128 0x1
+ 569 0171 9C       		.byte	0x9c
+ 570 0172 94010000 		.4byte	0x194
+ 571 0176 12       		.uleb128 0x12
+ 572 0177 2E010000 		.4byte	.LASF20
+ 573 017b 01       		.byte	0x1
+ 574 017c 1201     		.2byte	0x112
+ 575 017e 76000000 		.4byte	0x76
+ 576 0182 34000000 		.4byte	.LLST2
+ 577 0186 13       		.uleb128 0x13
+ 578 0187 D1020000 		.4byte	.LASF22
+ 579 018b 01       		.byte	0x1
+ 580 018c 1301     		.2byte	0x113
+ 581 018e 76000000 		.4byte	0x76
+ 582 0192 0E       		.byte	0xe
+ 583 0193 00       		.byte	0
+ 584 0194 14       		.uleb128 0x14
+ 585 0195 05030000 		.4byte	.LASF24
+ 586 0199 01       		.byte	0x1
+ 587 019a 2B01     		.2byte	0x12b
+ 588 019c 00000000 		.4byte	.LFB10
+ 589 01a0 10000000 		.4byte	.LFE10-.LFB10
+ 590 01a4 01       		.uleb128 0x1
+ 591 01a5 9C       		.byte	0x9c
+ 592 01a6 15       		.uleb128 0x15
+ 593 01a7 D4010000 		.4byte	.LASF26
+ 594 01ab 01       		.byte	0x1
+ 595 01ac 4001     		.2byte	0x140
+ 596 01ae 6B000000 		.4byte	0x6b
+ 597 01b2 00000000 		.4byte	.LFB11
+ 598 01b6 14000000 		.4byte	.LFE11-.LFB11
+ 599 01ba 01       		.uleb128 0x1
+ 600 01bb 9C       		.byte	0x9c
+ 601 01bc 14       		.uleb128 0x14
+ 602 01bd 62000000 		.4byte	.LASF27
+ 603 01c1 01       		.byte	0x1
+ 604 01c2 5501     		.2byte	0x155
+ 605 01c4 00000000 		.4byte	.LFB12
+ 606 01c8 10000000 		.4byte	.LFE12-.LFB12
+ 607 01cc 01       		.uleb128 0x1
+ 608 01cd 9C       		.byte	0x9c
+ 609 01ce 0A       		.uleb128 0xa
+ 610 01cf E9020000 		.4byte	.LASF28
+ 611 01d3 01       		.byte	0x1
+ 612 01d4 37       		.byte	0x37
+ 613 01d5 00000000 		.4byte	.LFB2
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 19
+
+
+ 614 01d9 1C000000 		.4byte	.LFE2-.LFB2
+ 615 01dd 01       		.uleb128 0x1
+ 616 01de 9C       		.byte	0x9c
+ 617 01df 20020000 		.4byte	0x220
+ 618 01e3 10       		.uleb128 0x10
+ 619 01e4 06000000 		.4byte	.LVL8
+ 620 01e8 BC010000 		.4byte	0x1bc
+ 621 01ec 16       		.uleb128 0x16
+ 622 01ed 0C000000 		.4byte	.LVL9
+ 623 01f1 D2000000 		.4byte	0xd2
+ 624 01f5 03020000 		.4byte	0x203
+ 625 01f9 17       		.uleb128 0x17
+ 626 01fa 01       		.uleb128 0x1
+ 627 01fb 50       		.byte	0x50
+ 628 01fc 05       		.uleb128 0x5
+ 629 01fd 03       		.byte	0x3
+ 630 01fe 00000000 		.4byte	Timer_Int_Interrupt
+ 631 0202 00       		.byte	0
+ 632 0203 16       		.uleb128 0x16
+ 633 0204 12000000 		.4byte	.LVL10
+ 634 0208 0A010000 		.4byte	0x10a
+ 635 020c 16020000 		.4byte	0x216
+ 636 0210 17       		.uleb128 0x17
+ 637 0211 01       		.uleb128 0x1
+ 638 0212 50       		.byte	0x50
+ 639 0213 01       		.uleb128 0x1
+ 640 0214 33       		.byte	0x33
+ 641 0215 00       		.byte	0
+ 642 0216 10       		.uleb128 0x10
+ 643 0217 16000000 		.4byte	.LVL11
+ 644 021b 94010000 		.4byte	0x194
+ 645 021f 00       		.byte	0
+ 646 0220 0A       		.uleb128 0xa
+ 647 0221 06000000 		.4byte	.LASF29
+ 648 0225 01       		.byte	0x1
+ 649 0226 62       		.byte	0x62
+ 650 0227 00000000 		.4byte	.LFB3
+ 651 022b 1A000000 		.4byte	.LFE3-.LFB3
+ 652 022f 01       		.uleb128 0x1
+ 653 0230 9C       		.byte	0x9c
+ 654 0231 7E020000 		.4byte	0x27e
+ 655 0235 0D       		.uleb128 0xd
+ 656 0236 B6010000 		.4byte	.LASF19
+ 657 023a 01       		.byte	0x1
+ 658 023b 62       		.byte	0x62
+ 659 023c A7000000 		.4byte	0xa7
+ 660 0240 56000000 		.4byte	.LLST3
+ 661 0244 10       		.uleb128 0x10
+ 662 0245 08000000 		.4byte	.LVL13
+ 663 0249 BC010000 		.4byte	0x1bc
+ 664 024d 16       		.uleb128 0x16
+ 665 024e 0E000000 		.4byte	.LVL14
+ 666 0252 D2000000 		.4byte	0xd2
+ 667 0256 61020000 		.4byte	0x261
+ 668 025a 17       		.uleb128 0x17
+ 669 025b 01       		.uleb128 0x1
+ 670 025c 50       		.byte	0x50
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 20
+
+
+ 671 025d 02       		.uleb128 0x2
+ 672 025e 74       		.byte	0x74
+ 673 025f 00       		.sleb128 0
+ 674 0260 00       		.byte	0
+ 675 0261 16       		.uleb128 0x16
+ 676 0262 14000000 		.4byte	.LVL15
+ 677 0266 0A010000 		.4byte	0x10a
+ 678 026a 74020000 		.4byte	0x274
+ 679 026e 17       		.uleb128 0x17
+ 680 026f 01       		.uleb128 0x1
+ 681 0270 50       		.byte	0x50
+ 682 0271 01       		.uleb128 0x1
+ 683 0272 33       		.byte	0x33
+ 684 0273 00       		.byte	0
+ 685 0274 10       		.uleb128 0x10
+ 686 0275 18000000 		.4byte	.LVL16
+ 687 0279 94010000 		.4byte	0x194
+ 688 027d 00       		.byte	0
+ 689 027e 0A       		.uleb128 0xa
+ 690 027f E7010000 		.4byte	.LASF30
+ 691 0283 01       		.byte	0x1
+ 692 0284 80       		.byte	0x80
+ 693 0285 00000000 		.4byte	.LFB4
+ 694 0289 14000000 		.4byte	.LFE4-.LFB4
+ 695 028d 01       		.uleb128 0x1
+ 696 028e 9C       		.byte	0x9c
+ 697 028f A6020000 		.4byte	0x2a6
+ 698 0293 10       		.uleb128 0x10
+ 699 0294 06000000 		.4byte	.LVL18
+ 700 0298 BC010000 		.4byte	0x1bc
+ 701 029c 10       		.uleb128 0x10
+ 702 029d 0C000000 		.4byte	.LVL19
+ 703 02a1 D2000000 		.4byte	0xd2
+ 704 02a5 00       		.byte	0
+ 705 02a6 14       		.uleb128 0x14
+ 706 02a7 BC020000 		.4byte	.LASF31
+ 707 02ab 01       		.byte	0x1
+ 708 02ac 7001     		.2byte	0x170
+ 709 02ae 00000000 		.4byte	.LFB13
+ 710 02b2 10000000 		.4byte	.LFE13-.LFB13
+ 711 02b6 01       		.uleb128 0x1
+ 712 02b7 9C       		.byte	0x9c
+ 713 02b8 14       		.uleb128 0x14
+ 714 02b9 9B020000 		.4byte	.LASF32
+ 715 02bd 01       		.byte	0x1
+ 716 02be 8901     		.2byte	0x189
+ 717 02c0 00000000 		.4byte	.LFB14
+ 718 02c4 10000000 		.4byte	.LFE14-.LFB14
+ 719 02c8 01       		.uleb128 0x1
+ 720 02c9 9C       		.byte	0x9c
+ 721 02ca 18       		.uleb128 0x18
+ 722 02cb A7000000 		.4byte	0xa7
+ 723 02cf DA020000 		.4byte	0x2da
+ 724 02d3 19       		.uleb128 0x19
+ 725 02d4 BA000000 		.4byte	0xba
+ 726 02d8 2F       		.byte	0x2f
+ 727 02d9 00       		.byte	0
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 21
+
+
+ 728 02da 1A       		.uleb128 0x1a
+ 729 02db 2C000000 		.4byte	.LASF37
+ 730 02df 01       		.byte	0x1
+ 731 02e0 20       		.byte	0x20
+ 732 02e1 CA020000 		.4byte	0x2ca
+ 733 02e5 1B       		.uleb128 0x1b
+ 734 02e6 92010000 		.4byte	.LASF38
+ 735 02ea 03       		.byte	0x3
+ 736 02eb 5E       		.byte	0x5e
+ 737 02ec 6B000000 		.4byte	0x6b
+ 738 02f0 1C       		.uleb128 0x1c
+ 739 02f1 BE010000 		.4byte	.LASF39
+ 740 02f5 03       		.byte	0x3
+ 741 02f6 5F       		.byte	0x5f
+ 742 02f7 1D       		.uleb128 0x1d
+ 743 02f8 6B000000 		.4byte	0x6b
+ 744 02fc 00       		.byte	0
+ 745 02fd 00       		.byte	0
+ 746              		.section	.debug_abbrev,"",%progbits
+ 747              	.Ldebug_abbrev0:
+ 748 0000 01       		.uleb128 0x1
+ 749 0001 11       		.uleb128 0x11
+ 750 0002 01       		.byte	0x1
+ 751 0003 25       		.uleb128 0x25
+ 752 0004 0E       		.uleb128 0xe
+ 753 0005 13       		.uleb128 0x13
+ 754 0006 0B       		.uleb128 0xb
+ 755 0007 03       		.uleb128 0x3
+ 756 0008 0E       		.uleb128 0xe
+ 757 0009 1B       		.uleb128 0x1b
+ 758 000a 0E       		.uleb128 0xe
+ 759 000b 55       		.uleb128 0x55
+ 760 000c 17       		.uleb128 0x17
+ 761 000d 11       		.uleb128 0x11
+ 762 000e 01       		.uleb128 0x1
+ 763 000f 10       		.uleb128 0x10
+ 764 0010 17       		.uleb128 0x17
+ 765 0011 00       		.byte	0
+ 766 0012 00       		.byte	0
+ 767 0013 02       		.uleb128 0x2
+ 768 0014 24       		.uleb128 0x24
+ 769 0015 00       		.byte	0
+ 770 0016 0B       		.uleb128 0xb
+ 771 0017 0B       		.uleb128 0xb
+ 772 0018 3E       		.uleb128 0x3e
+ 773 0019 0B       		.uleb128 0xb
+ 774 001a 03       		.uleb128 0x3
+ 775 001b 0E       		.uleb128 0xe
+ 776 001c 00       		.byte	0
+ 777 001d 00       		.byte	0
+ 778 001e 03       		.uleb128 0x3
+ 779 001f 24       		.uleb128 0x24
+ 780 0020 00       		.byte	0
+ 781 0021 0B       		.uleb128 0xb
+ 782 0022 0B       		.uleb128 0xb
+ 783 0023 3E       		.uleb128 0x3e
+ 784 0024 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 22
+
+
+ 785 0025 03       		.uleb128 0x3
+ 786 0026 08       		.uleb128 0x8
+ 787 0027 00       		.byte	0
+ 788 0028 00       		.byte	0
+ 789 0029 04       		.uleb128 0x4
+ 790 002a 16       		.uleb128 0x16
+ 791 002b 00       		.byte	0
+ 792 002c 03       		.uleb128 0x3
+ 793 002d 0E       		.uleb128 0xe
+ 794 002e 3A       		.uleb128 0x3a
+ 795 002f 0B       		.uleb128 0xb
+ 796 0030 3B       		.uleb128 0x3b
+ 797 0031 0B       		.uleb128 0xb
+ 798 0032 49       		.uleb128 0x49
+ 799 0033 13       		.uleb128 0x13
+ 800 0034 00       		.byte	0
+ 801 0035 00       		.byte	0
+ 802 0036 05       		.uleb128 0x5
+ 803 0037 16       		.uleb128 0x16
+ 804 0038 00       		.byte	0
+ 805 0039 03       		.uleb128 0x3
+ 806 003a 0E       		.uleb128 0xe
+ 807 003b 3A       		.uleb128 0x3a
+ 808 003c 0B       		.uleb128 0xb
+ 809 003d 3B       		.uleb128 0x3b
+ 810 003e 05       		.uleb128 0x5
+ 811 003f 49       		.uleb128 0x49
+ 812 0040 13       		.uleb128 0x13
+ 813 0041 00       		.byte	0
+ 814 0042 00       		.byte	0
+ 815 0043 06       		.uleb128 0x6
+ 816 0044 35       		.uleb128 0x35
+ 817 0045 00       		.byte	0
+ 818 0046 49       		.uleb128 0x49
+ 819 0047 13       		.uleb128 0x13
+ 820 0048 00       		.byte	0
+ 821 0049 00       		.byte	0
+ 822 004a 07       		.uleb128 0x7
+ 823 004b 0F       		.uleb128 0xf
+ 824 004c 00       		.byte	0
+ 825 004d 0B       		.uleb128 0xb
+ 826 004e 0B       		.uleb128 0xb
+ 827 004f 49       		.uleb128 0x49
+ 828 0050 13       		.uleb128 0x13
+ 829 0051 00       		.byte	0
+ 830 0052 00       		.byte	0
+ 831 0053 08       		.uleb128 0x8
+ 832 0054 15       		.uleb128 0x15
+ 833 0055 00       		.byte	0
+ 834 0056 27       		.uleb128 0x27
+ 835 0057 19       		.uleb128 0x19
+ 836 0058 00       		.byte	0
+ 837 0059 00       		.byte	0
+ 838 005a 09       		.uleb128 0x9
+ 839 005b 2E       		.uleb128 0x2e
+ 840 005c 00       		.byte	0
+ 841 005d 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 23
+
+
+ 842 005e 19       		.uleb128 0x19
+ 843 005f 03       		.uleb128 0x3
+ 844 0060 0E       		.uleb128 0xe
+ 845 0061 3A       		.uleb128 0x3a
+ 846 0062 0B       		.uleb128 0xb
+ 847 0063 3B       		.uleb128 0x3b
+ 848 0064 0B       		.uleb128 0xb
+ 849 0065 27       		.uleb128 0x27
+ 850 0066 19       		.uleb128 0x19
+ 851 0067 11       		.uleb128 0x11
+ 852 0068 01       		.uleb128 0x1
+ 853 0069 12       		.uleb128 0x12
+ 854 006a 06       		.uleb128 0x6
+ 855 006b 40       		.uleb128 0x40
+ 856 006c 18       		.uleb128 0x18
+ 857 006d 9742     		.uleb128 0x2117
+ 858 006f 19       		.uleb128 0x19
+ 859 0070 00       		.byte	0
+ 860 0071 00       		.byte	0
+ 861 0072 0A       		.uleb128 0xa
+ 862 0073 2E       		.uleb128 0x2e
+ 863 0074 01       		.byte	0x1
+ 864 0075 3F       		.uleb128 0x3f
+ 865 0076 19       		.uleb128 0x19
+ 866 0077 03       		.uleb128 0x3
+ 867 0078 0E       		.uleb128 0xe
+ 868 0079 3A       		.uleb128 0x3a
+ 869 007a 0B       		.uleb128 0xb
+ 870 007b 3B       		.uleb128 0x3b
+ 871 007c 0B       		.uleb128 0xb
+ 872 007d 27       		.uleb128 0x27
+ 873 007e 19       		.uleb128 0x19
+ 874 007f 11       		.uleb128 0x11
+ 875 0080 01       		.uleb128 0x1
+ 876 0081 12       		.uleb128 0x12
+ 877 0082 06       		.uleb128 0x6
+ 878 0083 40       		.uleb128 0x40
+ 879 0084 18       		.uleb128 0x18
+ 880 0085 9742     		.uleb128 0x2117
+ 881 0087 19       		.uleb128 0x19
+ 882 0088 01       		.uleb128 0x1
+ 883 0089 13       		.uleb128 0x13
+ 884 008a 00       		.byte	0
+ 885 008b 00       		.byte	0
+ 886 008c 0B       		.uleb128 0xb
+ 887 008d 05       		.uleb128 0x5
+ 888 008e 00       		.byte	0
+ 889 008f 03       		.uleb128 0x3
+ 890 0090 0E       		.uleb128 0xe
+ 891 0091 3A       		.uleb128 0x3a
+ 892 0092 0B       		.uleb128 0xb
+ 893 0093 3B       		.uleb128 0x3b
+ 894 0094 0B       		.uleb128 0xb
+ 895 0095 49       		.uleb128 0x49
+ 896 0096 13       		.uleb128 0x13
+ 897 0097 02       		.uleb128 0x2
+ 898 0098 18       		.uleb128 0x18
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 24
+
+
+ 899 0099 00       		.byte	0
+ 900 009a 00       		.byte	0
+ 901 009b 0C       		.uleb128 0xc
+ 902 009c 2E       		.uleb128 0x2e
+ 903 009d 00       		.byte	0
+ 904 009e 3F       		.uleb128 0x3f
+ 905 009f 19       		.uleb128 0x19
+ 906 00a0 03       		.uleb128 0x3
+ 907 00a1 0E       		.uleb128 0xe
+ 908 00a2 3A       		.uleb128 0x3a
+ 909 00a3 0B       		.uleb128 0xb
+ 910 00a4 3B       		.uleb128 0x3b
+ 911 00a5 0B       		.uleb128 0xb
+ 912 00a6 27       		.uleb128 0x27
+ 913 00a7 19       		.uleb128 0x19
+ 914 00a8 49       		.uleb128 0x49
+ 915 00a9 13       		.uleb128 0x13
+ 916 00aa 11       		.uleb128 0x11
+ 917 00ab 01       		.uleb128 0x1
+ 918 00ac 12       		.uleb128 0x12
+ 919 00ad 06       		.uleb128 0x6
+ 920 00ae 40       		.uleb128 0x40
+ 921 00af 18       		.uleb128 0x18
+ 922 00b0 9742     		.uleb128 0x2117
+ 923 00b2 19       		.uleb128 0x19
+ 924 00b3 00       		.byte	0
+ 925 00b4 00       		.byte	0
+ 926 00b5 0D       		.uleb128 0xd
+ 927 00b6 05       		.uleb128 0x5
+ 928 00b7 00       		.byte	0
+ 929 00b8 03       		.uleb128 0x3
+ 930 00b9 0E       		.uleb128 0xe
+ 931 00ba 3A       		.uleb128 0x3a
+ 932 00bb 0B       		.uleb128 0xb
+ 933 00bc 3B       		.uleb128 0x3b
+ 934 00bd 0B       		.uleb128 0xb
+ 935 00be 49       		.uleb128 0x49
+ 936 00bf 13       		.uleb128 0x13
+ 937 00c0 02       		.uleb128 0x2
+ 938 00c1 17       		.uleb128 0x17
+ 939 00c2 00       		.byte	0
+ 940 00c3 00       		.byte	0
+ 941 00c4 0E       		.uleb128 0xe
+ 942 00c5 34       		.uleb128 0x34
+ 943 00c6 00       		.byte	0
+ 944 00c7 03       		.uleb128 0x3
+ 945 00c8 0E       		.uleb128 0xe
+ 946 00c9 3A       		.uleb128 0x3a
+ 947 00ca 0B       		.uleb128 0xb
+ 948 00cb 3B       		.uleb128 0x3b
+ 949 00cc 0B       		.uleb128 0xb
+ 950 00cd 49       		.uleb128 0x49
+ 951 00ce 13       		.uleb128 0x13
+ 952 00cf 02       		.uleb128 0x2
+ 953 00d0 17       		.uleb128 0x17
+ 954 00d1 00       		.byte	0
+ 955 00d2 00       		.byte	0
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 25
+
+
+ 956 00d3 0F       		.uleb128 0xf
+ 957 00d4 34       		.uleb128 0x34
+ 958 00d5 00       		.byte	0
+ 959 00d6 03       		.uleb128 0x3
+ 960 00d7 0E       		.uleb128 0xe
+ 961 00d8 3A       		.uleb128 0x3a
+ 962 00d9 0B       		.uleb128 0xb
+ 963 00da 3B       		.uleb128 0x3b
+ 964 00db 0B       		.uleb128 0xb
+ 965 00dc 49       		.uleb128 0x49
+ 966 00dd 13       		.uleb128 0x13
+ 967 00de 1C       		.uleb128 0x1c
+ 968 00df 0B       		.uleb128 0xb
+ 969 00e0 00       		.byte	0
+ 970 00e1 00       		.byte	0
+ 971 00e2 10       		.uleb128 0x10
+ 972 00e3 898201   		.uleb128 0x4109
+ 973 00e6 00       		.byte	0
+ 974 00e7 11       		.uleb128 0x11
+ 975 00e8 01       		.uleb128 0x1
+ 976 00e9 31       		.uleb128 0x31
+ 977 00ea 13       		.uleb128 0x13
+ 978 00eb 00       		.byte	0
+ 979 00ec 00       		.byte	0
+ 980 00ed 11       		.uleb128 0x11
+ 981 00ee 2E       		.uleb128 0x2e
+ 982 00ef 01       		.byte	0x1
+ 983 00f0 3F       		.uleb128 0x3f
+ 984 00f1 19       		.uleb128 0x19
+ 985 00f2 03       		.uleb128 0x3
+ 986 00f3 0E       		.uleb128 0xe
+ 987 00f4 3A       		.uleb128 0x3a
+ 988 00f5 0B       		.uleb128 0xb
+ 989 00f6 3B       		.uleb128 0x3b
+ 990 00f7 05       		.uleb128 0x5
+ 991 00f8 27       		.uleb128 0x27
+ 992 00f9 19       		.uleb128 0x19
+ 993 00fa 49       		.uleb128 0x49
+ 994 00fb 13       		.uleb128 0x13
+ 995 00fc 11       		.uleb128 0x11
+ 996 00fd 01       		.uleb128 0x1
+ 997 00fe 12       		.uleb128 0x12
+ 998 00ff 06       		.uleb128 0x6
+ 999 0100 40       		.uleb128 0x40
+ 1000 0101 18       		.uleb128 0x18
+ 1001 0102 9742     		.uleb128 0x2117
+ 1002 0104 19       		.uleb128 0x19
+ 1003 0105 01       		.uleb128 0x1
+ 1004 0106 13       		.uleb128 0x13
+ 1005 0107 00       		.byte	0
+ 1006 0108 00       		.byte	0
+ 1007 0109 12       		.uleb128 0x12
+ 1008 010a 34       		.uleb128 0x34
+ 1009 010b 00       		.byte	0
+ 1010 010c 03       		.uleb128 0x3
+ 1011 010d 0E       		.uleb128 0xe
+ 1012 010e 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 26
+
+
+ 1013 010f 0B       		.uleb128 0xb
+ 1014 0110 3B       		.uleb128 0x3b
+ 1015 0111 05       		.uleb128 0x5
+ 1016 0112 49       		.uleb128 0x49
+ 1017 0113 13       		.uleb128 0x13
+ 1018 0114 02       		.uleb128 0x2
+ 1019 0115 17       		.uleb128 0x17
+ 1020 0116 00       		.byte	0
+ 1021 0117 00       		.byte	0
+ 1022 0118 13       		.uleb128 0x13
+ 1023 0119 34       		.uleb128 0x34
+ 1024 011a 00       		.byte	0
+ 1025 011b 03       		.uleb128 0x3
+ 1026 011c 0E       		.uleb128 0xe
+ 1027 011d 3A       		.uleb128 0x3a
+ 1028 011e 0B       		.uleb128 0xb
+ 1029 011f 3B       		.uleb128 0x3b
+ 1030 0120 05       		.uleb128 0x5
+ 1031 0121 49       		.uleb128 0x49
+ 1032 0122 13       		.uleb128 0x13
+ 1033 0123 1C       		.uleb128 0x1c
+ 1034 0124 0B       		.uleb128 0xb
+ 1035 0125 00       		.byte	0
+ 1036 0126 00       		.byte	0
+ 1037 0127 14       		.uleb128 0x14
+ 1038 0128 2E       		.uleb128 0x2e
+ 1039 0129 00       		.byte	0
+ 1040 012a 3F       		.uleb128 0x3f
+ 1041 012b 19       		.uleb128 0x19
+ 1042 012c 03       		.uleb128 0x3
+ 1043 012d 0E       		.uleb128 0xe
+ 1044 012e 3A       		.uleb128 0x3a
+ 1045 012f 0B       		.uleb128 0xb
+ 1046 0130 3B       		.uleb128 0x3b
+ 1047 0131 05       		.uleb128 0x5
+ 1048 0132 27       		.uleb128 0x27
+ 1049 0133 19       		.uleb128 0x19
+ 1050 0134 11       		.uleb128 0x11
+ 1051 0135 01       		.uleb128 0x1
+ 1052 0136 12       		.uleb128 0x12
+ 1053 0137 06       		.uleb128 0x6
+ 1054 0138 40       		.uleb128 0x40
+ 1055 0139 18       		.uleb128 0x18
+ 1056 013a 9742     		.uleb128 0x2117
+ 1057 013c 19       		.uleb128 0x19
+ 1058 013d 00       		.byte	0
+ 1059 013e 00       		.byte	0
+ 1060 013f 15       		.uleb128 0x15
+ 1061 0140 2E       		.uleb128 0x2e
+ 1062 0141 00       		.byte	0
+ 1063 0142 3F       		.uleb128 0x3f
+ 1064 0143 19       		.uleb128 0x19
+ 1065 0144 03       		.uleb128 0x3
+ 1066 0145 0E       		.uleb128 0xe
+ 1067 0146 3A       		.uleb128 0x3a
+ 1068 0147 0B       		.uleb128 0xb
+ 1069 0148 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 27
+
+
+ 1070 0149 05       		.uleb128 0x5
+ 1071 014a 27       		.uleb128 0x27
+ 1072 014b 19       		.uleb128 0x19
+ 1073 014c 49       		.uleb128 0x49
+ 1074 014d 13       		.uleb128 0x13
+ 1075 014e 11       		.uleb128 0x11
+ 1076 014f 01       		.uleb128 0x1
+ 1077 0150 12       		.uleb128 0x12
+ 1078 0151 06       		.uleb128 0x6
+ 1079 0152 40       		.uleb128 0x40
+ 1080 0153 18       		.uleb128 0x18
+ 1081 0154 9742     		.uleb128 0x2117
+ 1082 0156 19       		.uleb128 0x19
+ 1083 0157 00       		.byte	0
+ 1084 0158 00       		.byte	0
+ 1085 0159 16       		.uleb128 0x16
+ 1086 015a 898201   		.uleb128 0x4109
+ 1087 015d 01       		.byte	0x1
+ 1088 015e 11       		.uleb128 0x11
+ 1089 015f 01       		.uleb128 0x1
+ 1090 0160 31       		.uleb128 0x31
+ 1091 0161 13       		.uleb128 0x13
+ 1092 0162 01       		.uleb128 0x1
+ 1093 0163 13       		.uleb128 0x13
+ 1094 0164 00       		.byte	0
+ 1095 0165 00       		.byte	0
+ 1096 0166 17       		.uleb128 0x17
+ 1097 0167 8A8201   		.uleb128 0x410a
+ 1098 016a 00       		.byte	0
+ 1099 016b 02       		.uleb128 0x2
+ 1100 016c 18       		.uleb128 0x18
+ 1101 016d 9142     		.uleb128 0x2111
+ 1102 016f 18       		.uleb128 0x18
+ 1103 0170 00       		.byte	0
+ 1104 0171 00       		.byte	0
+ 1105 0172 18       		.uleb128 0x18
+ 1106 0173 01       		.uleb128 0x1
+ 1107 0174 01       		.byte	0x1
+ 1108 0175 49       		.uleb128 0x49
+ 1109 0176 13       		.uleb128 0x13
+ 1110 0177 01       		.uleb128 0x1
+ 1111 0178 13       		.uleb128 0x13
+ 1112 0179 00       		.byte	0
+ 1113 017a 00       		.byte	0
+ 1114 017b 19       		.uleb128 0x19
+ 1115 017c 21       		.uleb128 0x21
+ 1116 017d 00       		.byte	0
+ 1117 017e 49       		.uleb128 0x49
+ 1118 017f 13       		.uleb128 0x13
+ 1119 0180 2F       		.uleb128 0x2f
+ 1120 0181 0B       		.uleb128 0xb
+ 1121 0182 00       		.byte	0
+ 1122 0183 00       		.byte	0
+ 1123 0184 1A       		.uleb128 0x1a
+ 1124 0185 34       		.uleb128 0x34
+ 1125 0186 00       		.byte	0
+ 1126 0187 03       		.uleb128 0x3
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 28
+
+
+ 1127 0188 0E       		.uleb128 0xe
+ 1128 0189 3A       		.uleb128 0x3a
+ 1129 018a 0B       		.uleb128 0xb
+ 1130 018b 3B       		.uleb128 0x3b
+ 1131 018c 0B       		.uleb128 0xb
+ 1132 018d 49       		.uleb128 0x49
+ 1133 018e 13       		.uleb128 0x13
+ 1134 018f 3F       		.uleb128 0x3f
+ 1135 0190 19       		.uleb128 0x19
+ 1136 0191 3C       		.uleb128 0x3c
+ 1137 0192 19       		.uleb128 0x19
+ 1138 0193 00       		.byte	0
+ 1139 0194 00       		.byte	0
+ 1140 0195 1B       		.uleb128 0x1b
+ 1141 0196 2E       		.uleb128 0x2e
+ 1142 0197 00       		.byte	0
+ 1143 0198 3F       		.uleb128 0x3f
+ 1144 0199 19       		.uleb128 0x19
+ 1145 019a 03       		.uleb128 0x3
+ 1146 019b 0E       		.uleb128 0xe
+ 1147 019c 3A       		.uleb128 0x3a
+ 1148 019d 0B       		.uleb128 0xb
+ 1149 019e 3B       		.uleb128 0x3b
+ 1150 019f 0B       		.uleb128 0xb
+ 1151 01a0 27       		.uleb128 0x27
+ 1152 01a1 19       		.uleb128 0x19
+ 1153 01a2 49       		.uleb128 0x49
+ 1154 01a3 13       		.uleb128 0x13
+ 1155 01a4 3C       		.uleb128 0x3c
+ 1156 01a5 19       		.uleb128 0x19
+ 1157 01a6 00       		.byte	0
+ 1158 01a7 00       		.byte	0
+ 1159 01a8 1C       		.uleb128 0x1c
+ 1160 01a9 2E       		.uleb128 0x2e
+ 1161 01aa 01       		.byte	0x1
+ 1162 01ab 3F       		.uleb128 0x3f
+ 1163 01ac 19       		.uleb128 0x19
+ 1164 01ad 03       		.uleb128 0x3
+ 1165 01ae 0E       		.uleb128 0xe
+ 1166 01af 3A       		.uleb128 0x3a
+ 1167 01b0 0B       		.uleb128 0xb
+ 1168 01b1 3B       		.uleb128 0x3b
+ 1169 01b2 0B       		.uleb128 0xb
+ 1170 01b3 27       		.uleb128 0x27
+ 1171 01b4 19       		.uleb128 0x19
+ 1172 01b5 3C       		.uleb128 0x3c
+ 1173 01b6 19       		.uleb128 0x19
+ 1174 01b7 00       		.byte	0
+ 1175 01b8 00       		.byte	0
+ 1176 01b9 1D       		.uleb128 0x1d
+ 1177 01ba 05       		.uleb128 0x5
+ 1178 01bb 00       		.byte	0
+ 1179 01bc 49       		.uleb128 0x49
+ 1180 01bd 13       		.uleb128 0x13
+ 1181 01be 00       		.byte	0
+ 1182 01bf 00       		.byte	0
+ 1183 01c0 00       		.byte	0
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 29
+
+
+ 1184              		.section	.debug_loc,"",%progbits
+ 1185              	.Ldebug_loc0:
+ 1186              	.LLST0:
+ 1187 0000 00000000 		.4byte	.LVL1
+ 1188 0004 07000000 		.4byte	.LVL3-1
+ 1189 0008 0100     		.2byte	0x1
+ 1190 000a 50       		.byte	0x50
+ 1191 000b 07000000 		.4byte	.LVL3-1
+ 1192 000f 28000000 		.4byte	.LFE8
+ 1193 0013 0400     		.2byte	0x4
+ 1194 0015 F3       		.byte	0xf3
+ 1195 0016 01       		.uleb128 0x1
+ 1196 0017 50       		.byte	0x50
+ 1197 0018 9F       		.byte	0x9f
+ 1198 0019 00000000 		.4byte	0
+ 1199 001d 00000000 		.4byte	0
+ 1200              	.LLST1:
+ 1201 0021 08000000 		.4byte	.LVL3
+ 1202 0025 1B000000 		.4byte	.LVL4-1
+ 1203 0029 0100     		.2byte	0x1
+ 1204 002b 50       		.byte	0x50
+ 1205 002c 00000000 		.4byte	0
+ 1206 0030 00000000 		.4byte	0
+ 1207              	.LLST2:
+ 1208 0034 06000000 		.4byte	.LVL6
+ 1209 0038 08000000 		.4byte	.LVL7
+ 1210 003c 0500     		.2byte	0x5
+ 1211 003e 70       		.byte	0x70
+ 1212 003f 00       		.sleb128 0
+ 1213 0040 4E       		.byte	0x4e
+ 1214 0041 25       		.byte	0x25
+ 1215 0042 9F       		.byte	0x9f
+ 1216 0043 08000000 		.4byte	.LVL7
+ 1217 0047 10000000 		.4byte	.LFE9
+ 1218 004b 0100     		.2byte	0x1
+ 1219 004d 50       		.byte	0x50
+ 1220 004e 00000000 		.4byte	0
+ 1221 0052 00000000 		.4byte	0
+ 1222              	.LLST3:
+ 1223 0056 00000000 		.4byte	.LVL12
+ 1224 005a 07000000 		.4byte	.LVL13-1
+ 1225 005e 0100     		.2byte	0x1
+ 1226 0060 50       		.byte	0x50
+ 1227 0061 07000000 		.4byte	.LVL13-1
+ 1228 0065 18000000 		.4byte	.LVL17
+ 1229 0069 0100     		.2byte	0x1
+ 1230 006b 54       		.byte	0x54
+ 1231 006c 18000000 		.4byte	.LVL17
+ 1232 0070 1A000000 		.4byte	.LFE3
+ 1233 0074 0400     		.2byte	0x4
+ 1234 0076 F3       		.byte	0xf3
+ 1235 0077 01       		.uleb128 0x1
+ 1236 0078 50       		.byte	0x50
+ 1237 0079 9F       		.byte	0x9f
+ 1238 007a 00000000 		.4byte	0
+ 1239 007e 00000000 		.4byte	0
+ 1240              		.section	.debug_aranges,"",%progbits
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 30
+
+
+ 1241 0000 7C000000 		.4byte	0x7c
+ 1242 0004 0200     		.2byte	0x2
+ 1243 0006 00000000 		.4byte	.Ldebug_info0
+ 1244 000a 04       		.byte	0x4
+ 1245 000b 00       		.byte	0
+ 1246 000c 0000     		.2byte	0
+ 1247 000e 0000     		.2byte	0
+ 1248 0010 00000000 		.4byte	.LFB5
+ 1249 0014 02000000 		.4byte	.LFE5-.LFB5
+ 1250 0018 00000000 		.4byte	.LFB6
+ 1251 001c 0C000000 		.4byte	.LFE6-.LFB6
+ 1252 0020 00000000 		.4byte	.LFB7
+ 1253 0024 0C000000 		.4byte	.LFE7-.LFB7
+ 1254 0028 00000000 		.4byte	.LFB8
+ 1255 002c 28000000 		.4byte	.LFE8-.LFB8
+ 1256 0030 00000000 		.4byte	.LFB9
+ 1257 0034 10000000 		.4byte	.LFE9-.LFB9
+ 1258 0038 00000000 		.4byte	.LFB10
+ 1259 003c 10000000 		.4byte	.LFE10-.LFB10
+ 1260 0040 00000000 		.4byte	.LFB11
+ 1261 0044 14000000 		.4byte	.LFE11-.LFB11
+ 1262 0048 00000000 		.4byte	.LFB12
+ 1263 004c 10000000 		.4byte	.LFE12-.LFB12
+ 1264 0050 00000000 		.4byte	.LFB2
+ 1265 0054 1C000000 		.4byte	.LFE2-.LFB2
+ 1266 0058 00000000 		.4byte	.LFB3
+ 1267 005c 1A000000 		.4byte	.LFE3-.LFB3
+ 1268 0060 00000000 		.4byte	.LFB4
+ 1269 0064 14000000 		.4byte	.LFE4-.LFB4
+ 1270 0068 00000000 		.4byte	.LFB13
+ 1271 006c 10000000 		.4byte	.LFE13-.LFB13
+ 1272 0070 00000000 		.4byte	.LFB14
+ 1273 0074 10000000 		.4byte	.LFE14-.LFB14
+ 1274 0078 00000000 		.4byte	0
+ 1275 007c 00000000 		.4byte	0
+ 1276              		.section	.debug_ranges,"",%progbits
+ 1277              	.Ldebug_ranges0:
+ 1278 0000 00000000 		.4byte	.LFB5
+ 1279 0004 02000000 		.4byte	.LFE5
+ 1280 0008 00000000 		.4byte	.LFB6
+ 1281 000c 0C000000 		.4byte	.LFE6
+ 1282 0010 00000000 		.4byte	.LFB7
+ 1283 0014 0C000000 		.4byte	.LFE7
+ 1284 0018 00000000 		.4byte	.LFB8
+ 1285 001c 28000000 		.4byte	.LFE8
+ 1286 0020 00000000 		.4byte	.LFB9
+ 1287 0024 10000000 		.4byte	.LFE9
+ 1288 0028 00000000 		.4byte	.LFB10
+ 1289 002c 10000000 		.4byte	.LFE10
+ 1290 0030 00000000 		.4byte	.LFB11
+ 1291 0034 14000000 		.4byte	.LFE11
+ 1292 0038 00000000 		.4byte	.LFB12
+ 1293 003c 10000000 		.4byte	.LFE12
+ 1294 0040 00000000 		.4byte	.LFB2
+ 1295 0044 1C000000 		.4byte	.LFE2
+ 1296 0048 00000000 		.4byte	.LFB3
+ 1297 004c 1A000000 		.4byte	.LFE3
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 31
+
+
+ 1298 0050 00000000 		.4byte	.LFB4
+ 1299 0054 14000000 		.4byte	.LFE4
+ 1300 0058 00000000 		.4byte	.LFB13
+ 1301 005c 10000000 		.4byte	.LFE13
+ 1302 0060 00000000 		.4byte	.LFB14
+ 1303 0064 10000000 		.4byte	.LFE14
+ 1304 0068 00000000 		.4byte	0
+ 1305 006c 00000000 		.4byte	0
+ 1306              		.section	.debug_line,"",%progbits
+ 1307              	.Ldebug_line0:
+ 1308 0000 68010000 		.section	.debug_str,"MS",%progbits,1
+ 1308      02006A00 
+ 1308      00000201 
+ 1308      FB0E0D00 
+ 1308      01010101 
+ 1309              	.LASF14:
+ 1310 0000 72656733 		.ascii	"reg32\000"
+ 1310      3200
+ 1311              	.LASF29:
+ 1312 0006 54696D65 		.ascii	"Timer_Int_StartEx\000"
+ 1312      725F496E 
+ 1312      745F5374 
+ 1312      61727445 
+ 1312      7800
+ 1313              	.LASF17:
+ 1314 0018 54696D65 		.ascii	"Timer_Int_SetVector\000"
+ 1314      725F496E 
+ 1314      745F5365 
+ 1314      74566563 
+ 1314      746F7200 
+ 1315              	.LASF37:
+ 1316 002c 43795261 		.ascii	"CyRamVectors\000"
+ 1316      6D566563 
+ 1316      746F7273 
+ 1316      00
+ 1317              	.LASF36:
+ 1318 0039 54696D65 		.ascii	"Timer_Int_GetPriority\000"
+ 1318      725F496E 
+ 1318      745F4765 
+ 1318      74507269 
+ 1318      6F726974 
+ 1319              	.LASF3:
+ 1320 004f 73686F72 		.ascii	"short unsigned int\000"
+ 1320      7420756E 
+ 1320      7369676E 
+ 1320      65642069 
+ 1320      6E7400
+ 1321              	.LASF27:
+ 1322 0062 54696D65 		.ascii	"Timer_Int_Disable\000"
+ 1322      725F496E 
+ 1322      745F4469 
+ 1322      7361626C 
+ 1322      6500
+ 1323              	.LASF35:
+ 1324 0074 413A5C44 		.ascii	"A:\\Documents\\School\\ECEG-721_Embedded_Systems\\L"
+ 1324      6F63756D 
+ 1324      656E7473 
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 32
+
+
+ 1324      5C536368 
+ 1324      6F6F6C5C 
+ 1325 00a3 6162735C 		.ascii	"abs\\Lab7\\BLE Lab 1\\BLE Lab 1.cydsn\000"
+ 1325      4C616237 
+ 1325      5C424C45 
+ 1325      204C6162 
+ 1325      20315C42 
+ 1326              	.LASF11:
+ 1327 00c6 666C6F61 		.ascii	"float\000"
+ 1327      7400
+ 1328              	.LASF7:
+ 1329 00cc 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1329      206C6F6E 
+ 1329      6720756E 
+ 1329      7369676E 
+ 1329      65642069 
+ 1330              	.LASF1:
+ 1331 00e3 756E7369 		.ascii	"unsigned char\000"
+ 1331      676E6564 
+ 1331      20636861 
+ 1331      7200
+ 1332              	.LASF21:
+ 1333 00f1 696E7465 		.ascii	"interruptState\000"
+ 1333      72727570 
+ 1333      74537461 
+ 1333      746500
+ 1334              	.LASF5:
+ 1335 0100 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1335      20756E73 
+ 1335      69676E65 
+ 1335      6420696E 
+ 1335      7400
+ 1336              	.LASF9:
+ 1337 0112 75696E74 		.ascii	"uint8\000"
+ 1337      3800
+ 1338              	.LASF18:
+ 1339 0118 54696D65 		.ascii	"Timer_Int_SetPriority\000"
+ 1339      725F496E 
+ 1339      745F5365 
+ 1339      74507269 
+ 1339      6F726974 
+ 1340              	.LASF20:
+ 1341 012e 7072696F 		.ascii	"priority\000"
+ 1341      72697479 
+ 1341      00
+ 1342              	.LASF34:
+ 1343 0137 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\Timer_Int.c\000"
+ 1343      6E657261 
+ 1343      7465645F 
+ 1343      536F7572 
+ 1343      63655C50 
+ 1344              	.LASF25:
+ 1345 015c 54696D65 		.ascii	"Timer_Int_GetVector\000"
+ 1345      725F496E 
+ 1345      745F4765 
+ 1345      74566563 
+ 1345      746F7200 
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 33
+
+
+ 1346              	.LASF12:
+ 1347 0170 646F7562 		.ascii	"double\000"
+ 1347      6C6500
+ 1348              	.LASF23:
+ 1349 0177 54696D65 		.ascii	"Timer_Int_Interrupt\000"
+ 1349      725F496E 
+ 1349      745F496E 
+ 1349      74657272 
+ 1349      75707400 
+ 1350              	.LASF10:
+ 1351 018b 75696E74 		.ascii	"uint32\000"
+ 1351      333200
+ 1352              	.LASF38:
+ 1353 0192 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 1353      74657243 
+ 1353      72697469 
+ 1353      63616C53 
+ 1353      65637469 
+ 1354              	.LASF8:
+ 1355 01a9 756E7369 		.ascii	"unsigned int\000"
+ 1355      676E6564 
+ 1355      20696E74 
+ 1355      00
+ 1356              	.LASF19:
+ 1357 01b6 61646472 		.ascii	"address\000"
+ 1357      65737300 
+ 1358              	.LASF39:
+ 1359 01be 43794578 		.ascii	"CyExitCriticalSection\000"
+ 1359      69744372 
+ 1359      69746963 
+ 1359      616C5365 
+ 1359      6374696F 
+ 1360              	.LASF26:
+ 1361 01d4 54696D65 		.ascii	"Timer_Int_GetState\000"
+ 1361      725F496E 
+ 1361      745F4765 
+ 1361      74537461 
+ 1361      746500
+ 1362              	.LASF30:
+ 1363 01e7 54696D65 		.ascii	"Timer_Int_Stop\000"
+ 1363      725F496E 
+ 1363      745F5374 
+ 1363      6F7000
+ 1364              	.LASF33:
+ 1365 01f6 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1365      4320342E 
+ 1365      382E3420 
+ 1365      32303134 
+ 1365      30353236 
+ 1366 0229 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1366      20726576 
+ 1366      6973696F 
+ 1366      6E203231 
+ 1366      31333538 
+ 1367 025c 67202D66 		.ascii	"g -ffunction-sections\000"
+ 1367      66756E63 
+ 1367      74696F6E 
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 34
+
+
+ 1367      2D736563 
+ 1367      74696F6E 
+ 1368              	.LASF15:
+ 1369 0272 63796973 		.ascii	"cyisraddress\000"
+ 1369      72616464 
+ 1369      72657373 
+ 1369      00
+ 1370              	.LASF16:
+ 1371 027f 73697A65 		.ascii	"sizetype\000"
+ 1371      74797065 
+ 1371      00
+ 1372              	.LASF6:
+ 1373 0288 6C6F6E67 		.ascii	"long long int\000"
+ 1373      206C6F6E 
+ 1373      6720696E 
+ 1373      7400
+ 1374              	.LASF13:
+ 1375 0296 63686172 		.ascii	"char\000"
+ 1375      00
+ 1376              	.LASF32:
+ 1377 029b 54696D65 		.ascii	"Timer_Int_ClearPending\000"
+ 1377      725F496E 
+ 1377      745F436C 
+ 1377      65617250 
+ 1377      656E6469 
+ 1378              	.LASF2:
+ 1379 02b2 73686F72 		.ascii	"short int\000"
+ 1379      7420696E 
+ 1379      7400
+ 1380              	.LASF31:
+ 1381 02bc 54696D65 		.ascii	"Timer_Int_SetPending\000"
+ 1381      725F496E 
+ 1381      745F5365 
+ 1381      7450656E 
+ 1381      64696E67 
+ 1382              	.LASF22:
+ 1383 02d1 7072696F 		.ascii	"priorityOffset\000"
+ 1383      72697479 
+ 1383      4F666673 
+ 1383      657400
+ 1384              	.LASF4:
+ 1385 02e0 6C6F6E67 		.ascii	"long int\000"
+ 1385      20696E74 
+ 1385      00
+ 1386              	.LASF28:
+ 1387 02e9 54696D65 		.ascii	"Timer_Int_Start\000"
+ 1387      725F496E 
+ 1387      745F5374 
+ 1387      61727400 
+ 1388              	.LASF0:
+ 1389 02f9 7369676E 		.ascii	"signed char\000"
+ 1389      65642063 
+ 1389      68617200 
+ 1390              	.LASF24:
+ 1391 0305 54696D65 		.ascii	"Timer_Int_Enable\000"
+ 1391      725F496E 
+ 1391      745F456E 
+ARM GAS  C:\Users\Luci\AppData\Local\Temp\ccnzjkGf.s 			page 35
+
+
+ 1391      61626C65 
+ 1391      00
+ 1392              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
