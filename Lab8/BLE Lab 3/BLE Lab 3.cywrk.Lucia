@@ -13,9 +13,10 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="BLE Lab 3\BLE Lab 3">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="BLE Lab 3\BLE Lab 3\Source Files\main.c">
 <ExpandedNodeIds>
 <v>BLE Lab 3</v>
+<v>BLE Lab 3\BLE Lab 3</v>
 <v>BLE Lab 3\BLE Lab 3\TopDesign</v>
 <v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr</v>
 <v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr\Pins</v>
@@ -42,6 +43,53 @@
 <VisibleNodeIds>
 <v>BLE Lab 3</v>
 <v>BLE Lab 3\BLE Lab 3</v>
+<v>BLE Lab 3\BLE Lab 3\TopDesign</v>
+<v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr</v>
+<v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr\Pins</v>
+<v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr\Analog</v>
+<v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr\DMA</v>
+<v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr\Clocks</v>
+<v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr\Interrupts</v>
+<v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr\System</v>
+<v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr\Directives</v>
+<v>BLE Lab 3\BLE Lab 3\BLE Lab 3.cydwr\Flash Security</v>
+<v>BLE Lab 3\BLE Lab 3\Header Files</v>
+<v>BLE Lab 3\BLE Lab 3\Header Files\BleProcessing.h</v>
+<v>BLE Lab 3\BLE Lab 3\Header Files\HeartRateProcessing.h</v>
+<v>BLE Lab 3\BLE Lab 3\Header Files\main.h</v>
+<v>BLE Lab 3\BLE Lab 3\Header Files\WatchdogTimer.h</v>
+<v>BLE Lab 3\BLE Lab 3\Source Files</v>
+<v>BLE Lab 3\BLE Lab 3\Source Files\BleProcessing.c</v>
+<v>BLE Lab 3\BLE Lab 3\Source Files\HeartRateProcessing.c</v>
+<v>BLE Lab 3\BLE Lab 3\Source Files\main.c</v>
+<v>BLE Lab 3\BLE Lab 3\Source Files\WatchdogTimer.c</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\ADC</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\ADC_intClock</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\ADC_IRQ</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\BLE</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\BLE_bless_isr</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\Button_output</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cy_boot</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cy_dmac</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cy_lfclk</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\Em_EEPROM_Dynamic</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\Heart_Rate_input</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\Led_Advertising_Green</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\Led_Connected_Blue</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\Opamp</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\SW2_Switch</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\Wakeup_ISR</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cycodeshareexport.ld</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cycodeshareimport.ld</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cycodeshareimport.scat</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cydevice_trm.h</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cydevicegnu_trm.inc</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cydeviceiar_trm.inc</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cydevicerv_trm.inc</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cydisabledsheets.h</v>
+<v>BLE Lab 3\BLE Lab 3\Generated_Source\PSoC4\cyfitter.h</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -217,6 +265,9 @@
 <name v=".\BLE Lab 3.cydsn\BLE Lab 3.cydwr" />
 <name v=".\BLE Lab 3.cydsn\TopDesign\TopDesign.cysch" />
 <name v=".\BLE Lab 3.cydsn\main.c" />
+<name v=".\BLE Lab 3.cydsn\BleProcessing.c" />
+<name v=".\BLE Lab 3.cydsn\HeartRateProcessing.c" />
+<name v=".\BLE Lab 3.cydsn\WatchdogTimer.c" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -224,7 +275,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1176, 576" SelectedTabbedMdiWindow="b24c54c2-45ce-4f87-883c-29ef21c38bd9"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="1f506062-44ed-420c-acf8-f64dfc2a36f4" /><DocumentWindow Key="A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Lab8\BLE Lab 3\BLE Lab 3.cydsn\BLE Lab 3.cydwr" Guid="8f31e884-da66-4621-8dae-6c56148dad5c" /><DocumentWindow Key="A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Lab8\BLE Lab 3\BLE Lab 3.cydsn\TopDesign\TopDesign.cysch" Guid="4ee3274b-593f-4785-affb-37a0a3054f4d" /><DocumentWindow Key="A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Lab8\BLE Lab 3\BLE Lab 3.cydsn\main.c" Guid="b24c54c2-45ce-4f87-883c-29ef21c38bd9" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1176, 754" SelectedTabbedMdiWindow="b24c54c2-45ce-4f87-883c-29ef21c38bd9"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="1f506062-44ed-420c-acf8-f64dfc2a36f4" /><DocumentWindow Key="A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Lab8\BLE Lab 3\BLE Lab 3.cydsn\BLE Lab 3.cydwr" Guid="8f31e884-da66-4621-8dae-6c56148dad5c" /><DocumentWindow Key="A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Lab8\BLE Lab 3\BLE Lab 3.cydsn\TopDesign\TopDesign.cysch" Guid="4ee3274b-593f-4785-affb-37a0a3054f4d" /><DocumentWindow Key="A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Lab8\BLE Lab 3\BLE Lab 3.cydsn\main.c" Guid="b24c54c2-45ce-4f87-883c-29ef21c38bd9" /><DocumentWindow Key="A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Lab8\BLE Lab 3\BLE Lab 3.cydsn\BleProcessing.c" Guid="f7b710ce-2a3f-4d8a-8a94-6146927be6e2" /><DocumentWindow Key="A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Lab8\BLE Lab 3\BLE Lab 3.cydsn\HeartRateProcessing.c" Guid="c8a2052f-a7f2-4655-820d-2388a7088189" /><DocumentWindow Key="A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Lab8\BLE Lab 3\BLE Lab 3.cydsn\WatchdogTimer.c" Guid="2c4a0fd4-a344-4bd3-a724-5646a3b03fc8" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

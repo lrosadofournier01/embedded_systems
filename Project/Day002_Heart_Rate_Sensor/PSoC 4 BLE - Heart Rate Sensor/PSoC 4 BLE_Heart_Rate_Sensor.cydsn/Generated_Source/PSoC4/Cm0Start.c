@@ -1,12 +1,12 @@
 /***************************************************************************//**
 * \file Cm0Start.c
-* \version 6.0
+* \version 5.50
 *
 * \brief Startup code for the ARM CM0.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2010-2018, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2010-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -63,6 +63,7 @@
 
 #if defined(__GNUC__)
     #include <errno.h>
+    extern int  errno;
     extern int  end;
 #endif  /* defined(__GNUC__) */
 
@@ -282,11 +283,11 @@ void * _sbrk (int nbytes)
     void *      returnValue;
 
     /* The statically held previous end of the heap, with its initialization. */
-    static uint8 *heapPointer = (uint8 *) &end;                 /* Previous end */
+    static void *heapPointer = (void *) &end;                 /* Previous end */
 
-    if (((heapPointer + nbytes) - (uint8 *) &end) <= CYDEV_HEAP_SIZE)
+    if (((heapPointer + nbytes) - (void *) &end) <= CYDEV_HEAP_SIZE)
     {
-        returnValue  = (void *) heapPointer;
+        returnValue  = heapPointer;
         heapPointer += nbytes;
     }
     else

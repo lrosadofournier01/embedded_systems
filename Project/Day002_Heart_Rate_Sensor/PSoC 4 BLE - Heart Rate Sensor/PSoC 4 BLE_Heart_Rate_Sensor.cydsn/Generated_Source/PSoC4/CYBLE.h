@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file CYBLE.h
-* \version 3.66
+* \version 3.30
 * 
 * \brief
 *  Contains the function prototypes and constants available to the BLE component.
 * 
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -192,7 +192,7 @@
 #define CYBLE_STRICT_PAIRING_ENABLED                (CYBLE_STRICT_PAIRING == CYBLE_STRICT_PAIRING_ON)
 
 /* Security options from the customizer */
-#define CYBLE_SECURITY_MODE                         ((0x00u == 0u) ? CYBLE_GAP_SEC_MODE_1 : CYBLE_GAP_SEC_MODE_2)
+#define CYBLE_SECURITY_MODE                         (0x00u)
 #define CYBLE_SECURITY_LEVEL                        (0x00u)
 #define CYBLE_SECURITY_ENC_KEY_SIZE                 (0x10u)
 
@@ -699,12 +699,12 @@ extern CYBLE_GAP_AUTH_INFO_T                        cyBle_authInfo;
 #if((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
 
 /* This is a two-bit variable that contains status of pending write to flash operation. 
-   This variable is initialized to zero in CyBle_Init() API function.
+   This variable is initialized to zero in CyBle_Init() API.
    CYBLE_PENDING_CCCD_FLASH_WRITE_BIT flag is set after write to CCCD event when 
    peer device supports bonding (cyBle_peerBonding == CYBLE_GAP_BONDING). 
    CYBLE_PENDING_STACK_FLASH_WRITE_BIT flag is set after CYBLE_EVT_PENDING_FLASH_WRITE event.
-   CyBle_StoreBondingData() should be called to store pending bonding data.
-   This function automatically clears pending bits after write operation complete. */
+   CyBle_StoreBondingData API should be called to store pending bonding data.
+   This API automatically clears pending bits after write operation complete. */
     extern uint8 cyBle_pendingFlashWrite;
     
 /* Bonding type setting of peer device, CYBLE_GAP_BONDING_NONE or CYBLE_GAP_BONDING.

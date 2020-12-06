@@ -145,47 +145,6 @@ static void CyClockStartupError(uint8 errorCode)
 }
 #endif
 
-#define CY_CFG_BASE_ADDR_COUNT 4u
-CYPACKED typedef struct
-{
-	uint8 offset;
-	uint8 value;
-} CYPACKED_ATTR cy_cfg_addrvalue_t;
-
-
-
-/*******************************************************************************
-* Function Name: cfg_write_bytes32
-********************************************************************************
-* Summary:
-*  This function is used for setting up the chip configuration areas that
-*  contain relatively sparse data.
-*
-* Parameters:
-*   void
-*
-* Return:
-*   void
-*
-*******************************************************************************/
-static void cfg_write_bytes32(const uint32 addr_table[], const cy_cfg_addrvalue_t data_table[]);
-static void cfg_write_bytes32(const uint32 addr_table[], const cy_cfg_addrvalue_t data_table[])
-{
-	/* For 32-bit little-endian architectures */
-	uint32 i, j = 0u;
-	for (i = 0u; i < CY_CFG_BASE_ADDR_COUNT; i++)
-	{
-		uint32 baseAddr = addr_table[i];
-		uint8 count = (uint8)baseAddr;
-		baseAddr &= 0xFFFFFF00u;
-		while (count != 0u)
-		{
-			CY_SET_REG8((void *)(baseAddr + data_table[j].offset), data_table[j].value);
-			j++;
-			count--;
-		}
-	}
-}
 
 
 /*******************************************************************************
@@ -238,12 +197,8 @@ static void ClockSetup(void)
 	CyDelayUs(1500u); /* Wait to stabilize */
 
 	/* Setup phase aligned clocks */
-	CY_SET_REG32((void *)CYREG_PERI_DIV_16_CTL0, 0x0000FE00u);
+	CY_SET_REG32((void *)CYREG_PERI_DIV_16_CTL0, 0x00001900u);
 	CY_SET_REG32((void *)CYREG_PERI_DIV_CMD, 0x8000FF40u);
-	CY_SET_REG32((void *)CYREG_PERI_DIV_16_CTL1, 0x0000FE00u);
-	CY_SET_REG32((void *)CYREG_PERI_DIV_CMD, 0x8000FF41u);
-	CY_SET_REG32((void *)CYREG_PERI_DIV_16_CTL2, 0x00001900u);
-	CY_SET_REG32((void *)CYREG_PERI_DIV_CMD, 0x8000FF42u);
 
 	/* CYDEV_CLK_IMO_CONFIG Starting address: CYDEV_CLK_IMO_CONFIG */
 	CY_SET_REG32((void *)(CYREG_CLK_IMO_CONFIG), 0x80000000u);
@@ -251,14 +206,8 @@ static void ClockSetup(void)
 	/* CYDEV_CLK_SELECT Starting address: CYDEV_CLK_SELECT */
 	CY_SET_REG32((void *)(CYREG_CLK_SELECT), 0x00040000u);
 
-	/* CYDEV_PERI_PCLK_CTL5 Starting address: CYDEV_PERI_PCLK_CTL5 */
-	CY_SET_REG32((void *)(CYREG_PERI_PCLK_CTL5), 0x00000040u);
-
-	/* CYDEV_PERI_PCLK_CTL4 Starting address: CYDEV_PERI_PCLK_CTL4 */
-	CY_SET_REG32((void *)(CYREG_PERI_PCLK_CTL4), 0x00000041u);
-
 	/* CYDEV_PERI_PCLK_CTL1 Starting address: CYDEV_PERI_PCLK_CTL1 */
-	CY_SET_REG32((void *)(CYREG_PERI_PCLK_CTL1), 0x00000042u);
+	CY_SET_REG32((void *)(CYREG_PERI_PCLK_CTL1), 0x00000040u);
 
 	CY_SET_REG32((void *)(CYREG_WDT_CONFIG), 0x40000000u);
 }
@@ -288,48 +237,6 @@ static void AnalogSetDefault(void)
 	CY_SET_XTND_REG32((void CYFAR *)CYREG_CTBM0_DFT_CTRL, 0x00000003u);
 	CY_SET_XTND_REG32((void CYFAR *)CYREG_CTBM1_DFT_CTRL, 0x00000003u);
 	CY_SET_XTND_REG32((void CYFAR *)CYREG_PASS_DSAB_DSAB_CTRL, 0x00000000u);
-	SetAnalogRoutingPumps(1);
-}
-
-
-/*******************************************************************************
-* Function Name: SetAnalogRoutingPumps
-********************************************************************************
-*
-* Summary:
-* Enables or disables the analog pumps feeding analog routing switches.
-* Intended to be called at startup, based on the Vdda system configuration;
-* may be called during operation when the user informs us that the Vdda voltage crossed the pump threshold.
-*
-* Parameters:
-*  enabled - 1 to enable the pumps, 0 to disable the pumps
-*
-* Return:
-*  void
-*
-*******************************************************************************/
-void SetAnalogRoutingPumps(uint8 enabled)
-{
-	uint32 regValue = CY_GET_XTND_REG32((void *)(CYREG_SAR_PUMP_CTRL));
-	if (enabled != 0u)
-	{
-		regValue |= 0x80000000u;
-	}
-	else
-	{
-		regValue &= ~0x80000000u;
-	}
-	CY_SET_XTND_REG32((void *)(CYREG_SAR_PUMP_CTRL), regValue);
-	regValue = CY_GET_XTND_REG32((void *)(CYREG_CLK_IMO_CONFIG));
-	if (enabled != 0u)
-	{
-		regValue |= 0x02000000u;
-	}
-	else
-	{
-		regValue &= ~0x02000000u;
-	}
-	CY_SET_XTND_REG32((void *)(CYREG_CLK_IMO_CONFIG), regValue);
 }
 
 
@@ -360,33 +267,6 @@ void cyfitter_cfg(void)
 	CY_SET_REG32((void *)(CYREG_BLE_BLESS_LL_DSM_CTRL), 0x00000000u);
 
 	{
-		static const uint32 CYCODE cy_cfg_addr_table[] = {
-			0x400F3004u, /* Base address: 0x400F3000 Count: 4 */
-			0x400F3102u, /* Base address: 0x400F3100 Count: 2 */
-			0x400F3302u, /* Base address: 0x400F3300 Count: 2 */
-			0x400F4108u, /* Base address: 0x400F4100 Count: 8 */
-		};
-
-		static const cy_cfg_addrvalue_t CYCODE cy_cfg_data_table[] = {
-			{0x38u, 0x28u},
-			{0x3Eu, 0x14u},
-			{0x58u, 0x04u},
-			{0x5Fu, 0x01u},
-			{0x19u, 0x08u},
-			{0x1Au, 0x04u},
-			{0xADu, 0x08u},
-			{0xAEu, 0x04u},
-			{0x3Bu, 0x04u},
-			{0x3Fu, 0x02u},
-			{0x93u, 0x04u},
-			{0xA3u, 0x01u},
-			{0xAFu, 0x05u},
-			{0xCEu, 0xC0u},
-			{0xEAu, 0x40u},
-			{0xEEu, 0x10u},
-		};
-
-
 
 		CYPACKED typedef struct {
 			void CYFAR *address;
@@ -408,11 +288,6 @@ void cyfitter_cfg(void)
 			CYMEMZERO(ms->address, (size_t)(uint32)(ms->size));
 		}
 
-		cfg_write_bytes32(cy_cfg_addr_table, cy_cfg_data_table);
-
-		/* PWR_BG_CONFIG Starting address: CYDEV_PWR_BG_CONFIG */
-		CY_SET_REG32((void *)(CYREG_PWR_BG_CONFIG), 0x00040000u);
-
 		/* HSIOM Starting address: CYDEV_HSIOM_BASE */
 		CY_SET_REG32((void *)(CYDEV_HSIOM_BASE), 0xEE000000u);
 		CY_SET_REG32((void *)(CYREG_HSIOM_PORT_SEL1), 0x00990000u);
@@ -429,9 +304,8 @@ void cyfitter_cfg(void)
 		/* UDB_PA_3 Starting address: CYDEV_UDB_PA3_BASE */
 		CY_SET_REG32((void *)(CYDEV_UDB_PA3_BASE), 0x00990000u);
 
-		/* Enable UDB array and digital routing */
-		CY_SET_XTND_REG8((void *)CYREG_UDB_UDBIF_WAIT_CFG, (uint8)((CY_GET_XTND_REG8((void *)CYREG_UDB_UDBIF_WAIT_CFG) & 0xC3u) | 0x14u));
-		CY_SET_XTND_REG8((void *)CYREG_UDB_UDBIF_BANK_CTL, (uint8)(CY_GET_XTND_REG8((void *)CYREG_UDB_UDBIF_BANK_CTL) | 0x16u));
+		/* Enable digital routing */
+		CY_SET_XTND_REG8((void *)CYREG_UDB_UDBIF_BANK_CTL, (uint8)(CY_GET_XTND_REG8((void *)CYREG_UDB_UDBIF_BANK_CTL) | 0x06u));
 	}
 
 	/* Perform second pass device configuration. These items must be configured in specific order after the regular configuration is done. */
@@ -444,17 +318,12 @@ void cyfitter_cfg(void)
 	CY_SET_REG32((void *)(CYREG_GPIO_PRT1_PC2), 0x00000020u);
 
 	/* IOPINS0_2 Starting address: CYDEV_GPIO_PRT2_BASE */
-	CY_SET_REG32((void *)(CYDEV_GPIO_PRT2_BASE), 0x00000082u);
+	CY_SET_REG32((void *)(CYDEV_GPIO_PRT2_BASE), 0x00000080u);
 	CY_SET_REG32((void *)(CYREG_GPIO_PRT2_PC), 0x00580000u);
 	CY_SET_REG32((void *)(CYREG_GPIO_PRT2_INTR_CFG), 0x00008000u);
-	CY_SET_REG32((void *)(CYREG_GPIO_PRT2_PC2), 0x00000002u);
 
 	/* IOPINS0_3 Starting address: CYDEV_GPIO_PRT3_BASE */
 	CY_SET_REG32((void *)(CYREG_GPIO_PRT3_PC), 0x00180000u);
-
-	/* IOPINS0_4 Starting address: CYDEV_GPIO_PRT4_BASE */
-	CY_SET_REG32((void *)(CYDEV_GPIO_PRT4_BASE), 0x00000001u);
-	CY_SET_REG32((void *)(CYREG_GPIO_PRT4_PC2), 0x00000001u);
 
 
 	/* Setup clocks based on selections from Clock DWR */

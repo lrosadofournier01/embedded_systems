@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file CYBLE_eventHandler.h
-* \version 3.66
+* \version 3.30
 * 
 * \brief
 *  Contains the prototypes and constants used in the Event Handler State Machine
@@ -8,7 +8,7 @@
 * 
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -100,9 +100,6 @@
 #ifdef CYBLE_NDCS
     #include "CYBLE_ndcs.h"
 #endif /* CYBLE_NDCS */
-#ifdef CYBLE_OTS
-    #include "CYBLE_ots.h"
-#endif /* CYBLE_OTS */
 #ifdef CYBLE_PASS
     #include "CYBLE_pass.h"
 #endif /* CYBLE_PASS */
@@ -279,12 +276,6 @@ typedef enum
         No parameters passed for this event.
     */
     CYBLE_EVT_GATTC_CHAR_DISCOVERY_COMPLETE,
-        
-    /** GATT Client - The service (not defined in the GATT database) was found during
-    *  the server device discovery. The discovery procedure skips this service.
-    *  This event parameter is a structure of the CYBLE_DISC_SRVC128_INFO_T type.
-    */
-    CYBLE_EVT_GATTC_DISC_SKIPPED_SERVICE,
     
     /** GATT Client - Discovery of remote device completed successfully.
         No parameters passed for this event.
@@ -1588,81 +1579,6 @@ typedef enum
     */
     CYBLE_EVT_NDCSC_READ_CHAR_RESPONSE,
     
-     /****************************************
-     OTS Service Events
-     ***************************************/
-    
-    /** OTS Server - Indication for Object Transfer Service Characteristic
-        was enabled. The parameter of this event is a structure 
-        of CYBLE_OTS_CHAR_VALUE_T type.
-    */
-    CYBLE_EVT_OTSS_INDICATION_ENABLED,
-
-    /** OTSS Server - Indication for Object Transfer Service Characteristic
-        was disabled. The parameter of this event is a structure 
-        of CYBLE_OTS_CHAR_VALUE_T type.
-    */
-    CYBLE_EVT_OTSS_INDICATION_DISABLED,
-    
-    /** OTS Server - Object Transfer Service Characteristic
-        Indication was confirmed. The parameter of this event
-        is a structure of CYBLE_OTS_CHAR_VALUE_T type.
-    */
-    CYBLE_EVT_OTSS_INDICATION_CONFIRMED,
-    
-    /** OTS Server - Write Request for Object Transfer Service Characteristic 
-        was received. The parameter of this event is a structure
-        of CYBLE_OTS_CHAR_VALUE_T type.
-    */  
-    CYBLE_EVT_OTSS_WRITE_CHAR,
-    
-    /** OTSS Server - Write Request for Object Transfer Service 
-        Characteristic Descriptor was received. The parameter of this event is a structure of
-        CYBLE_OTSS_DESCR_VALUE_T type.
-    */    
-    CYBLE_EVT_OTSS_WRITE_DESCR,
-    
-    /** OTS Client -  Object Transfer Service Characteristic
-        Indication was received. The parameter of this event
-        is a structure of CYBLE_OTS_CHAR_VALUE_T type.
-    */
-    CYBLE_EVT_OTSC_INDICATION,
-    
-    /** OTS Client - Read Response for Read Request for Object Transfer Service Characteristic
-        Value. The parameter of this event is a structure of 
-        CYBLE_OTS_CHAR_VALUE_T type.
-    */
-    CYBLE_EVT_OTSC_READ_CHAR_RESPONSE,
-    
-    /** OTS Client - Read Response for Long Read Request of Object Transfer
-        Service Characteristic value. The parameter of this event
-        is a structure of CYBLE_IPS_CHAR_VALUE_T type.
-    */
-    CYBLE_EVT_OTSC_READ_BLOB_RSP,
-    
-    /** OTS Client - Write Response for Write Request for Object Transfer Service
-        Characteristic Value. The parameter of this event is a structure of 
-        CYBLE_OTS_CHAR_VALUE_T type.
-    */
-    CYBLE_EVT_OTSC_WRITE_CHAR_RESPONSE,
-    
-    /** OTS Client - Read Response for Read Request for Object Transfer Service
-        Characteristic Descriptor Read Request. The parameter of this event is a
-        structure of CYBLE_OTS_DESCR_VALUE_T type.
-    */
-    CYBLE_EVT_OTSC_READ_DESCR_RESPONSE,
-
-    /** OTS Client - Write Response for Write Request for Object Transfer Service
-        Client Characteristic Configuration Descriptor Value. The parameter of
-        this event is a structure of CYBLE_OTS_DESCR_VALUE_T type.
-    */
-    CYBLE_EVT_OTSC_WRITE_DESCR_RESPONSE,
-    
-    /** OTS Client - Error Response for Write Request for Object Transfer Service
-        Characteristic Value. The parameter of this event is a structure of 
-        CYBLE_OTS_CHAR_VALUE_T type.
-    */
-    CYBLE_EVT_OTSC_ERROR_RESPONSE,
     
     /****************************************
      Phone Alert Status Service Events
@@ -1749,7 +1665,7 @@ typedef enum
         Indication was confirmed. The parameter of this event
         is a structure of CYBLE_PLXS_CHAR_VALUE_T type.
     */
-    CYBLE_EVT_PLXSS_INDICATION_CONFIRMED,
+    CYBLE_EVT_PLXS_INDICATION_CONFIRMATION,
 
     /** PLXS Client - Pulse Oximeter Characteristic
         Notification was received. The parameter of this event
@@ -1788,11 +1704,7 @@ typedef enum
         CYBLE_PLXS_DESCR_VALUE_T type.
     */
     CYBLE_EVT_PLXSC_WRITE_DESCR_RESPONSE,
-    
-    /** PLXS Client - PLX RACP procedure timeout was received. The parameter
-        of this event is a structure of the cy_stc_ble_plxs_char_value_t type.
-    */
-    CYBLE_EVT_PLXSC_TIMEOUT,
+
     
     /****************************************
      Running Speed and Cadence Service Events
@@ -2368,9 +2280,6 @@ typedef enum
 #ifdef CYBLE_PLXS_CLIENT
     CYBLE_SRVI_PLXS,
 #endif /* CYBLE_PLXS_CLIENT */
-#ifdef CYBLE_OTS_CLIENT
-    CYBLE_SRVI_OTS,
-#endif /* CYBLE_OTS_CLIENT */
 #ifdef CYBLE_RSCS_CLIENT
     CYBLE_SRVI_RSCS,
 #endif /* CYBLE_RSCS_CLIENT */
@@ -2500,24 +2409,6 @@ typedef enum
     CYBLE_SCDI_LNS_CP,                                      /**< L&N Control Point characteristic index */
     CYBLE_SCDI_LNS_NV,                                      /**< Navigation characteristic index */
 #endif /* CYBLE_LNS_CLIENT */
-
-#ifdef CYBLE_OTS_CLIENT
-    CYBLE_SCDI_OTS_FEATURE,                                  /**< Exposes which optional features are supported by the Server implementation.*/
-    CYBLE_SCDI_OTS_OBJECT_NAME,                              /**< The name of the Current Object. */
-    CYBLE_SCDI_OTS_OBJECT_TYPE,                              /**< The type of the Current Object, identifying the object type by UUID. */
-    CYBLE_SCDI_OTS_OBJECT_SIZE,                              /**< The current size as well as the allocated size of the Current Object. */
-    CYBLE_SCDI_OTS_OBJECT_FIRST_CREATED,                     /**< Date and time when the object contents were first created. */
-    CYBLE_SCDI_OTS_OBJECT_LAST_MODIFIED,                     /**< Date and time when the object content was last modified. */
-    CYBLE_SCDI_OTS_OBJECT_ID,                                /**< The Object ID of the Current Object. The Object ID is a LUID (Locally Unique Identifier). */
-    CYBLE_SCDI_OTS_OBJECT_PROPERTIES,                        /**< The properties of the Current Object. */
-    CYBLE_SCDI_OBJECT_ACTION_CONTROL_POINT,                  /**< Is used by a Client to control certain behaviors of the Server. */
-    CYBLE_SCDI_OBJECT_LIST_CONTROL_POINT,                    /**< Provides a mechanism for the Client to find the desired object and to designate it as the Current Object. */
-    CYBLE_SCDI_OBJECT_LIST_FILTER_1,                         /**< The filter conditions determines which objects are included in or excluded from the list of objects.*/
-    CYBLE_SCDI_OBJECT_LIST_FILTER_2,                         /**< The filter conditions determines which objects are included in or excluded from the list of objects.*/
-    CYBLE_SCDI_OBJECT_LIST_FILTER_3,                         /**< The filter conditions determines which objects are included in or excluded from the list of objects.*/
-    CYBLE_SCDI_OTS_OBJECT_CHANGED,                           /**< Enables a Client to receive an indication if the contents and/or metadata of one or more objects are changed.*/
-#endif /* CYBLE_OTS_CLIENT */
-
 #ifdef CYBLE_PASS_CLIENT
     CYBLE_SCDI_PASS_AS,                                     /**< Alert Status characteristic index */
     CYBLE_SCDI_PASS_RS,                                     /**< Ringer Settings characteristic index */
@@ -2624,9 +2515,9 @@ void CyBle_NextCharDscrDiscovery(uint8 incrementIndex);
 * 
 *  Used to set the component state machine's state.
 * 
-*  \param state: The desired state of type CYBLE_STATE_T that the event handler's state 
+*  \param CYBLE_STATE_T state: The desired state that the event handler's state 
 *                    machine should be set to. For detailed information refer to 
-*                    CyBle_GetState() API function description.
+*                    CyBle_GetState() API description.
 * 
 ******************************************************************************/
 #define CyBle_SetState(state) (cyBle_state = (state))
@@ -2639,19 +2530,19 @@ void CyBle_NextCharDscrDiscovery(uint8 incrementIndex);
 *  state machine.
 * 
 *  The component is in the state CYBLE_STATE_INITIALIZING after CyBle_Start() 
-*  function is called and until CYBLE_EVT_STACK_ON event is not received. After 
+*  API is called and until CYBLE_EVT_STACK_ON event is not received. After 
 *  successful initialization the state is changed to CYBLE_STATE_DISCONNECTED. 
-*  For GAP Peripheral role if CyBle_GappStartAdvertisement() is called and 
+*  For GAP Peripheral role if CyBle_GappStartAdvertisement() API is called and 
 *  CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP event received the state is changed 
 *  to the CYBLE_STATE_ADVERTISING. For GAP Central role if CyBle_GapcStartScan() 
-*  API function is called and CYBLE_EVT_GAPC_SCAN_START_STOP event received the state is 
-*  changed to the CYBLE_STATE_SCANNING. When CyBle_GapcConnectDevice() is 
+*  API is called and CYBLE_EVT_GAPC_SCAN_START_STOP event received the state is 
+*  changed to the CYBLE_STATE_SCANNING. When CyBle_GapcConnectDevice() API is 
 *  called the state is changed to CYBLE_STATE_CONNECTING. After successfully 
 *  connection indicated by CYBLE_EVT_GAP_DEVICE_CONNECTED or 
 *  CYBLE_EVT_GAP_ENHANCE_CONN_COMPLETE event the state is changed to 
-*  CYBLE_STATE_CONNECTED. If CyBle_GapDisconnect() API function is called and 
+*  CYBLE_STATE_CONNECTED. If CyBle_GapDisconnect() API is called and 
 *  EVT_GAP_DEVICE_DISCONNECTED event received the state is changed to the 
-*  CYBLE_STATE_DISCONNECTED. If CyBle_Stop() is called state of component 
+*  CYBLE_STATE_DISCONNECTED. If CyBle_Stop() API is called state of component 
 *  is changed to the CYBLE_STATE_STOPPED.
 *
 * \return
@@ -2694,7 +2585,7 @@ void CyBle_NextCharDscrDiscovery(uint8 incrementIndex);
 *  on the application layer on the CYBLE_EVT_<service initials>_WRITE_CHAR event 
 *  for the Bond Management Control Point characteristic.
 *     
-*  This API function function is useful only within the registered service callback on the 
+*  This API function is useful only within the registered service callback on the 
 *  CYBLE_EVT_<service initials>_CHAR event for the certain services:
 * 
 *  BMS: Check the Authorization Code of the Bond Management Control Point characteristic.

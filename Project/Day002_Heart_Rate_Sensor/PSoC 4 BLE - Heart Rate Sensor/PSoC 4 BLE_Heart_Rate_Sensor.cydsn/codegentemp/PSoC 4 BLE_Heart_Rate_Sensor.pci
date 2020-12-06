@@ -1,5 +1,5 @@
 # PSoC 4 BLE_Heart_Rate_Sensor
-# 2020-12-06 01:09:56Z
+# 2020-12-06 20:36:21Z
 
 # IO_6@[IOP=(0)][IoId=(6)] is reserved: SWDDebugEnabled
 dont_use_io iocell 0 6
@@ -15,8 +15,3 @@ set_io "\UART_DEB:rx(0)\" iocell 1 4
 set_io "SW2(0)" iocell 2 7
 set_io "Advertising_LED(0)" iocell 3 6
 set_io "Disconnect_LED(0)" iocell 2 6
-set_io "\CapSense:Cmod(0)\" iocell 4 0
-set_io "\CapSense:Sns(0)\" iocell 2 1
-set_location "\CapSense:CSD_FFB\" p4csdcell -1 -1 0
-set_location "\CapSense:IDAC2:cy_psoc4_idac\" p4csidac7cell -1 -1 0
-set_location "\CapSense:IDAC1:cy_psoc4_idac\" p4csidac8cell -1 -1 0

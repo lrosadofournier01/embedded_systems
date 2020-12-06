@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file CYBLE.c
-* \version 3.66
+* \version 3.30
 * 
 * \brief
 *  This file contains the source code for the Common APIs of the BLE Component.
 * 
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -111,7 +111,7 @@ CYBLE_GAPP_DISC_MODE_INFO_T cyBle_discoveryModeInfo =
 CYBLE_GAPC_CONN_PARAM_T cyBle_connectionParameters;
 
 /* Connecting timeout is set to 30 seconds in CyBle_Init function. 
-   Not zero value starts timer in CyBle_GapcConnectDevice() API fucntion.
+   Not zero value starts timer in CyBle_GapcConnectDevice API.
 */
 uint16 cyBle_connectingTimeout;
     
@@ -308,10 +308,6 @@ void CyBle_ServiceInit(void)
         CyBle_NdcsInit();
     #endif /* CYBLE_NDCS */
     
-    #ifdef CYBLE_OTS
-        CyBle_OtsInit();
-    #endif /* CYBLE_OTS */
-        
     #ifdef CYBLE_PASS
         CyBle_PassInit();
     #endif /* CYBLE_PASS */
@@ -565,7 +561,7 @@ void CyBle_Stop(void)
 *  location as defined by the component. It performs data comparing between RAM
 *  and Flash before writing to Flash. If there is no change between RAM and Flash
 *  data, then no write is performed. It writes only one flash row in one call.
-*  Application should keep calling this function till it return CYBLE_ERROR_OK. 
+*  Application should keep calling this function till API return CYBLE_ERROR_OK. 
 *  This function is available only when Bonding requirement is selected in
 *  Security settings.    
 * 
@@ -583,7 +579,7 @@ void CyBle_Stop(void)
 *   CYBLE_ERROR_FLASH_WRITE              | Error in flash Write	
     
 *  \sideeffect
-*   For BLE devices with 128K of Flash memory this function will automatically 
+*   For BLE devices with 128K of Flash memory this API will automatically 
 *   modify the clock settings for the device.
 *   Writing to flash requires changes to be done to the IMO (set to 48 MHz)
 *   and HFCLK (source set to IMO) settings. The configuration is restored before
@@ -593,8 +589,7 @@ void CyBle_Stop(void)
 *  \globalvars
 *   The cyBle_pendingFlashWrite variable is used to detect status
 *   of pending write to flash operation for stack data and CCCD.
-*   This function automatically clears pending bits after write operation 
-*   complete.
+*   This API automatically clears pending bits after write operation complete.
 *     
 ******************************************************************************/
 CYBLE_API_RESULT_T CyBle_StoreBondingData(uint8 isForceWrite)
@@ -692,7 +687,7 @@ CYBLE_API_RESULT_T CyBle_StoreBondingData(uint8 isForceWrite)
 *
 *  \globalvars
 *   The bdHandle is set in cyBle_pendingFlashWrite variable to indicate that
-*   data should be stored to flash by CyBle_StoreBondingData() afterwards. 
+*   data should be stored to flash by CyBle_StoreBondingData afterwards. 
 *     
 ******************************************************************************/
 CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
@@ -703,13 +698,13 @@ CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
     {
         
     #if(CYBLE_GATT_DB_CCCD_COUNT != 0u)
-        /* Request to clear CCCD values which will be done by CyBle_StoreBondingData() */
+        /* Request to clear CCCD values which will be done by CyBle_StoreBondingData API */
         uint8 bDevHandle;
         CYBLE_GAP_BD_ADDR_T invalidBdAddr = {{0u,0u,0u,0u,0u,0u}, 0u};
 
         if(memcmp(((uint8 *) &(bdAddr->bdAddr)), ((uint8 *) &(invalidBdAddr.bdAddr)), CYBLE_GAP_BD_ADDR_SIZE) == 0u)
 	    {
-            /* Request to remove all bonded devices by CyBle_StoreBondingData() */
+            /* Request to remove all bonded devices by cyBle_StoreBondingData API */
             cyBle_pendingFlashWrite |= CYBLE_PENDING_CCCD_FLASH_CLEAR_ALL_BIT;
         }
         else
@@ -718,7 +713,7 @@ CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
             apiResult = CyBle_GapGetPeerBdHandle(&bDevHandle, bdAddr);
             if(apiResult == CYBLE_ERROR_OK)
             {
-                /* Store BD handle to clear cccd values by CyBle_StoreBondingData() */
+                /* Store BD handle to clear cccd values by CyBle_StoreBondingData API */
                 cyBle_pendingFlashWrite |= CYBLE_PENDING_CCCD_FLASH_CLEAR_BIT;
                 cyBle_pendingFlashClearCccdHandle = bDevHandle;
             }
@@ -748,10 +743,10 @@ CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
     ***************************************************************************//**
     *     
     *  This function is used to start the advertisement using the advertisement data 
-    *  set in the component customizer's GUI. After invoking this function, the 
-    *  device will be available for connection by the devices configured for GAP 
-    *  central role. It is only included if the device is configured for GAP 
-    *  Peripheral or GAP Peripheral + Central role.
+    *  set in the component customizer's GUI. After invoking this API, the device 
+    *  will be available for connection by the devices configured for GAP central 
+    *  role. It is only included if the device is configured for GAP Peripheral or 
+    *  GAP Peripheral + Central role.
     *  
     *  On start of advertisement, GAP Peripheral receives the
     *  CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP event. The following events are 
@@ -788,7 +783,7 @@ CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
     *   --------------------------------- |  --------------------------------
     *   CYBLE_ERROR_OK                    |  On successful operation.
     *   CYBLE_ERROR_INVALID_PARAMETER     |  On passing an invalid parameter.
-    *   CYBLE_ERROR_INVALID_STATE         |  On calling this function not in Disconnected state.
+    *   CYBLE_ERROR_INVALID_STATE         |  On calling this API not in Disconnected state.
     *
     * 
     *******************************************************************************/
@@ -864,8 +859,8 @@ CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
     * Function Name: CyBle_ChangeAdDeviceAddress
     ***************************************************************************//**
     * 
-    *  This function is used to set the Bluetooth device address into the 
-    *  advertisement or scan response data structure.
+    *  This API is used to set the Bluetooth device address into the advertisement 
+    *  or scan response data structure.
     * 
     *  \param bdAddr: Bluetooth Device address. The variable is of type CYBLE_GAP_BD_ADDR_T
     *  \param dest: 0 - selects advertisement structure, not zero value selects scan 
@@ -1087,7 +1082,7 @@ CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
     *   CYBLE_ERROR_OK                     | On successful operation.
     *   CYBLE_ERROR_STACK_INTERNAL         | On error occurred in the BLE stack.
     *   CYBLE_ERROR_INVALID_PARAMETER      | On passing an invalid parameter.
-    *   CYBLE_ERROR_INVALID_STATE          | On calling this function not in Disconnected state.
+    *   CYBLE_ERROR_INVALID_STATE          | On calling this API not in Disconnected state.
     *  
     ******************************************************************************/
     CYBLE_API_RESULT_T CyBle_GapcConnectDevice(const CYBLE_GAP_BD_ADDR_T * address)
@@ -1143,7 +1138,7 @@ CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
     *   ---------------------------------- | --------------------------------------
     *   CYBLE_ERROR_OK                     | On successful operation.
     *   CYBLE_ERROR_STACK_INTERNAL         | An error occurred in the BLE stack.
-    *   CYBLE_ERROR_INVALID_STATE          | On calling this function not in Connecting state.
+    *   CYBLE_ERROR_INVALID_STATE          | On calling this API not in Connecting state.
     *  
     *******************************************************************************/
     CYBLE_API_RESULT_T CyBle_GapcCancelDeviceConnection(void)
@@ -1182,8 +1177,8 @@ CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
         /******************************************************************************
         * Function Name: CyBle_ChangeAdLocalName
         ***************************************************************************//**
-        *  This function is used to set the local device name in the advertisement or 
-        *  scan response data structure.
+        *  This API is used to set the local device name in the advertisement or scan 
+        *  response data structure.
         * 
         *  \param name: The local device name string to be set in advertisement data 
         *            structure.
@@ -1272,7 +1267,7 @@ CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
     /******************************************************************************
     * Function Name: CyBle_GapSetLocalName
     ***************************************************************************//**
-    *  This function is used to set the local device name - a Characteristic of the 
+    *  This API is used to set the local device name - a Characteristic of the 
     *  GAP Service. If the characteristic length entered in the component customizer
     *  is shorter than the string specified by the "name" parameter, the local device
     *  name will be cut to the length specified in the customizer.
@@ -1346,7 +1341,7 @@ CYBLE_API_RESULT_T CyBle_GapRemoveBondedDevice(CYBLE_GAP_BD_ADDR_T* bdAddr)
     * Function Name: CyBle_GapGetLocalName
     ***************************************************************************//**
     *  
-    *  This function is used to read the local device name - a Characteristic of the 
+    *  This API is used to read the local device name - a Characteristic of the 
     *  GAP Service.
     * 
     * \param name: The local device name string. Used to read the local name to the

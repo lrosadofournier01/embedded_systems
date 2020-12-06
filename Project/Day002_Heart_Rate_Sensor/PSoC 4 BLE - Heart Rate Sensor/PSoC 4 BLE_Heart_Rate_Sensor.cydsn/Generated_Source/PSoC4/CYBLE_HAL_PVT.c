@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file CYBLE_HAL_PVT.c
-* \version 3.66
+* \version 3.30
 *
 * \brief
 *  This file contains the source code for the HAL section of the BLE component
 *
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -67,7 +67,7 @@ void CyBLE_Uart_Stop (void)
 * Function Name: CyBLE_Uart_Transmit
 ****************************************************************************//**
 *
-*  Sends the data to Uart Tx FIFO. The function handles data length up to the 
+*  Sends the data to Uart Tx FIFO. The API handles data length up to the 
 *  supported Tx FIFO length of the uart hardware module.
 *
 *  \param data: Pointer to the data to send through the UART
@@ -123,9 +123,9 @@ void CyBLE_Uart_Isr_Disable(void)
 * Function Name: CyBLE_Nvram_Write
 ****************************************************************************//**
 *
-*  This function writes the data to the NVRAM store. It will check the 
-*  appropriate alignment of a start address and also perform an address range 
-*  check based on the length before performing the write operation.
+*  This API writes the data to the NVRAM store. It will check the appropriate
+*  alignment of a start address and also perform an address range check based
+*  on the length before performing the write operation.
 *  This function performs memory compare and writes only row where there are new
 *  data to write.
 *
@@ -139,7 +139,7 @@ void CyBLE_Uart_Isr_Disable(void)
 *  CYRET_UNKNOWN    Other errors in writing the flash
 *
 * \sideeffect
-*  For BLE devices with 128K of Flash memory this function will automatically 
+*  For BLE devices with 128K of Flash memory this API will automatically 
 *  modify the clock settings for the device.
 *  Writing to flash requires changes to be done to the IMO (set to 48 MHz)
 *  and HFCLK (source set to IMO) settings. The configuration is restored before
@@ -217,7 +217,7 @@ cystatus CyBLE_Nvram_Write (const uint8 buffer[], const uint8 varFlash[], uint16
 * Function Name: CyBLE_Nvram_Erase
 ****************************************************************************//**
 *
-*  This function erases the data from the NVRAM store. It will perform an 
+*  This API erases the data from the NVRAM store. This API will perform an 
 *  address range check based on the length before performing erase operation.
 *
 *  \param varFlash: the pointer to the array or variable in the flash.
@@ -267,8 +267,7 @@ cystatus CyBLE_Nvram_Erase (const uint8 *varFlash, uint16 length)
 * Function Name: CyBLE_Bless_LlRegRead
 ****************************************************************************//**
 *
-*  This function reads the content of the BLESS Link Layer register from the 
-*  stack.
+*  This API reads the content of the BLESS Link Layer register from the stack.
 *
 *  \param blessAddr: the pointer to the BLESS link layer address.
 *  \param regValue: the pointer to the buffer space to copy the read value.
@@ -287,7 +286,7 @@ void CyBLE_Bless_LlRegRead (const reg32 *blessAddr, uint16 *regValue)
 * Function Name: CyBLE_Bless_LlRegWrite
 ****************************************************************************//**
 *
-*  This function writes to the BLESS Link Layer register from the stack.
+*  This API writes to the BLESS Link Layer register from the stack.
 *
 *  \param blessAddr: the pointer to the BLESS link layer address.
 *  \param regValue: the pointer to the value to be written to the BLESS LL reg.
@@ -306,7 +305,7 @@ void CyBLE_Bless_LlRegWrite (reg32 *blessAddr, const uint16 regValue)
 * Function Name: CyBLE_Bless_RfRegRead
 ****************************************************************************//**
 *
-*  This function reads the content of the BLESS RF register from the stack.
+*  This API reads the content of the BLESS RF register from the stack.
 *
 *  \param blessAddr: the pointer to BLESS RF register address.
 *  \param regValue: the pointer to the buffer space to copy the read value.
@@ -325,7 +324,7 @@ void CyBLE_Bless_RfRegRead (const reg32 *blessAddr, uint16 *regValue)
 * Function Name: CyBLE_Bless_RfRegWrite
 ****************************************************************************//**
 *
-*  This function writes to the BLESS RF register from the stack.
+*  This API writes to the BLESS RF register from the stack.
 *
 *  \param blessAddr: the pointer to the BLESS RF address.
 *  \param regValue: the pointer to the value to be written to the BLESS RF reg.
@@ -467,7 +466,7 @@ void CyBle_HalInit(void)
 * Function Name: CYBLE_BlessStart
 ****************************************************************************//**
 *
-*  Starts Interrupt Controller.
+*  Start Interrupt Controller API.
 *
 * \return
 *  None
@@ -487,7 +486,7 @@ void CYBLE_BlessStart(void)
 * Function Name: CyBLE_GetIpBlockVersion
 ****************************************************************************//**
 *
-* This function returns the version of m0s8bless ip block.
+* This API returns the version of m0s8bless ip block.
 *
 * \return
 * uint32 bits:
@@ -560,14 +559,14 @@ uint32 CyBLE_GetIpBlockVersion(void)
         return (CYBLE_ERROR_OK);
     }
 
-    CYBLE_API_RESULT_T CyBle_Hal_pairing_sc_generate_local_P256_public_key(uint8 param)
+    CYBLE_API_RESULT_T CyBle_Hal_pairing_sc_tbx_generate_local_P256_public_key(uint8 param)
     {
-        return (CyBle_Hal_mapping_generate_local_P256_public_key(param));
+        return (CyBle_Hal_mapping_tbx_generate_local_P256_public_key(param));
     }
 
-    CYBLE_API_RESULT_T CyBle_Hal_pairing_sc_generate_DHkey(void  * param1, void  * param2)
+    CYBLE_API_RESULT_T CyBle_Hal_pairing_sc_tbx_generate_DHkey(void  * param1, void  * param2)
     {
-        return (CyBle_Hal_mapping_generate_DHkey(param1, param2));
+        return (CyBle_Hal_mapping_tbx_generate_DHkey(param1, param2));
     }
 
     void CyBle_Hal_smp_sc_cmac_complete(void)
@@ -584,12 +583,6 @@ uint32 CyBLE_GetIpBlockVersion(void)
     {
         CyBle_Hal_Mapping_EccPointMult();
     }
-    
-    CYBLE_API_RESULT_T CyBle_Hal_pairing_sc_validate_p256_pub_key_pair (void *param1)
-    {
-        return (CyBle_Hal_mapping_validate_p256_pub_key_pair(param1));
-    }
-    
     
 #else     /* If feature is not required, return error. */
     
@@ -643,12 +636,12 @@ uint32 CyBLE_GetIpBlockVersion(void)
         return (CYBLE_ERROR_UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE);
     }
 
-    CYBLE_API_RESULT_T CyBle_Hal_pairing_sc_generate_local_P256_public_key(uint8 param CYBLE_UNUSED_ATTR)
+    CYBLE_API_RESULT_T CyBle_Hal_pairing_sc_tbx_generate_local_P256_public_key(uint8 param CYBLE_UNUSED_ATTR)
     {
         return (CYBLE_ERROR_UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE);
     }
 
-    CYBLE_API_RESULT_T CyBle_Hal_pairing_sc_generate_DHkey(void  * param1 CYBLE_UNUSED_ATTR,
+    CYBLE_API_RESULT_T CyBle_Hal_pairing_sc_tbx_generate_DHkey(void  * param1 CYBLE_UNUSED_ATTR,
                                                                void  * param2 CYBLE_UNUSED_ATTR)
     {
         return (CYBLE_ERROR_UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE);
@@ -666,11 +659,6 @@ uint32 CyBLE_GetIpBlockVersion(void)
 
     void CyBle_Hal_EccPointMult(void)
     {
-    }
-    
-    CYBLE_API_RESULT_T CyBle_Hal_pairing_sc_validate_p256_pub_key_pair (void *param1 CYBLE_UNUSED_ATTR)
-    {
-        return (CYBLE_ERROR_UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE);
     }
     
 #endif /* (CYBLE_SECURE_CONN_FEATURE_ENABLED) */

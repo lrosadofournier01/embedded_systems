@@ -1,11 +1,11 @@
 ;-------------------------------------------------------------------------------
 ; \file CyBootAsmIar.s
-; \version 6.0
+; \version 5.50
 ;
 ; \brief Assembly routines for IAR Embedded Workbench IDE.
 ;
 ;-------------------------------------------------------------------------------
-; Copyright 2013-2018, Cypress Semiconductor Corporation.  All rights reserved.
+; Copyright 2013-2016, Cypress Semiconductor Corporation.  All rights reserved.
 ; You may use this file only in accordance with the license, terms, conditions,
 ; disclaimers, and limitations in the end user license agreement accompanying
 ; the software package with which this file was provided.
@@ -44,15 +44,7 @@ CyDelayCycles:
     #else
         #ifdef CYIPBLOCK_s8srsslt_VERSION
             #ifdef CYIPBLOCK_m0s8cpussv2_VERSION
-                #ifdef CYIPBLOCK_mxusbpd_VERSION
-                    /* Do nothing */
-                #else
-                    #ifdef CYIPBLOCK_m0s8usbpd_VERSION
-                        /* Do nothing */
-                    #else
-                        NOP             ;    1    2    Loop alignment padding
-                    #endif
-                #endif
+                NOP             ;    1    2    Loop alignment padding
             #endif
         #endif
         ;Leave loop unaligned

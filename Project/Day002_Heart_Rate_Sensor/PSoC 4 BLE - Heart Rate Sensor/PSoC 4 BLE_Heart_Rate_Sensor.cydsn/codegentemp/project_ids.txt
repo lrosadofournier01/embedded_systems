@@ -1,6 +1,6 @@
-A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Project\Day002_Heart_Rate_Sensor\PSoC 4 BLE - Heart Rate Sensor\PSoC 4 BLE_Heart_Rate_Sensor.cydsn\PSoC 4 BLE_Heart_Rate_Sensor.cyprj|85bacaa6-2821-4221-841a-95ea3eb5269f
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|094ce0c8-3ae4-4ca8-b6aa-396663695e51
-C:\Users\Lucia\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|440a0b25-a283-4511-a053-713011546420
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|2663cf9b-5bc1-4204-ba4a-45bb81b1e359
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|c83cc62b-285f-4d85-9a84-bbce202f6ad3
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|9b3bd1aa-b8f2-46e2-b4d1-b2bb73170972
+A:\Documents\School\ECEG-721_Embedded_Systems\Labs\Project\Day002_Heart_Rate_Sensor\PSoC 4 BLE - Heart Rate Sensor\PSoC 4 BLE_Heart_Rate_Sensor.cydsn\PSoC 4 BLE_Heart_Rate_Sensor.cyprj|a88d698d-707a-4d89-a731-585f397fe4fe
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|583ea55b-86df-4244-99c3-800f8698d391
+C:\Users\Lucia\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|3ba7f5e8-69ee-4afe-80eb-dfe6810d476d
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|4b41275d-e7b4-42ce-ac40-4afa6b3da7ce
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|380f1455-e730-476b-971c-901bdcda8045
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|0e927438-ace7-4ec4-a370-81d1f682c8e2

@@ -2,7 +2,7 @@
 * \file CyBle_L2cap.h
 *
 * \file CYBLE_StackL2cap.h
-* \version 3.66
+* \version 3.30
 *
 * \brief
 *  This file contains the L2CAP APIs of the BLE Host Stack IP
@@ -12,7 +12,7 @@
 * 
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -507,7 +507,7 @@ CYBLE_API_RESULT_T CyBle_L2capCbfcSendFlowControlCredit
 *  This function sends a data packet on the L2CAP CBFC channel. This is a 
 *  blocking function. 
 * 
-*  This API function generates 'CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND' event which 
+*  This API generates 'CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND' event which 
 *  is kept for backward compatibility and the user should handle CYBLE_API_RESULT_T
 *  to determine whether the last data packet was sent out properly.
 * 
@@ -633,7 +633,7 @@ CYBLE_API_RESULT_T CyBle_L2capLeConnectionParamUpdateRequest
 * Function Name: CyBle_L2capLeConnectionParamUpdateResponse
 ***************************************************************************//**
 * 
-*  This API function sends the connection parameter update response to slave. This API function 
+*  This API sends the connection parameter update response to slave. This API 
 *  can only be used from device connected in LE master role.
 * 
 *  \param bdHandle: Peer device handle

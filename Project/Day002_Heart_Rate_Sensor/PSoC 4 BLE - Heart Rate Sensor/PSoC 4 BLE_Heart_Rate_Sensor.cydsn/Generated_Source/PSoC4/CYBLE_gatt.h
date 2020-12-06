@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file CYBLE_gatt.h
-* \version 3.66
+* \version 3.30
 * 
 * \brief
 *  Contains the prototypes and constants used in the BLE GATT profile.
 * 
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -87,9 +87,8 @@ typedef struct
 /** Service data received with read by group type response during discovery process including 128 bit UUID */
 typedef struct
 {
-    CYBLE_GATT_ATTR_HANDLE_RANGE_T      range;      /**< Handle range of the request */
-    CYBLE_UUID_T                        uuid;       /**< 128-bit UUID */
-    uint8                               uuidFormat; /**< UUID Format - 16-bit (0x01) or 128-bit (0x02) */
+    CYBLE_GATT_ATTR_HANDLE_RANGE_T      range;     /**< Handle range of the request */
+    CYBLE_UUID_T                        uuid;      /**< 128-bit UUID */
 }CYBLE_DISC_SRVC128_INFO_T;
 
 /** Included service data received with read by type response during discovery process */
@@ -259,6 +258,7 @@ extern CYBLE_GATT_ATTR_HANDLE_RANGE_T cyBle_gattcDiscoveryRange;
 * API Constants
 ***************************************/
 
+
 /***************************************
 * Universal Unique Identifier (UUID): BLE Services
 ***************************************/
@@ -301,9 +301,8 @@ extern CYBLE_GATT_ATTR_HANDLE_RANGE_T cyBle_gattcDiscoveryRange;
 #define CYBLE_UUID_CGM_SERVICE                       (0x181Fu)
 #define CYBLE_UUID_INTERNET_PROTOCOL_SUPPORT_SERVICE (0x1820u)
 #define CYBLE_UUID_IPS_SERVICE                       (0x1821u)
-#define CYBLE_UUID_PLX_SERVICE                       (0x1822u)
+#define CYBLE_UUID_PLXS_SERVICE                      (0x1822u)
 #define CYBLE_UUID_HTTP_PROXY_SERVICE                (0x1823u)
-#define CYBLE_UUID_OTS_SERVICE                       (0x1825u)
 #define CYBLE_UUID_FIND_ME_SERVICE                   (0x18A3u)
 #define CYBLE_UUID_WIRELESS_POWER_TRANSFER_SERVICE   (0xFFFEu)
 
@@ -458,6 +457,7 @@ extern CYBLE_GATT_ATTR_HANDLE_RANGE_T cyBle_gattcDiscoveryRange;
 #define CYBLE_UUID_CHAR_CSC_MSRMT                    (0x2A5Bu)
 #define CYBLE_UUID_CHAR_CSC_FEATURE                  (0x2A5Cu)
 #define CYBLE_UUID_CHAR_SENSOR_LOCATION              (0x2A5Du)
+#define CYBLE_UUID_CHAR_SPOT_CHECK_MEASUREMENT       (0x2A5Eu)
 #define CYBLE_UUID_CHAR_CONTINUOUS_MEASUREMENT       (0x2A5Fu)
 #define CYBLE_UUID_CHAR_FEATURES                     (0x2A60u)
 #define CYBLE_UUID_CHAR_CPS_MSRMT                    (0x2A63u)
@@ -535,9 +535,11 @@ extern CYBLE_GATT_ATTR_HANDLE_RANGE_T cyBle_gattcDiscoveryRange;
 #define CYBLE_UUID_CHAR_CGM_SESSION_RUN_TIME         (0x2AABu)
 #define CYBLE_UUID_CHAR_CGM_SOCP                     (0x2AACu) /* CGM Specific Ops Control Point */
 /* Pulse Oximeter Characteristics defines */
-#define CYBLE_UUID_CHAR_PLX_SPOT_CHK_MSRMT           (0x2A5Eu) /**< PLX Spot-Check Measurement Characteristic UUID */
-#define CYBLE_UUID_CHAR_PLX_CONTINUOUS_MSRMT         (0x2A5Fu) /**< PLX Continuous Measurement Characteristic UUID */
-#define CYBLE_UUID_CHAR_PLX_FEATURES                 (0x2A60u) /**< PLX Features Characteristic UUID */
+#define CYBLE_UUID_CHAR_PLX_SPOT_CHK_MSRMT           (0x2A5Eu)
+#define CYBLE_UUID_CHAR_PLX_CONTINUOUS_MSRMT         (0x2A5Fu)
+#define CYBLE_UUID_CHAR_PLX_PULSATILE_EVENT          (0x2A60u)
+#define CYBLE_UUID_CHAR_PLX_FEATURES                 (0x2A61u)
+#define CYBLE_UUID_CHAR_PLX_CONTROL_POINT            (0x2A62u)
 /* CPM Characteristics Measurements */
 #define CYBLE_UUID_CHAR_CPM_MSRMT                    (0x2A63u)
 #define CYBLE_UUID_CHAR_CPM_VECTOR                   (0x2A64u)
@@ -561,19 +563,6 @@ extern CYBLE_GATT_ATTR_HANDLE_RANGE_T cyBle_gattcDiscoveryRange;
 #define CYBLE_UUID_CHAR_HTTP_STATUS_CODE             (0x2AB8u)
 #define CYBLE_UUID_CHAR_HTTPS_SECURITY               (0x2ABBu)
 
-/* OTS Characteristics defines */
-#define CYBLE_UUID_CHAR_OBJECT_FEATURE               (0x2ABDu)
-#define CYBLE_UUID_CHAR_OBJECT_NAME                  (0x2ABEu)
-#define CYBLE_UUID_CHAR_OBJECT_TYPE                  (0x2ABFu)
-#define CYBLE_UUID_CHAR_OBJECT_SIZE                  (0x2AC0u)
-#define CYBLE_UUID_CHAR_OBJECT_FIRST_CREATED         (0x2AC1u)
-#define CYBLE_UUID_CHAR_OBJECT_LAST_MODIFIED         (0x2AC2u)
-#define CYBLE_UUID_CHAR_OBJECT_ID                    (0x2AC3u)
-#define CYBLE_UUID_CHAR_OBJECT_PROPERTIES            (0x2AC4u)
-#define CYBLE_UUID_CHAR_OBJECT_ACTION_CONTROL_POINT  (0x2AC5u)
-#define CYBLE_UUID_CHAR_OBJECT_LIST_CONTROL_POINT    (0x2AC6u)
-#define CYBLE_UUID_CHAR_OBJECT_LIST_FILTER           (0x2AC7u)
-#define CYBLE_UUID_CHAR_OBJECT_CHANGED               (0x2AC8u)
 
 /* GATT Characteristic Properties bit field */
 #define CYBLE_CHAR_PROP_BROADCAST                    (0x01u)

@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file CYBLE_HAL_INT.c
-* \version 3.66
+* \version 3.30
 *
 * \brief
 *  This file contains the source code for the Interrupt Service Routine for the
@@ -8,7 +8,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -34,10 +34,7 @@ CY_ISR(CyBLE_Bless_Interrupt)
     #endif /* CYBLE_STACK_MODE_DEBUG */
 
     /* Call stack manager bless function handler */
-    #if(!CYBLE_SHARING_MODE_IMPORT)
-        CyBLE_pf_bless_event_hdlr();
-    #endif /* CYBLE_SHARING_MODE_IMPORT */
-    
+    CyBLE_pf_bless_event_hdlr();
     /* Host stack takes care of clearing interrupts */
 }
 
@@ -59,7 +56,7 @@ CY_ISR(CyBLE_Uart_Interrupt)
     uint8  uartTxStatus = CyBLE_INTR_TX_SUCCESS;
     uint32 srcInterrupt = 0u;
 
-    uint8 bufferLength = 0u;
+    uint8 length = 0u;
     uint8 srcCount = 0u;
     uint8 uartRxStatus = CyBLE_INTR_RX_SUCCESS;
     uint8 receivedData[CYBLE_HAL_Uart_FIFO_SIZE] = {0u};
@@ -83,8 +80,8 @@ CY_ISR(CyBLE_Uart_Interrupt)
         }
         if(uartRxStatus == CyBLE_INTR_RX_SUCCESS)
         {
-            bufferLength = (uint8)CYBLE_HAL_Uart_SpiUartGetRxBufferSize();
-            for(srcCount = 0u; srcCount < bufferLength; srcCount++)
+            length = (uint8)CYBLE_HAL_Uart_SpiUartGetRxBufferSize();
+            for(srcCount = 0u; srcCount < length; srcCount++)
             {
                 receivedData[srcCount] = (uint8)CYBLE_HAL_Uart_SpiUartReadRxData();
             }
@@ -93,7 +90,7 @@ CY_ISR(CyBLE_Uart_Interrupt)
         {
             CYBLE_HAL_Uart_SpiUartClearRxBuffer();
         }
-        for(uartTxStatus = 0u; uartTxStatus < bufferLength; uartTxStatus++)
+        for(uartTxStatus = 0u; uartTxStatus < length; uartTxStatus++)
         {
             CyBLE_pf_handle_uart_rx_data(receivedData[uartTxStatus]);
         }

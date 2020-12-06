@@ -2,7 +2,7 @@
 * \file CyBle_GattDb.h
 * 
 * \file CYBLE_StackGattDb.h
-* \version 3.66
+* \version 3.30
 *
 * \brief
 *  This file contains the data structure for GATT Database
@@ -12,7 +12,7 @@
 * 
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -57,9 +57,6 @@
     4. <B3>Implementation Specific */
     
 /* Attribute Read Permissions <B0>: Bluetooth Spec Defined */
-/**\note: It is mandatory to set 'CY_BLE_GATT_DB_ATTR_PROP_RD_SEC_ENCRYPT' bit if either 
-          'CY_BLE_GATT_DB_ATTR_PROP_RD_SEC_AUTHENTICATE' or 'CY_BLE_GATT_DB_ATTR_PROP_RD_SEC_SC_AUTHENTICATE'
- 		  bits are set. Otherwise these bits will be ignored. */
 #define CYBLE_GATT_DB_ATTR_PROP_READ                	(0x00000001u)
 #define CYBLE_GATT_DB_ATTR_PROP_RD_SEC_ENCRYPT         	(0x00000002u)
 #define CYBLE_GATT_DB_ATTR_PROP_RD_SEC_AUTHENTICATE    	(0x00000004u)
@@ -71,10 +68,7 @@
 #define CYBLE_GATT_DB_ATTR_PROP_RD_SECURITY_MASK        (0x0000001Eu)
 #define CYBLE_GATT_DB_ATTR_PROP_RD_SECURITY_BIT_SHIFT   (0x1u)
     
-/* Attribute Write Permissions <B1>: Bluetooth Spec Defined */
-/**\note: It is mandatory to set 'CY_BLE_GATT_DB_ATTR_PROP_WR_SEC_ENCRYPT' bit if either 
-          'CY_BLE_GATT_DB_ATTR_PROP_WR_SEC_AUTHENTICATE' or 'CY_BLE_GATT_DB_ATTR_PROP_WR_SEC_SC_AUTHENTICATE'
- 		  bits are set. Otherwise these bits will be ignored. */    
+/* Attribute Write Permissions <B1>: Bluetooth Spec Defined */    
 #define CYBLE_GATT_DB_ATTR_PROP_WRITE                	(0x00000100u)
 #define CYBLE_GATT_DB_ATTR_PROP_WR_SEC_ENCRYPT         	(0x00000200u)
 #define CYBLE_GATT_DB_ATTR_PROP_WR_SEC_AUTHENTICATE    	(0x00000400u)
@@ -533,7 +527,7 @@ CYBLE_GATT_ERR_CODE_T CyBle_GattsDbAuthorize(uint8 yesNo);
 
 /** \cond IGNORE */
 /* Cypress ID 219999 */
-/* This API function validates the security permission for the given attribute
+/* This API validates the security permission for the given attribute
  * handle index */
 CYBLE_GATT_ERR_CODE_T CyBle_GattDbCheckPermission
            (

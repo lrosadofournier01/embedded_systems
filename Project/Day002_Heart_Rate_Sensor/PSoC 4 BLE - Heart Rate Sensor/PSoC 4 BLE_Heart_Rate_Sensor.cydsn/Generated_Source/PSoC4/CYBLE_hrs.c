@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file CYBLE_hrs.c
-* \version 3.66
+* \version 3.30
 * 
 * \brief
 *  This file contains the source code for the Heart Rate Service of 
@@ -8,7 +8,7 @@
 * 
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -50,6 +50,7 @@ static CYBLE_GATT_DB_ATTR_HANDLE_T cyBle_hrscReqHandle;
 * 
 *  Initializes the profile internals.
 * 
+* 
 ******************************************************************************/
 void CyBle_HrsInit(void)
 {
@@ -82,6 +83,7 @@ void CyBle_HrsInit(void)
 *                      current event. (e.g. pointer to CYBLE_HRS_CHAR_VALUE_T
 *                      structure that contains details of the characteristic 
 *                      for which notification enabled event was triggered).
+* 
 *
 ******************************************************************************/
 void CyBle_HrsRegisterAttrCallback(CYBLE_CALLBACK_T callbackFunc)
@@ -101,16 +103,19 @@ void CyBle_HrsRegisterAttrCallback(CYBLE_CALLBACK_T callbackFunc)
 *  characteristic.
 * 
 *  \param charIndex: The index of a service characteristic.
-*  \param attrSize:  The size of the characteristic value attribute.
-*  \param attrValue: The pointer to the characteristic value data that should 
-*                    be stored in the GATT database.
+*  \param attrSize: The size of the characteristic value attribute. The Heart Rate
+*             Measurement characteristic has a 20 byte length (by default).
+*             The Body Sensor Location and Control Point characteristic
+*             both have 1 byte length.
+*  \param attrValue: The pointer to the characteristic value data that should be
+*                   stored in the GATT database.
 * 
 * \return
 *  Return value is of type CYBLE_API_RESULT_T.
 *  * CYBLE_ERROR_OK - The request handled successfully.
 *  * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameter failed.
-*  * CYBLE_ERROR_GATT_DB_INVALID_ATTR_HANDLE - Optional characteristic is 
-*                                              absent.
+*  * CYBLE_ERROR_GATT_DB_INVALID_ATTR_HANDLE - Optional characteristic is absent
+*
 *
 ******************************************************************************/
 CYBLE_API_RESULT_T CyBle_HrssSetCharacteristicValue(CYBLE_HRS_CHAR_INDEX_T charIndex, uint8 attrSize, uint8 *attrValue)
@@ -151,17 +156,20 @@ CYBLE_API_RESULT_T CyBle_HrssSetCharacteristicValue(CYBLE_HRS_CHAR_INDEX_T charI
 *  Gets the local characteristic value of specified Heart Rate Service 
 *  characteristic.
 * 
-*  \param charIndex: The index of a service characteristic.
-*  \param attrSize:  The size of the characteristic value attribute.
+*  \param charIndex:  The index of a service characteristic.
+*  \param attrSize:   The size of the characteristic value attribute. The Heart Rate
+*              Measurement characteristic has a 20 byte length (by default).
+*              The Body Sensor Location and Control Point characteristic
+*              both have 1 byte length.
 *  \param attrValue: The pointer to the location where characteristic value data 
-*                    should be stored. 
+*              should be stored. 
 * 
 * \return
 *  Return value is of type CYBLE_API_RESULT_T.
-*  * CYBLE_ERROR_OK - The request handled successfully.
-*  * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameter failed.
-*  * CYBLE_ERROR_GATT_DB_INVALID_ATTR_HANDLE - Optional characteristic is 
-*                                              absent.
+*  * CYBLE_ERROR_OK - The request handled successfully
+*  * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameter failed
+*  * CYBLE_ERROR_GATT_DB_INVALID_ATTR_HANDLE - Optional characteristic is absent
+*
 *
 ******************************************************************************/
 CYBLE_API_RESULT_T CyBle_HrssGetCharacteristicValue(CYBLE_HRS_CHAR_INDEX_T charIndex, uint8 attrSize, uint8 *attrValue)
@@ -204,17 +212,18 @@ CYBLE_API_RESULT_T CyBle_HrssGetCharacteristicValue(CYBLE_HRS_CHAR_INDEX_T charI
 * 
 *  \param charIndex:  The index of the characteristic.
 *  \param descrIndex: The index of the descriptor.
-*  \param attrSize:   The size of the descriptor value attribute. The Heart 
-*                     Rate Measurement characteristic client configuration 
-*                     descriptor has 2 bytes length.
-*  \param attrValue:  The pointer to the location where characteristic descriptor 
-*                     value data should be stored. 
+*  \param attrSize:   The size of the descriptor value attribute. The Heart Rate
+*              Measurement characteristic client configuration descriptor has
+*              2 bytes length.
+*  \param attrValue: The pointer to the location where characteristic descriptor 
+*              value data should be stored. 
 * 
 * \return
 *  Return value is of type CYBLE_API_RESULT_T.
-*  * CYBLE_ERROR_OK - The request handled successfully.
-*  * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameter failed.
-*  * CYBLE_ERROR_GATT_DB_INVALID_ATTR_HANDLE - Optional descriptor is absent.
+*  * CYBLE_ERROR_OK - The request handled successfully
+*  * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameter failed
+*  * CYBLE_ERROR_GATT_DB_INVALID_ATTR_HANDLE - Optional descriptor is absent
+*
 *
 ******************************************************************************/
 CYBLE_API_RESULT_T CyBle_HrssGetCharacteristicDescriptor(CYBLE_HRS_CHAR_INDEX_T charIndex, 
@@ -262,28 +271,30 @@ CYBLE_API_RESULT_T CyBle_HrssGetCharacteristicDescriptor(CYBLE_HRS_CHAR_INDEX_T 
 *  Sends notification of a specified Heart Rate Service characteristic value 
 *  to the Client device. No response is expected.
 *  
-*  On enabling notification successfully for a service characteristic it sends
-*  out a 'Handle Value Notification' which results in 
-*  CYBLE_EVT_HRSC_NOTIFICATION event at the GATT Client's end.
+*  On enabling notification successfully for a service characteristic, if the GATT
+*  server has an updated value to be notified to the GATT Client, it sends out a
+*  'Handle Value Notification' which results in CYBLE_EVT_HRSC_NOTIFICATION event
+*  at the GATT Client's end.
 * 
-*  \param connHandle: The connection handle which consist of the device ID and 
-*                     ATT connection ID.
+*  \param connHandle: The connection handle which consist of the device ID and ATT
+*              connection ID.
 *  \param charIndex:  The index of a service characteristic.
-*  \param attrSize:   The size of the characteristic value attribute. The 
-*                     Heart Rate Measurement characteristic has 2 bytes 
-*                     length (by default). The Body Sensor Location and Control
-*                     Point characteristic both have 1 byte length.
-*  \param attrValue:  The pointer to the characteristic value data that should 
-*                     be sent to the client device.
+*  \param attrSize:   The size of the characteristic value attribute. The Heart Rate
+*              Measurement characteristic has a 20 byte length (by default).
+*              The Body Sensor Location and Control Point characteristic
+*              both have 1 byte length.
+*  \param attrValue: The pointer to the characteristic value data that should be 
+*              sent to the client device.
 * 
 * \return
 *  Return value is of type CYBLE_API_RESULT_T.
-*   * CYBLE_ERROR_OK - The request handled successfully.
-*   * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameter failed.
+*   * CYBLE_ERROR_OK - The request handled successfully
+*   * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameter failed
 *   * CYBLE_ERROR_INVALID_OPERATION - This operation is not permitted
-*   * CYBLE_ERROR_INVALID_STATE - Connection with the client is not established.
+*   * CYBLE_ERROR_INVALID_STATE - Connection with the client is not established
 *   * CYBLE_ERROR_MEMORY_ALLOCATION_FAILED - Memory allocation failed. 
 *   * CYBLE_ERROR_NTF_DISABLED - Notification is not enabled by the client.
+*
 *
 ******************************************************************************/
 CYBLE_API_RESULT_T CyBle_HrssSendNotification(CYBLE_CONN_HANDLE_T connHandle, CYBLE_HRS_CHAR_INDEX_T charIndex,
@@ -328,8 +339,8 @@ CYBLE_API_RESULT_T CyBle_HrssSendNotification(CYBLE_CONN_HANDLE_T connHandle, CY
 *  Handles the Heart Rate Measurement Client Configuration Characteristic
 *  Descriptor Write Event or Control Point Characteristic Write Event.
 * 
-*  \param void *eventParam: The pointer to the data structure specified by the
-*                           event.
+*  \param void *eventParam: The pointer to the data structure specified by the event.
+* 
 * 
 ******************************************************************************/
 CYBLE_GATT_ERR_CODE_T CyBle_HrssWriteEventHandler(CYBLE_GATTS_WRITE_REQ_PARAM_T *eventParam)
@@ -419,25 +430,25 @@ CYBLE_GATT_ERR_CODE_T CyBle_HrssWriteEventHandler(CYBLE_GATTS_WRITE_REQ_PARAM_T 
 *  
 *  This function call can result in generation of the following events based on
 *  the response from the server device:
-*  * CYBLE_EVT_HRSC_WRITE_CHAR_RESPONSE.
-*  * CYBLE_EVT_GATTC_ERROR_RSP.
+*  * CYBLE_EVT_HRSC_WRITE_CHAR_RESPONSE
+*  * CYBLE_EVT_GATTC_ERROR_RSP
 * 
 *  \param connHandle: The connection handle.
-*  \param charIndex:  The index of a service characteristic.
-*  \param attrSize:   The size of the characteristic value attribute.
-*  \param attrValue:  The pointer to the characteristic value data that should 
-*                     be sent to the server device. 
+*  \param charIndex: The index of a service characteristic.
+*  \param attrSize: The size of the characteristic value attribute.
+*  \param attrValue: The pointer to the characteristic value data that should be
+*               sent to the server device. 
 * 
 * \return
 *  Return value is of type CYBLE_API_RESULT_T.
-*  * CYBLE_ERROR_OK - The request was sent successfully.
-*  * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameters failed.
-*  * CYBLE_ERROR_MEMORY_ALLOCATION_FAILED - Memory allocation failed.
-*  * CYBLE_ERROR_INVALID_STATE - Connection with the server is not established.
+*  * CYBLE_ERROR_OK - The request was sent successfully
+*  * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameters failed
+*  * CYBLE_ERROR_MEMORY_ALLOCATION_FAILED - Memory allocation failed
+*  * CYBLE_ERROR_INVALID_STATE - Connection with the server is not established
 *  * CYBLE_ERROR_GATT_DB_INVALID_ATTR_HANDLE - The peer device doesn't have
-*                                              the particular characteristic.
+*                                               the particular characteristic
 *  * CYBLE_ERROR_INVALID_OPERATION - Operation is invalid for this
-*                                    characteristic.
+*                                     characteristic
 *
 * \events
 *  In case of successful execution (return value = CYBLE_ERROR_OK)
@@ -514,18 +525,18 @@ CYBLE_API_RESULT_T CyBle_HrscSetCharacteristicValue(CYBLE_CONN_HANDLE_T connHand
 *  may be used if the rest of the characteristic Value is required.
 * 
 *  \param connHandle: The connection handle.
-*  \param charIndex:  The index of the service characteristic.
+*  \param charIndex: The index of the service characteristic.
 * 
 * \return
 *  Return value is of type CYBLE_API_RESULT_T.
-*  * CYBLE_ERROR_OK - The read request was sent successfully. 
-*  * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameters failed.
+*  * CYBLE_ERROR_OK - The read request was sent successfully  
+*  * CYBLE_ERROR_INVALID_PARAMETER - Validation of the input parameters failed
 *  * CYBLE_ERROR_GATT_DB_INVALID_ATTR_HANDLE - The peer device doesn't have
-*                                              the particular characteristic.
-*  * CYBLE_ERROR_MEMORY_ALLOCATION_FAILED - Memory allocation failed.
-*  * CYBLE_ERROR_INVALID_STATE - Connection with the server is not established.
+*                                               the particular characteristic
+*  * CYBLE_ERROR_MEMORY_ALLOCATION_FAILED - Memory allocation failed
+*  * CYBLE_ERROR_INVALID_STATE - Connection with the server is not established
 *  * CYBLE_ERROR_INVALID_OPERATION - Operation is invalid for this 
-*                                    characteristic.
+*                                     characteristic
 *
 * \events
 *  In case of successful execution (return value = CYBLE_ERROR_OK)
@@ -593,22 +604,21 @@ CYBLE_API_RESULT_T CyBle_HrscGetCharacteristicValue(CYBLE_CONN_HANDLE_T connHand
 * 
 *  This function call can result in generation of the following events based on
 *  the response from the server device:
-*  * CYBLE_EVT_HRSC_WRITE_DESCR_RESPONSE.
-*  * CYBLE_EVT_GATTC_ERROR_RSP.
+*  * CYBLE_EVT_HRSC_WRITE_DESCR_RESPONSE
+*  * CYBLE_EVT_GATTC_ERROR_RSP
 * 
 *  One of the following events is received by the peer device, on invoking 
 *  this function:
-*  * CYBLE_EVT_HRSS_NOTIFICATION_ENABLED.
-*  * CYBLE_EVT_HRSS_NOTIFICATION_DISABLED.
-*  * CYBLE_EVT_HRSS_ENERGY_EXPENDED_RESET.
+*  * CYBLE_EVT_HRSS_NOTIFICATION_ENABLED
+*  * CYBLE_EVT_HRSS_NOTIFICATION_DISABLED
+*  * CYBLE_EVT_HRSS_ENERGY_EXPENDED_RESET
 * 
 *  \param connHandle: The connection handle.
-*  \param charIndex:  The index of the service characteristic.
+*  \param charIndex: The index of the service characteristic.
 *  \param descrIndex: The index of the service characteristic descriptor.
-*  \param attrSize:   The size of the characteristic descriptor value 
-*                     attribute.
-*  \param attrValue:  The pointer to the characteristic descriptor value data 
-*                     that should be sent to the server device. 
+*  \param attrSize: The size of the characteristic descriptor value attribute.
+*  \param attrValue: The pointer to the characteristic descriptor value data that
+*               should be sent to the server device. 
 * 
 * \return
 *  Return value is of type CYBLE_API_RESULT_T.

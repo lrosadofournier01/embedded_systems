@@ -21,6 +21,7 @@
 
 #include "hrss.h"
 
+volatile uint32 mainTimer = 0;
 CYBLE_API_RESULT_T apiResult;
 
 
@@ -60,6 +61,67 @@ void AppCallBack(uint32 event, void* eventParam)
     }
 }
 
+
+/*******************************************************************************
+* Function Name: Timer_Interrupt
+********************************************************************************
+*
+* Summary:
+*  Handles the Interrupt Service Routine for the WDT timer.
+*  It is called from common WDT ISR located in BLE component. 
+*
+*******************************************************************************/
+void Timer_Interrupt(void)
+{
+    if(CySysWdtGetInterruptSource() & WDT_INTERRUPT_SOURCE)
+    {
+        static uint8 led = LED_OFF;
+        
+        /* Blink LED to indicate that device advertises */
+        if(CYBLE_STATE_ADVERTISING == CyBle_GetState())
+        {
+            led ^= LED_OFF;
+            Advertising_LED_Write(led);
+        }
+        
+        /* Indicate that timer is raised to the main loop */
+        mainTimer++;
+        
+        /* Clears interrupt request  */
+        CySysWdtClearInterrupt(WDT_INTERRUPT_SOURCE);
+    }
+}
+
+/*******************************************************************************
+* Function Name: WDT_Start
+********************************************************************************
+*
+* Summary:
+*  Configures WDT(counter 2) to trigger an interrupt every second.
+*
+*******************************************************************************/
+
+void WDT_Start(void)
+{
+    /* Unlock the WDT registers for modification */
+    CySysWdtUnlock(); 
+    /* Setup ISR callback */
+    WdtIsr_StartEx(Timer_Interrupt);
+    /* Write the mode to generate interrupt on match */
+    CySysWdtWriteMode(WDT_COUNTER, CY_SYS_WDT_MODE_INT);
+    /* Configure the WDT counter clear on a match setting */
+    CySysWdtWriteClearOnMatch(WDT_COUNTER, WDT_COUNTER_ENABLE);
+    /* Configure the WDT counter match comparison value */
+    CySysWdtWriteMatch(WDT_COUNTER, WDT_1SEC);
+    /* Reset WDT counter */
+    CySysWdtResetCounters(WDT_COUNTER);
+    /* Enable the specified WDT counter */
+    CySysWdtEnable(WDT_COUNTER_MASK);
+    /* Lock out configuration changes to the Watchdog timer registers */
+    CySysWdtLock();    
+}
+
+
 int main()
 {
     CYBLE_STACK_LIB_VERSION_T stackVersion;
@@ -92,10 +154,8 @@ int main()
     
     /* Services initialization */
     HrsInit();
-    CapSense_Start();
     
-    //Initialize baselines
-    CapSense_InitializeAllBaselines();
+    WDT_Start();
     
     /***************************************************************************
     * Main polling loop
@@ -107,19 +167,13 @@ int main()
         ***********************************************************************/
         if(CyBle_GetState() == CYBLE_STATE_CONNECTED)
         {
-            //Update baselines
-            CapSense_UpdateEnabledBaselines();
-            //Scan enabled sensors
-            CapSense_ScanEnabledWidgets();
-            //Wait for scanning to finish
-            while(CapSense_IsBusy());
-            
             /*******************************************************************
-            *  if touched, simulate heart rate and measure a battery level 
+            *  Periodically simulate heart rate and measure a battery level 
             *  and send results to the Client
             *******************************************************************/        
-            if(CapSense_CheckIsWidgetActive(CapSense_BUTTON0__BTN))
+            if(mainTimer != 0u)
             {
+                mainTimer = 0u;
                 if(heartRateSimulation == ENABLED)
                 {
                     SimulateHeartRate();

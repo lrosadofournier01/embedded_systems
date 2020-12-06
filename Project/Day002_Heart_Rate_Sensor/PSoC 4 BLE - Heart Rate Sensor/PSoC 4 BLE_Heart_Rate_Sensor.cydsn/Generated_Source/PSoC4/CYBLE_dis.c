@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file CYBLE_dis.c
-* \version 3.66
+* \version 3.30
 * 
 * \brief
 *  Contains the source code for the Device Information Service.
 * 
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.

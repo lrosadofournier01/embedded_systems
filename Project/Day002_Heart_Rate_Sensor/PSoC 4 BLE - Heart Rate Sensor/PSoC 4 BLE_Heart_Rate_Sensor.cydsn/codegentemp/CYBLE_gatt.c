@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file CYBLE_gatt.c
-* \version 3.66
+* \version 3.30
 * 
 * \brief
 *  This file contains the source code for the GATT API of the BLE Component.
 * 
 ********************************************************************************
 * \copyright
-* Copyright 2014-2020, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -251,7 +251,7 @@ CYBLE_GATT_ATTR_HANDLE_RANGE_T cyBle_gattcDiscoveryRange;
 *  Reinitializes the GATT database.
 * 
 *  \return
-*  CYBLE_API_RESULT_T: A function result states if it succeeded or failed with
+*  CYBLE_API_RESULT_T: An API result states if the API succeeded or failed with
 *  error codes:
 
 *  Errors codes                          | Description
@@ -287,7 +287,7 @@ CYBLE_API_RESULT_T CyBle_GattsReInitGattDb(void)
 *  \param eventParam: The pointer to the data structure specified by the event.
 * 
 *  \return
-*  CYBLE_GATT_ERR_CODE_T: A function returns one of the following status 
+*  CYBLE_GATT_ERR_CODE_T: An API result returns one of the following status 
 *  values.
 
 *  Errors codes                          | Description
@@ -327,32 +327,21 @@ CYBLE_GATT_ERR_CODE_T CyBle_GattsWriteEventHandler(CYBLE_GATTS_WRITE_REQ_PARAM_T
 
 #if(CYBLE_GATT_ROLE_CLIENT)
 
+
 /****************************************************************************** 
 * Function Name: CyBle_GattcStartDiscovery
 ***************************************************************************//**
 * 
-*  Starts the automatic server discovery process. 
-*   
-*   Discovery procedure is based on the user configuration. It discovers only services, characteristics, 
-*   descriptors which were declared in the GATT database.
-*   Discovery procedure has the following flow:
-*   - discovering primary services by BLE Stack function CyBle_GattcDiscoverAllPrimaryServices();
-*   - discovering included services by BLE Stack function CyBle_GattcFindIncludedServices();
-*   - discovering characteristics for available services by BLE Stack function CyBle_GattcDiscoverAllCharacteristics();
-*   - discovering characteristic descriptors by BLE Stack function CyBle_GattcDiscoverAllCharacteristicDescriptors();
-*
-*   During the discovery procedure the discovery-specific stack events are handled by the component 
-*   and thus aren’t passed to the application callback: CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP,
-*   CYBLE_EVT_GATTC_READ_BY_TYPE_RSP, CYBLE_EVT_GATTC_FIND_INFO_RSP, CYBLE_EVT_GATTC_ERROR_RSP.              
-*   
-*   After the discovery procedure all information about available services is stored in CYBLE_DISC_SRVC_INFO_T structures,
-*   and discovered attributes handles are stored in service-specific client structures, such as CYBLE_BASC_T for 
-*   Battery Service or CYBLE_HRSC_T for Heart Rate Service.
-*
+*  Starts the automatic server discovery process. Two events may be generated 
+*  after calling this function - CYBLE_EVT_GATTC_DISCOVERY_COMPLETE or 
+*  CYBLE_EVT_GATTC_ERROR_RSP. The CYBLE_EVT_GATTC_DISCOVERY_COMPLETE event is 
+*  generated when the remote device was successfully discovered. The
+*  CYBLE_EVT_GATTC_ERROR_RSP is generated if the device discovery is failed.
+* 
 *  \param connHandle: The handle which consists of the device ID and ATT connection ID.
 * 
-*  \return
-*  CYBLE_API_RESULT_T : Return value indicates if the function succeeded or
+* \return
+*	CYBLE_API_RESULT_T : Return value indicates if the function succeeded or
 *                        failed. Following are the possible error codes.
 *
 *   <table>	
@@ -381,18 +370,7 @@ CYBLE_GATT_ERR_CODE_T CyBle_GattsWriteEventHandler(CYBLE_GATTS_WRITE_REQ_PARAM_T
 *	  <td>If the function is called in any state except connected or discovered</td>
 *	</tr>
 *   </table>
-*
-*  \events
-*   The following events may be generated after calling this function:
-*   * CYBLE_EVT_GATTC_DISCOVERY_COMPLETE  - event is generated when the remote device was successfully discovered. 
-*   * CYBLE_EVT_GATTC_ERROR_RSP  		- is generated if the device discovery has failed.
-*   * CYBLE_EVT_GATTC_SRVC_DUPLICATION 	- is generated if duplicate service record was found during the server device
-*        								  discovery.
-*   * CYBLE_EVT_GATTC_CHAR_DUPLICATION 	- is generated if duplicate service's characteristic descriptor record was found
-*        								  during the server device discovery.
-*   * CYBLE_EVT_GATTC_DESCR_DUPLICATION - is generated if duplicate service's characteristic descriptor record was found
-*        								  during the server device discovery.
-*  
+* 
 ******************************************************************************/
 CYBLE_API_RESULT_T CyBle_GattcStartDiscovery(CYBLE_CONN_HANDLE_T connHandle)
 {
@@ -437,9 +415,13 @@ CYBLE_API_RESULT_T CyBle_GattcStartDiscovery(CYBLE_CONN_HANDLE_T connHandle)
 ***************************************************************************//**
 * 
 *  Starts the automatic server discovery process as per the range provided
-*  on a GATT Server to which it is connected. This function could be used for 
+*  on a GATT Server to which it is connected. This API could be used for 
 *  partial server discovery after indication received to the Service Changed
-*  Characteristic Value. 
+*  Characteristic Value. Two events may be generated 
+*  after calling this function - CYBLE_EVT_GATTC_DISCOVERY_COMPLETE or 
+*  CYBLE_EVT_GATTC_ERROR_RSP. The CYBLE_EVT_GATTC_DISCOVERY_COMPLETE event is 
+*  generated when the remote device was successfully discovered. The
+*  CYBLE_EVT_GATTC_ERROR_RSP is generated if the device discovery is failed.
 * 
 *  \param connHandle: The handle which consists of the device ID and ATT connection ID.
 *  \param startHandle: Start of affected attribute handle range.
@@ -476,13 +458,6 @@ CYBLE_API_RESULT_T CyBle_GattcStartDiscovery(CYBLE_CONN_HANDLE_T connHandle)
 *	</tr>
 *   </table>
 * 
-*  \events
-*  Two events may be generated after calling this function:
-*  CYBLE_EVT_GATTC_DISCOVERY_COMPLETE or CYBLE_EVT_GATTC_ERROR_RSP.
-*  The CYBLE_EVT_GATTC_DISCOVERY_COMPLETE event is 
-*  generated when the remote device was successfully discovered. The
-*  CYBLE_EVT_GATTC_ERROR_RSP is generated if the device discovery is failed.
-*
 ******************************************************************************/
 CYBLE_API_RESULT_T CyBle_GattcStartPartialDiscovery(CYBLE_CONN_HANDLE_T connHandle,
                         CYBLE_GATT_DB_ATTR_HANDLE_T startHandle, CYBLE_GATT_DB_ATTR_HANDLE_T endHandle)
@@ -531,11 +506,11 @@ CYBLE_API_RESULT_T CyBle_GattcStartPartialDiscovery(CYBLE_CONN_HANDLE_T connHand
 * Function Name: CyBle_GattcDiscoverCharacteristicsEventHandler
 ***************************************************************************//**
 * 
-*  This function is called on receiving a CYBLE_EVT_GATTC_READ_BY_TYPE_RSP
+*  This function is called on receiving a "CYBLE_EVT_GATTC_READ_BY_TYPE_RSP"
 *  event. Based on the service UUID, an appropriate data structure is populated
 *  using the data received as part of the callback.
 * 
-*  \param discCharInfo: The pointer to a characteristic information structure.
+*  \param *discCharInfo: The pointer to a characteristic information structure.
 * 
 * \return
 *  None
@@ -558,7 +533,7 @@ void CyBle_GattcDiscoverCharacteristicsEventHandler(CYBLE_DISC_CHAR_INFO_T *disc
 *  Based on the descriptor UUID, an appropriate data structure is populated 
 *  using the data received as part of the callback.
 * 
-*  \param discDescrInfo: The pointer to a descriptor information structure.
+*  \param *discDescrInfo: The pointer to a descriptor information structure.
 *  \param discoveryService: The index of the service instance
 * 
 * \return
@@ -580,7 +555,7 @@ void CyBle_GattcDiscoverCharDescriptorsEventHandler(CYBLE_DISC_DESCR_INFO_T *dis
 * 
 *  Handles the Indication Event.
 * 
-*  \param eventParam: The pointer to the data structure specified by the event.
+*  \param *eventParam: The pointer to the data structure specified by the event.
 * 
 * \return
 *  None.
