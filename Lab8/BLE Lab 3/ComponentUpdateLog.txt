@@ -1,0 +1,16 @@
+Last Modified Date & Time: 12/05/2020 14:55:18
+
+BLE Lab 3: BLE Lab 3.cydwr
+	cy_boot [v4.20] to [v6.0]
+
+BLE Lab 3: TopDesign.cysch
+	ADC [v2.0] to [v2.50]
+	BLE [v1.0] to [v3.66]
+	Button_output [v2.10] to [v2.20]
+	Heart_Rate_input [v2.10] to [v2.20]
+	Led_Advertising_Green [v2.10] to [v2.20]
+	Led_Connected_Blue [v2.10] to [v2.20]
+	SW2_Switch [v2.10] to [v2.20]
+	Opamp [v1.10] to [v1.20]
+
+
